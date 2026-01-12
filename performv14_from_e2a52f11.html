@@ -239,6 +239,12 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
 	<audio id="backgroundMusic" src="The_Visitor.mp3"></audio>
 
     <canvas id="gameCanvas"></canvas>
+	
+	<!-- Background music audio element -->
+	<audio id="backgroundMusic" loop preload="auto">
+		<source src="The_Visitor.mp3" type="audio/mpeg">
+		Your browser does not support the audio element.
+	</audio>
 
 	<span id="musicEmojis" style="position:absolute; pointer-events:none; z-index:3000; font-size:42px; left: calc(20px + ((100vh / 3 + 72px) * 0.544768) + 3mm); bottom: calc(20px + 6px);">🎶🎸</span>
 	
@@ -756,7 +762,7 @@ There’s a cricket on the twentieth floor
 		  "Four Strong Winds": null, // no file, only embed
 		  "rainbow": "williams-ascher-rainbow-connection.txt",
 		  "dylan": "dont_think_twice.txt",
-		  "The Visitor": "the_Visitor2.txt"
+		  "The Visitor": "the-visitor.txt"
 		};
 
         const ASSET_BASE_URL = 'https://chrissullivan71.github.io/webbouncer/';
@@ -832,6 +838,8 @@ There’s a cricket on the twentieth floor
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
         
+		const backgroundMusic = document.getElementById('backgroundMusic');
+		
         let backgroundImage = null;
         let controlsImage = null;
         let magTapeImage = null;
@@ -1235,20 +1243,46 @@ There’s a cricket on the twentieth floor
             return text.trim();
         }
         
-        function getRidOfLL(cleanedLine) {
-            cleanedLine = cleanedLine.replace(/\t/g, '    ');
+
+		function getRidOfLL(cleanedLine) {
+			cleanedLine = cleanedLine.replace(/\t/g, '    ');
+			
+			// Handle both LL (lyric lines) and NB (no beat/instrumental lines)
+			if (cleanedLine.includes('LL')) {
+				const llIndex = cleanedLine.indexOf('LL');
+				cleanedLine = cleanedLine.substring(0, llIndex).trimEnd();
+				
+				if (cleanedLine.includes('ZZZ')) {
+					const zzzIndex = cleanedLine.indexOf('ZZZ');
+					cleanedLine = cleanedLine.substring(0, zzzIndex).trimEnd();
+				}
+			} else if (cleanedLine.includes('NB')) {  // NEW: Handle instrumental lines Number of Bars
+				const nbIndex = cleanedLine.indexOf('NB');
+				cleanedLine = cleanedLine.substring(0, nbIndex).trimEnd();
+				
+				if (cleanedLine.includes('I01')) {
+					const i01Index = cleanedLine.indexOf('I01');
+					cleanedLine = cleanedLine.substring(0, i01Index).trimEnd();
+				}
+			}
+			return cleanedLine;
+		}
+
+
+//       function getRidOfLL(cleanedLine) {
+//            cleanedLine = cleanedLine.replace(/\t/g, '    ');
             
-            if (cleanedLine.includes('LL')) {
-                const llIndex = cleanedLine.indexOf('LL');
-                cleanedLine = cleanedLine.substring(0, llIndex).trimEnd();
+//            if (cleanedLine.includes('LL')) {
+//                const llIndex = cleanedLine.indexOf('LL');
+//                cleanedLine = cleanedLine.substring(0, llIndex).trimEnd();
                 
-                if (cleanedLine.includes('ZZZ')) {
-                    const zzzIndex = cleanedLine.indexOf('ZZZ');
-                    cleanedLine = cleanedLine.substring(0, zzzIndex).trimEnd();
-                }
-            }
-            return cleanedLine;
-        }
+//                if (cleanedLine.includes('ZZZ')) {
+//                    const zzzIndex = cleanedLine.indexOf('ZZZ');
+//                    cleanedLine = cleanedLine.substring(0, zzzIndex).trimEnd();
+//                }
+//            }
+//            return cleanedLine;
+//        }
         
         function findBeatPositions(beatLine) {
             const beats = [];
@@ -1450,7 +1484,8 @@ There’s a cricket on the twentieth floor
 			"doesn't": ["doesn't"],
 			"there's": ["there's"],
 			"we're": ["we're"],
-			"you're": ["you're"]
+			"you're": ["you're"],
+			"*": ["*"]
 		};
         
 		function extractSyllableAtPosition(line, charIndex) {
@@ -1570,12 +1605,18 @@ There’s a cricket on the twentieth floor
             
             const pattern = /[a-zA-Z\s]+/;
             if (pattern.test(cleanedLine)) {
-                if (!cleanedLine.includes('ZZZ')) {
-                    return "lyrics";
-                } else if (cleanedLine.includes('ZZZ')) {
-                    return "beats";
-                }
-            }
+				if (!cleanedLine.includes('ZZZ') && !cleanedLine.includes('I01')) {
+					return "lyrics";
+				} else if (cleanedLine.includes('ZZZ') || cleanedLine.includes('I01')) {
+					return "beats";
+				}
+			}
+//                if (!cleanedLine.includes('ZZZ')) {
+//                    return "lyrics";
+//                } else if (cleanedLine.includes('ZZZ')) {
+//                    return "beats";
+//                }
+//            }
             
             return "unknown";
         }
@@ -1890,6 +1931,10 @@ There’s a cricket on the twentieth floor
 			lastAudioPlaying = false;
 			const emoji = document.getElementById('musicEmojis');
 			if (emoji) emoji.classList.add('emoji-fill');
+   
+			// NEW: Stop and reset background music
+			backgroundMusic.pause();
+			backgroundMusic.currentTime = 0;
 
 			updatePlayButton();
 		}
@@ -1920,15 +1965,27 @@ There’s a cricket on the twentieth floor
                     resetSong();
                 }
                 waitingForStart = false;
-                bounceStartTime = performance.now() / 1000;
+                bounceStartTime = performance.now() / 1000;        
+				
+				// NEW: Start background music
+				backgroundMusic.play().catch(e => console.log('Audio play failed:', e));
+	
             } else if (songPaused) {
                 const pauseDuration = (performance.now() / 1000) - pauseTime;
                 bounceStartTime += pauseDuration;
                 songPaused = false;
+        
+				// NEW: Resume background music
+				backgroundMusic.play().catch(e => console.log('Audio play failed:', e));
+
             } else {
                 songPaused = true;
                 pauseTime = performance.now() / 1000;
+				
+				// NEW: Resume background music
+				backgroundMusic.play().catch(e => console.log('Audio play failed:', e));
             }
+			
             updatePlayButton();
         }
         
