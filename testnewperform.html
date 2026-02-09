@@ -1746,28 +1746,30 @@ There’s a cricket on the twentieth floor
         }
 
 				// 1. Helper: Determine asset source based on ?a
+		
 		function getAssetSource(assetFile) {
 			const params = new URLSearchParams(window.location.search);
 			const aParam = params.get('a');
-			if (!aParam) {
-				// Default: Pages
+			
+			// If explicit parameter provided, use it
+			if (aParam === 'pages') {
 				return ASSET_BASE_URL + assetFile;
-			} else if (aParam === 'local') {
-				// Local
-				return '/a/' + assetFile;
-			} else if (aParam.startsWith('http')) {
-				// External URL
+			} else if (aParam && aParam.startsWith('http')) {
 				return aParam + assetFile;
 			}
+			
+			// DEFAULT: Try same directory as HTML (relative path)
+			// This works for both no ?a parameter AND ?a=local
+			return assetFile;
 		}
-
+		
 		// Returns a status color string expected elsewhere: "green", "orange", "purple", "pink", "grey", "black"
 		function getAssetColor(assetFile, aParam) {
-			if (!aParam) return "green";         // default (Pages)
-			if (aParam === "local") return "orange";
-			if (typeof aParam === "string" && aParam.startsWith("http")) return "purple";
-			return "grey";
-		}
+			if (aParam === 'pages') return "green";        // explicit Pages
+			if (aParam && aParam.startsWith('http')) return "purple";  // external URL
+			return "orange";  // default (same directory = local)
+		}		
+		
 
 		// ----------------------------
 		// Loader: images then song
@@ -1792,7 +1794,7 @@ There’s a cricket on the twentieth floor
 		  let i = 0;
 		  function loadNextImage() {
 			if (i >= images.length) {
-			  // Only try song if ALL images succeeded (none turned black)
+			  // Images done, now try song
 			  if (
 				assetStatus.tape_deck !== "black" &&
 				assetStatus.mag_tape !== "black" &&
@@ -1807,13 +1809,15 @@ There’s a cricket on the twentieth floor
 			const img = new Image();
 			img.crossOrigin = "anonymous";
 
+			// Try local first (same directory)
+			const localSrc = info.file;
+			
 			img.onload = function() {
-			  // pick color according to source (green/orange/purple)
-			  assetStatus[info.name] = getAssetColor(info.file, aParam);
-			  // assign to the local variables used by render()
+			  // Success from same directory = orange (unless explicit ?a param)
+			  assetStatus[info.name] = aParam ? getAssetColor(info.file, aParam) : "orange";
+			  
 			  if (info.name === 'tape_deck') {
 				controlsImage = img;
-				// controls image available -> recalc button coords right away
 				scaleButtonCoords();
 			  } else if (info.name === 'mag_tape') {
 				magTapeImage = img;
@@ -1821,23 +1825,60 @@ There’s a cricket on the twentieth floor
 				backgroundImage = img;
 			  }
 
-			  drawAssetStatusBallsOnCanvas(); // quick visual update
+			  drawAssetStatusBallsOnCanvas();
 			  i++;
 			  loadNextImage();
 			};
+			
 			img.onerror = function() {
-			  assetStatus[info.name] = "black";
-			  drawAssetStatusBallsOnCanvas();
-			  alert(`Error loading ${info.file} from ${getAssetSource(info.file, aParam)}`);
-			  // STOP. Do not try song.
+			  // Local failed, try Pages fallback (unless explicit param says otherwise)
+			  if (!aParam || aParam === 'pages') {
+				console.log(`Local ${info.file} failed, trying Pages...`);
+				const pagesSrc = ASSET_BASE_URL + info.file;
+				
+				const img2 = new Image();
+				img2.crossOrigin = "anonymous";
+				
+				img2.onload = function() {
+				  assetStatus[info.name] = "green";  // Pages success = green
+				  
+				  if (info.name === 'tape_deck') {
+					controlsImage = img2;
+					scaleButtonCoords();
+				  } else if (info.name === 'mag_tape') {
+					magTapeImage = img2;
+				  } else if (info.name === 'background') {
+					backgroundImage = img2;
+				  }
+
+				  drawAssetStatusBallsOnCanvas();
+				  i++;
+				  loadNextImage();
+				};
+				
+				img2.onerror = function() {
+				  assetStatus[info.name] = "black";
+				  drawAssetStatusBallsOnCanvas();
+				  alert(`Error loading ${info.file} from both local and Pages`);
+				};
+				
+				img2.src = pagesSrc;
+			  } else {
+				// Explicit param failed, don't fallback
+				assetStatus[info.name] = "black";
+				drawAssetStatusBallsOnCanvas();
+				alert(`Error loading ${info.file} from ${getAssetSource(info.file)}`);
+			  }
 			};
-			img.src = getAssetSource(info.file, aParam); // your asset source selector
+			
+			img.src = localSrc;
 		  }
 		  loadNextImage();
 		}
+
 		// 3. Loader: Song, with embedded fallback
 		function loadSongAsset(songKey, aParam) {
-		  // Only try if all images succeeded (no black balls)
+		  // Only try if all images succeeded
 		  if (
 			assetStatus.tape_deck === "black" ||
 			assetStatus.mag_tape === "black" ||
@@ -1848,33 +1889,65 @@ There’s a cricket on the twentieth floor
 			return;
 		  }
 
-		  // Determine source order for song
-		  let color = getAssetColor(songFileMap[songKey], aParam);
 		  const fileName = songFileMap[songKey];
 
 		  if (fileName) {
-			const src = getAssetSource(fileName, aParam);
-			fetch(src)
+			const localSrc = fileName;  // Try same directory first
+			
+			console.log('🎵 ATTEMPTING TO LOAD SONG FROM (local):', localSrc);
+			console.log('📂 Full local path:', localSrc);
+			
+			fetch(localSrc)
 			  .then(res => res.ok ? res.text() : Promise.reject())
 			  .then(text => {
-				assetStatus.song = color;
+				assetStatus.song = aParam ? getAssetColor(fileName, aParam) : "orange";  // Local = orange
 				drawAssetStatusBallsOnCanvas();
 				processSongData(text);
 			  })
 			  .catch(() => {
-				// Fallback to embed
-				if (embeddedSongs[songKey]) {
-				  assetStatus.song = "pink";
-				  drawAssetStatusBallsOnCanvas();
-				  processSongData(embeddedSongs[songKey]);
+				// Local failed, try Pages (unless explicit param says otherwise)
+				if (!aParam || aParam === 'pages') {
+				  const pagesSrc = ASSET_BASE_URL + fileName;
+				  console.log('❌ Local song failed, trying Pages:', pagesSrc);
+				  console.log('📂 Full Pages URL:', pagesSrc);
+				  
+				  fetch(pagesSrc)
+					.then(res => res.ok ? res.text() : Promise.reject())
+					.then(text => {
+					  assetStatus.song = "green";  // Pages = green
+					  drawAssetStatusBallsOnCanvas();
+					  processSongData(text);
+					})
+					.catch(() => {
+					  // Pages failed, try embedded
+					  console.log('❌ Pages song failed, trying embedded data...');
+					  if (embeddedSongs[songKey]) {
+						assetStatus.song = "pink";  // Embedded = pink
+						drawAssetStatusBallsOnCanvas();
+						processSongData(embeddedSongs[songKey]);
+					  } else {
+						assetStatus.song = "black";  // Total fail = black
+						drawAssetStatusBallsOnCanvas();
+						alert('ERROR: Song could not be loaded from any source.');
+					  }
+					});
 				} else {
-				  assetStatus.song = "black";
-				  drawAssetStatusBallsOnCanvas();
-				  alert('ERROR: Song could not be loaded from any source.');
+				  // Explicit param failed, try embedded
+				  console.log('❌ Explicit source failed, trying embedded data...');
+				  if (embeddedSongs[songKey]) {
+					assetStatus.song = "pink";
+					drawAssetStatusBallsOnCanvas();
+					processSongData(embeddedSongs[songKey]);
+				  } else {
+					assetStatus.song = "black";
+					drawAssetStatusBallsOnCanvas();
+					alert('ERROR: Song could not be loaded from any source.');
+				  }
 				}
 			  });
 		  } else {
 			// No file, try embed directly
+			console.log('📝 No file mapped for this song, using embedded data...');
 			if (embeddedSongs[songKey]) {
 			  assetStatus.song = "pink";
 			  drawAssetStatusBallsOnCanvas();
@@ -2686,6 +2759,7 @@ There’s a cricket on the twentieth floor
 			  const st = String(item.status).toLowerCase();
 			  if (st === 'grey' || st === 'gray') color = '#999999';
 			  else if (st === 'green') color = '#00cc66';
+			  else if (st === 'orange') color = '#ff8800';  // ADD THIS LINE
 			  else if (st === 'black') color = '#000000';
 			  else if (st === 'red') color = '#cc3333';
 			  else color = DEFAULT_FILL_COLOR;
