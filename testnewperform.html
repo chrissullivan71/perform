@@ -211,8 +211,15 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
 		<input type="range" id="speedSlider" min="0" max="4" value="0" step="1">
 		<div id="speedLabel">Speed: 1.0x</div>
 	  </div>
+	  
+		<div id="delayControl" style="background: rgba(0,0,0,0.7); border: 2px solid #00ff00; padding: 6px 8px; border-radius: 5px; color: white; font-size: 12px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-width: 140px; max-width: 220px;">
+		  <div>Start Delay:</div>
+		  <input type="range" id="delaySlider" min="0" max="9" value="0" step="1" style="width: 120px; margin: 0;">
+		  <div id="delayLabel">Delay: 0ms</div>
+		</div>  
+	  
 	</div>
-	
+
     <div id="debugInfo">
         <div>DEBUG MODE ACTIVE</div>
         <div id="debugData"></div>
@@ -233,10 +240,8 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
         Record: Debug mode<br>
         Playback Mode (top): Mode cycle<br><br>
         <strong>DRAG:</strong><br>
-        Magnetic tape: change positionn
+        Magnetic tape: change position
     </div>
-
-	<audio id="backgroundMusic" src="The_Visitor.mp3"></audio>
 
     <canvas id="gameCanvas"></canvas>
 	
@@ -1203,6 +1208,17 @@ There’s a cricket on the twentieth floor
             
             console.log(`Speed: ${speedLabels[currentSpeedIndex]} (Duration: ${BOUNCE_DURATION.toFixed(3)}s)`);
         });
+		
+		// Delay control
+		const delaySlider = document.getElementById('delaySlider');
+		const delayLabel = document.getElementById('delayLabel');
+		let animationDelayMs = 0;
+
+		delaySlider.addEventListener('input', function() {
+			animationDelayMs = parseInt(delaySlider.value) * 100;
+			delayLabel.textContent = `Delay: ${animationDelayMs}ms`;
+			console.log(`Animation delay set to: ${animationDelayMs}ms`);
+		});
         
         // Song-specific timing constants - will be set when song is loaded
         let BOUNCE_DURATION = BASE_BOUNCE_DURATION;
@@ -1234,6 +1250,8 @@ There’s a cricket on the twentieth floor
 
 //	This array will store the pixel position of each syllable when it's first rendered in white (default display).      
 		let syllablePositions = [];
+		
+		let sectionBounceCounts = [];
 	  
         function initBallPhysics() {
             ballCenterX = canvas.width / 2;
@@ -2060,8 +2078,8 @@ There’s a cricket on the twentieth floor
                 songPaused = true;
                 pauseTime = performance.now() / 1000;
 				
-				// NEW: Resume background music
-				backgroundMusic.play().catch(e => console.log('Audio play failed:', e));
+				// NEW: Pause background music
+				backgroundMusic.pause();  // ✅ CORRECT!
             }
 			
             updatePlayButton();
@@ -2881,7 +2899,7 @@ There’s a cricket on the twentieth floor
 						waitingForStart = false;
 
 						// Set render() start time immediately
-						bounceStartTime = performance.now() / 1000;
+						// bounceStartTime = performance.now() / 1000;
 
 						// Ensure audio source exists
 						if (!audioElement.src || !audioElement.src.includes(VISITOR_MP3)) {
@@ -2891,6 +2909,20 @@ There’s a cricket on the twentieth floor
 
 						// Rewind and play audio
 						try { audioElement.currentTime = 0; } catch (err) { /* ignore if not allowed */ }
+							// Wait for audio to ACTUALLY start before starting animation
+							const startAnimationOnAudioPlay = () => {
+								console.log(`🎵 Audio started - animation will start in ${animationDelayMs}ms`);
+								
+								setTimeout(() => {
+									bounceStartTime = performance.now() / 1000;
+									console.log('✅ Animation started NOW');
+								}, animationDelayMs);
+								
+								audioElement.removeEventListener('playing', startAnimationOnAudioPlay);
+							};
+							
+						audioElement.addEventListener('playing', startAnimationOnAudioPlay);
+
 						audioElement.play().catch((err) => {
 							console.error("Music could not be played:", err);
 							const statusEl = document.getElementById('loadingStatus');
