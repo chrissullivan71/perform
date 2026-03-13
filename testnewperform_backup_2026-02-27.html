@@ -95,7 +95,7 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
 			position: absolute;
 			left: 10px;                /* anchor at the bottom-left by default */
 			right: auto;               /* clear any right anchor */
-			bottom: 70px;
+			bottom: 10px;
 			z-index: 2000;             /* keep above canvas */
 			display: flex;
 			flex-direction: row;
@@ -250,8 +250,8 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
     <canvas id="gameCanvas"></canvas>
 	
 	<!-- Background music audio element -->
-	<audio id="backgroundMusic" preload="auto">
-	<source src="The_Visitor.mp3" type="audio/mpeg">
+	<audio id="backgroundMusic" loop preload="auto">
+		<source src="The_Visitor.mp3" type="audio/mpeg">
 		Your browser does not support the audio element.
 	</audio>
 
@@ -790,15 +790,7 @@ There’s a cricket on the twentieth floor
 		const CONTROLS_PLUS_EMOJI_WIDTH = 2020 + 48;
 
 		// Place the emoji once, then position the control row using the literal constant:
-		window.addEventListener('load', () => {
-			drawMusicEmojis();
-			positionControlRowByConstant();
-
-			// Automatically trigger "Play&Listen"
-			const playListenButton = document.getElementById('playListenButton');
-			if (playListenButton) playListenButton.click();
-		});
-
+		window.addEventListener('load', () => { drawMusicEmojis(); positionControlRowByConstant(); });
 		
 		const audioElement = document.getElementById('backgroundMusic');
 		if (!audioElement) {
@@ -1223,9 +1215,6 @@ There’s a cricket on the twentieth floor
 		const delaySlider = document.getElementById('delaySlider');
 		const delayLabel = document.getElementById('delayLabel');
 		let animationDelayMs = 0;
-		delaySlider.value = 1; // Set slider to 100ms (1 x 100ms)
-		animationDelayMs = 100;
-		delayLabel.textContent = "Delay: 100ms";
 
 		delaySlider.addEventListener('input', function() {
 			animationDelayMs = parseInt(delaySlider.value) * 100;
@@ -1263,119 +1252,35 @@ There’s a cricket on the twentieth floor
 		let syllablePositions = [];
 		let sectionBounceCounts = [];
 		let APPOINTMENTS = [];
+		let appointmentFired = [];
 		let animationPaused = false;
-		let targetIndex = 0; // Zero-based index for line 28
-		let autoJumpEnabled = false;
-		let autoRunArmed = true; // Sets up any automatic appointments (jump, cue, etc.)
+	  
     	// Appointment cues/configuration (EDIT THIS ARRAY for new automations)
 		let appointmentParams = [
-			// first one is "jump"
 			{
-				time: 15.42,
-				type: "jump",
-				nextIndex: 5, // Will jump to lyrics[5] at time.
-				reference: "5 lines, jump 1 to Verse 1 after intro and Cricket Music 1",
-				fired: false                 // Has this appointment fired yet?
+				time: 24.5,
+				type: "skip",
+				reference: "skip over 1st cricket music instrumental",
+				moreComing: false
 			},
 			{
-				time: 42.86,
-				type: "jump",
-				nextIndex: 13, // Will jump to lyrics[16] at time.
-				reference: "first line of cricket music 3",
-				fired: false                 // Has this appointment fired yet?
-			},
-			// second one is "jump"
-			{
-				time: 52.08,
-				type: "jump",
-				nextIndex: 16, // Will jump to lyrics[16] at time.
-				reference: "11 lines, jump 2 to Verse 2 after Cricket Music 2",
-				fired: false                 // Has this appointment fired yet?
-			},
-			// third one is "jump"
-			{
-				time: 88.74,
-				type: "jump",
-				nextIndex: 27, // Will jump to lyrics[27] at time.
-				reference: "11 lines, jump 3 to Verse 3 after Cricket Music 3",
-				fired: false                 // Has this appointment fired yet?
-			},
-			// fourth one is "jump"
-			{
-				time: 104.15,
-				type: "jump",
-				nextIndex: 31, // Will jump to lyrics[31] at time.
-				reference: "4 lines, jump 4 to Bridge 1",
-				fired: false                 // Has this appointment fired yet?
-			},
-				// fifth one is "jump"
-			{
-				time: 140.56,
-				type: "jump",
-				nextIndex: 42, // Will jump to lyrics[42] at time.
-				reference: "11 lines, jump 5 to Verse 4",
-				fired: false                 // Has this appointment fired yet?
-			},
-			{
-				time: 156.23,
-				type: "jump",
-				nextIndex: 46, // Will jump to lyrics[46] at time.
-				reference: "4 lines, jump 6 to Bridge 2",
-				fired: false                 // Has this appointment fired yet?
-			},
-			{
-				time: 216.10,
-				type: "Y1pause",
-				nextIndex: 61, // Will stop at lyrics[61] at time.
-				reference: "song ended",
-				fired: false                 // Has this appointment fired yet?
+				time: 72.3,
+				type: "delaytill",
+				reference: "Resume at bridge",
+				moreComing: false
 			}
-	]; 
-		
-	
-		// Appointment system for automatic sync actions during playback
-		// Utility function to schedule appointments
-		function make_appointment(appointment_time, actionType, target_index, reference = "") {
+		];
+
+	  
+		// Utility function for scheduling animation sync appointments
+		function make_appointment(appointment_time, actionType, reference = "") {
 			APPOINTMENTS.push({
-				time: appointment_time,      // When to trigger (seconds, audio)
-				type: actionType,            // 'jump', 'Y1', 'Y2', etc.
-				nextIndex: target_index,     // Line/lyric index (number)
-				reference: reference,        // Human-readable note
-				fired: false                 // Has this appointment fired yet? Initially false
-			})
-		};
-
-		// Automatic runner section called inside your render loop or animation frame:
-		function render() {
-		    // --- AUTOMATION LOGIC ---
-			if (autoRunArmed) {
-				appointmentParams.forEach((cue, idx) => {
-					if (!cue.fired && audioElement.currentTime >= cue.time) {
-						if (cue.type === "jump" && typeof cue.nextIndex === "number") {
-							jumpProcessing(cue.nextIndex, true);
-							cue.fired = true;
-							console.log(`[AUTO-JUMP ${idx}] time ${cue.time}, nextIndex ${cue.nextIndex}, fired: ${cue.fired}, ref: ${cue.reference}`);
-						} else if (
-							cue.type === "pause" ||
-							cue.type === "Y1pause"
-						) {
-							audioElement.pause();           // Stop the audio FIRST
-							animationPaused = true;
-							cue.fired = true;
-							console.log(`[AUTO-PAUSE ${idx}] time ${cue.time}, fired: ${cue.fired}, ref: ${cue.reference}`);
-							debugger;
-						// Ignore cue.nextIndex for pause!
-						}
-						// ...handle other cue types if needed...
-					}
-				});
-				// Log the entire appointments table after possible changes
-				console.log(`[AUTO-PAUSE ${idx}] time ${cue.time}, fired: ${cue.fired}, ref: ${cue.reference}`);
-				console.log("Appointments table after render:", JSON.stringify(appointmentParams, null, 2));
-			}
-			// rest of render logic
+				time: appointment_time,
+				type: actionType,
+				reference: reference
+			});
+			appointmentFired.push(false);
 		}
-
 
        function initBallPhysics() {
             ballCenterX = canvas.width / 2;
@@ -1553,7 +1458,7 @@ There’s a cricket on the twentieth floor
 			"mate": ["mate"],
 			"miss": ["miss"],
 			"people": ["peo", "ple"],
-			"playin": ["playin"],
+			"playin": ["play", "in"],
 			"probly": ["prob", "ly"],
 			"scrape": ["scrape"],
 			"singin": ["sing", "in"],
@@ -1628,7 +1533,6 @@ There’s a cricket on the twentieth floor
 			"didn't": ["didn't"],
 			"can't": ["can't"],
 			"doesn't": ["doesn't"],
-			"might've": ["might've"],
 			"there's": ["there's"],
 			"we're": ["we're"],
 			"you're": ["you're"],
@@ -1939,7 +1843,6 @@ There’s a cricket on the twentieth floor
 		  ];
 
 		  let i = 0;
-		  
 		  function loadNextImage() {
 			if (i >= images.length) {
 			  // Images done, now try song
@@ -2216,52 +2119,48 @@ There’s a cricket on the twentieth floor
         }
         
         let pauseTime = 0;
-		
-		function jumpProcessing(targetIndex, isAutomatic = false) {
-			// For manual jumps (X key): optionally restrict if ball is rising
-			if (!isAutomatic) {
-				// debugger;
-				const currentTime = performance.now() / 1000;
-				const dt = currentTime - bounceStartTime;
-				const positionInBounce = dt % BOUNCE_DURATION;
-				//if (positionInBounce > HALF_BOUNCE) {
-				//	console.log('⏳ Ball is rising - wait until it is falling to jump');
-				//}
-			}
-
-			// Validate index
-			if (typeof targetIndex !== "number" || targetIndex < 0 || targetIndex >= lyrics.length) {
-				console.warn("jumpProcessing: invalid lyric index", targetIndex);
-				return;
-			}
-
-			// Directly jump: NO SEARCHING, NO firstLyricIndex
-			currentIndex = targetIndex;
-			songLineNumber = targetIndex + 1;
-			bounceCount = 0;
-			const now = performance.now() / 1000;
-			bounceStartTime = now - 0.001;
-//			ballY = ballBottom - 1;
-			console.log(`⚡ Jumped to lyric line ${currentIndex + 1} `);
-			console.log(`time x was pressed = ${now}`);
-			console.log(`audio time ${audioElement.currentTime.toFixed(2)}`);
-		}
-
+        		
         // Keyboard controls
-
+		
+			
 		document.addEventListener('keydown', function(e) {
-		if (e.code === 'KeyA') {
-			// Set up any automatic appointments (jump, cue, etc.)
-			autoRunArmed = !autoRunArmed;
-			if (autoRunArmed) console.log("Auto-run ARMED: next time you press Play&Listen, all auto appointments will run.");
-		} else if (e.code === 'KeyD') {
-			debugger; // <-- This will pause execution in DevTools!
-			console.log('Debug key "d" pressed.');
-		} else if (e.code === 'KeyX') {
+		if (e.code === 'KeyX') {
 			e.preventDefault();
-			console.log("X pressed at audio time:", audioElement.currentTime.toFixed(2), "targetIndex:", targetIndex);
-			jumpProcessing(targetIndex, false);
-		} else if (e.code === 'Space') {
+			console.log("X pressed");
+
+			// Calculate bounce position
+			const currentTime = performance.now() / 1000;
+			const dt = currentTime - bounceStartTime;
+			const positionInBounce = dt % BOUNCE_DURATION;
+
+			// Only trigger when ball is falling
+			if (positionInBounce > HALF_BOUNCE) {
+				console.log('⏳ Ball is rising - wait until it is falling to skip');
+				return; // Don't skip during rising
+			}
+
+			// Find first real lyric line
+			let firstLyricIndex = currentIndex;
+			while (
+				firstLyricIndex < lyrics.length &&
+				(!lyrics[firstLyricIndex] ||
+				lyrics[firstLyricIndex].trim() === '' ||
+				lyrics[firstLyricIndex].includes('*'))
+			) {
+				firstLyricIndex++;
+			}
+
+			if (firstLyricIndex < lyrics.length) {
+				// Skip to first lyric, start bounce at bottom (rising phase)
+				currentIndex = firstLyricIndex;
+				songLineNumber = firstLyricIndex + 1;
+				bounceCount = 0;
+				bounceStartTime = currentTime - HALF_BOUNCE - 0.001; // Snap bounce to ground, start rising
+				ballY = ballBottom - 1;
+				console.log(`⚡ Skipped to lyric line ${currentIndex + 1} at bottom`);
+			}
+		}
+		else if (e.code === 'Space') {
             e.preventDefault();
             togglePlayback();
 		} else if (e.code === 'KeyR') {
@@ -2575,47 +2474,14 @@ There’s a cricket on the twentieth floor
             ctx.fillText(word, x, y);
         }
         
-		// Set up all automation appointments (skips, pauses, resumes) for this session.
-		// This must be done AFTER loading and processing the song data and BEFORE starting the render loop.
-		// We only run this block once per page-load, because only one song per refresh is supported.
+		//   2. Record Positions During Unhighlighted Rendering:
+		//   Update the unhighlighted rendering logic to store the position of each rendered syllable. For
+		//   example, modify the block where syllables are displayed in white:
 
-		// For each entry, schedule the appointment:
-		appointmentParams.forEach(appt =>
-			make_appointment(appt.time, appt.type, appt.nextIndex, appt.reference)
-		);
 
 		function render() {
 
 		  if (!running) return;
-				  
-		  //if (audioElement.ended) {
-				//resetSong();
-		  //}
-				  
-			if (autoRunArmed) {
-				APPOINTMENTS.forEach((cue, idx) => {
-					if (!cue.fired && audioElement.currentTime >= cue.time) {
-						if (cue.type === "jump" && typeof cue.nextIndex === "number") {
-							jumpProcessing(cue.nextIndex, true);
-							console.log(`[AUTO-JUMP] time ${cue.time}, nextIndex ${cue.nextIndex}, ref: ${cue.reference}`);
-							cue.fired = true;
-						} else if (cue.type === "Y1pause") {
-							if (!animationPaused) {
-								animationPaused = true;
-								console.log(`[AUTO-Y1] Paused at t=${cue.time} (${cue.reference})`);
-								cue.fired = true;
-							}
-						} else if (cue.type === "Y2resume") {
-							if (animationPaused) {
-								animationPaused = false;
-								console.log(`[AUTO-Y2] Resumed at t=${cue.time} (${cue.reference})`);
-								cue.fired = true;
-							}
-						}
-						// Add other cue types as needed...
-					}
-				});
-			}
 		  // sample audio state once per frame
 		  const audioSnapshot = syncAudioUI();
 		  if (audioSnapshot.playingNow !== lastAudioPlaying) {
@@ -2874,7 +2740,7 @@ There’s a cricket on the twentieth floor
 			const dt = currentTime - bounceStartTime;
 
 			if (dt <= BOUNCE_DURATION) {
-			  const fallTime = BOUNCE_DURATION / 2;
+			  const fallTime = HALF_BOUNCE;
 
 			  if (dt <= fallTime) {
 				falling = true;
@@ -2927,6 +2793,7 @@ There’s a cricket on the twentieth floor
 
 		  // draw the asset-status balls LAST so they're visible on top of background/controls
 		  drawAssetStatusBallsOnCanvas();
+
 		  requestAnimationFrame(render);
 		}
 			
@@ -2945,60 +2812,76 @@ There’s a cricket on the twentieth floor
 				initBallPhysics();
 				scaleButtonCoords();
 			});	
-			window.addEventListener('load', () => {
-				drawMusicEmojis();
-				positionControlRowByConstant();
-
-				// Automatically trigger "Play&Listen"
-				const playListenButton = document.getElementById('playListenButton');
-				if (playListenButton) playListenButton.click();
-			});
-		
 		
 		function drawAssetStatusBallsOnCanvas() {
+	
 		  const ctx = canvas.getContext('2d');
-		  const OFFSETX = 220; // aligns with controls row
+
+		  // Fixed visual constants
+		  const OFFSETX = 200;
+		  const OFFSETY = 100;
 		  const RADIUS = 14;
-
-		  // Asset balls start 10px from bottom of canvas
-		  const ballsY = canvas.height - 10;
-
-		  // Horizontally aligned (similar to controls/buttons)
+		  const DEFAULT_FILL_COLOR = '#00cc66';
 		  const POSITIONS = [
-			{ x: OFFSETX + 120, y: ballsY },
-			{ x: OFFSETX + 220, y: ballsY },
-			{ x: OFFSETX + 320, y: ballsY },
-			{ x: OFFSETX + 420, y: ballsY },
+			{ x: 120+OFFSETX, y: 510+OFFSETY },
+			{ x: 220+OFFSETX, y: 510+OFFSETY },
+			{ x: 320+OFFSETX, y: 510+OFFSETY },
+			{ x: 420+OFFSETX, y: 510+OFFSETY },
 		  ];
 
 		  ctx.save();
+
+		  // Use assetStatus -> array
 		  const assetsArr = Object.keys(assetStatus).map(k => ({ name: k, status: assetStatus[k] }));
-		  for (let i = 0; i < POSITIONS.length; i++) {
-			const item = assetsArr[i] || {};
+
+		  for (let i = 0; i < assetsArr.length; i++) {
+			const item = assetsArr[i];
+
+			// Internal name
+			const name = (typeof item === 'string') ? item : (item.name || item.label || item.id || '');
+
+			// Determine fill color (explicit fields first, then status keywords)
+			let color = DEFAULT_FILL_COLOR;
+			if (item && (item.color || item.fill)) {
+			  color = item.color || item.fill;
+			} else if (item && item.status) {
+			  const st = String(item.status).toLowerCase();
+			  if (st === 'grey' || st === 'gray') color = '#999999';
+			  else if (st === 'green') color = '#00cc66';
+			  else if (st === 'orange') color = '#ff8800';  // ADD THIS LINE
+			  else if (st === 'black') color = '#000000';
+			  else if (st === 'red') color = '#cc3333';
+			  else color = DEFAULT_FILL_COLOR;
+			}
+
+			// Fixed position selection (overflow reuses last slot)
+			const pos = (i < POSITIONS.length) ? POSITIONS[i] : POSITIONS[POSITIONS.length - 1];
+			const x = pos.x;
+			const y = pos.y;
+
+			// Draw filled circle (no stroke)
 			ctx.beginPath();
-			ctx.arc(POSITIONS[i].x, POSITIONS[i].y, RADIUS, 0, Math.PI * 2);
-			// Set color based on status
-			let color = "#00cc66";
-			const st = String(item.status || "").toLowerCase();
-			if (st === 'grey') color = '#999999';
-			else if (st === 'green') color = '#00cc66';
-			else if (st === 'orange') color = '#ff8800';
-			else if (st === 'black') color = '#000000';
-			else if (st === 'red') color = '#cc3333';
+			ctx.arc(x, y, RADIUS, 0, Math.PI * 2);
 			ctx.fillStyle = color;
 			ctx.fill();
 
-			// White label
-			ctx.fillStyle = '#fff';
-			ctx.font = "bold 12px 'Courier New', monospace";
-			ctx.textAlign = 'center';
-			ctx.textBaseline = 'middle';
-			ctx.fillText(item.name || '', POSITIONS[i].x, POSITIONS[i].y);
+			// Friendly label (prefer assetLabels), always solid white and centered on the ball
+			let label = '';
+			if (assetLabels && name && assetLabels[name]) label = assetLabels[name];
+			else if (name) label = String(name).replace(/_/g, ' ');
+			else if (item && (item.text || item.label)) label = item.text || item.label;
+
+			if (label) {
+			  ctx.fillStyle = '#ffffff';
+			  ctx.font = "bold 12px 'Courier New', monospace";
+			  ctx.textAlign = 'center';
+			  ctx.textBaseline = 'middle';
+			  ctx.fillText(label, x, y); // intentionally drawn on top of the ball
+			}
 		  }
+
 		  ctx.restore();
 		}
-	
-	
 
 		// Constants to avoid hardcoding
 		const VISITOR_MP3 = "The_Visitor.mp3";
