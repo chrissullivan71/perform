@@ -5,7 +5,7 @@ The Visitor by Chris Sullivan
      C         D7       Bm    Em 
      *         *        *     *
      1         3        5     7                 I01         NB 02
-     
+
 [Intro]
      A         D7       G
      *         *        *

@@ -140,14 +140,12 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
 		  }
 
 		  /* Hover / paused visuals */
-		  #listenButton:hover,
-		  #playListenButton:hover,
-		  #playButton:hover {
+		  #ListenButton:hover,
+		  #playListenButton:hover, {
 			background: rgba(0,255,0,0.9);
 		  }
-		  #listenButton.paused,
-		  #playListenButton.paused,
-		  #playButton.paused {
+		  #ListenButton.paused,
+		  #playListenButton.paused, {
 			background: rgba(200,100,0,0.8);
 			border-color: #ff8800;
 		  }
@@ -194,20 +192,19 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
 <body>
 <h1>THIS IS THE SERVED VERSION</h1>
 
-
 	<select id="songSelector">
         <option value="">Select Song...</option>
 		<option value="Four Strong Winds">Four Strong Winds</option>
         <option value="rainbow">Rainbow Connection</option>
         <option value="dylan">Don't Think Twice, It's All Right</option>
-        <option value="The Visitor">The Visitor</option>
+        <option value="the-visitor">The Visitor</option>
     </select>
     <div id="loadingStatus">Select a song to begin...</div>
 
 	<div id="controlRow">
-	  <button id="listenButton" aria-label="Listen">▶ LISTEN</button>
-	  <button id="playListenButton" aria-label="Play & Listen">▶ PLAY&LISTEN</button>
-	  <button id="playButton">▶ PLAY</button>
+	  <button id="ListenButton" aria-label="Listen">▶ LISTEN</button>
+	  <button id="playListenButton" aria-label="Play & Listen">▶ PLAY & LISTEN (Audio + Animation)</button>
+
 	  <button id="restartButton">↻ RESET</button>
 
 	  <div id="speedControl">
@@ -251,13 +248,14 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
 	
 	<!-- Background music audio element -->
 	<audio id="backgroundMusic" preload="auto">
-	<source src="The_Visitor.mp3" type="audio/mpeg">
+	<source src="the-visitor.mp3" type="audio/mpeg">
 		Your browser does not support the audio element.
 	</audio>
 
 	<span id="musicEmojis" style="position:absolute; pointer-events:none; z-index:3000; font-size:42px; left: calc(20px + ((100vh / 3 + 72px) * 0.544768) + 3mm); bottom: calc(20px + 6px);">🎶🎸</span>
-	
+
 <script>
+	console.log("=== script is running ===");
 
    // Embedded song data with real content
         const embeddedSongs = {
@@ -754,6 +752,33 @@ There’s a cricket on the twentieth floor
 `
     };
 	
+			const songFileMap = {
+		  "dylan": {
+			base: "accuratedontThinkTwice",
+			display: "Don't Think Twice, It's All Right",
+			bouncesPerLine: 8,
+			bounceDuration: 0.53
+		  },
+		  "Four Strong Winds": {
+			base: "fourStrongWinds",
+			display: "Four Strong Winds",
+			bouncesPerLine: 4,
+			bounceDuration: 0.60
+		  },
+		  "rainbow": {
+			base: "rainbowConnection",
+			display: "Rainbow Connection",
+			bouncesPerLine: 4,
+			bounceDuration: 0.53
+		  },
+		  "the-visitor": {
+			base: "the-visitor",
+			display: "The Visitor",
+			bouncesPerLine: 4,
+			bounceDuration: 0.53
+		  }
+		};
+	
 		const assetStatus = {
 			tape_deck: "grey",
 			mag_tape: "grey",
@@ -768,25 +793,22 @@ There’s a cricket on the twentieth floor
 			song: "song"
 		};
 
-		const songFileMap = {
-		  "Four Strong Winds": null, // no file, only embed
-		  "rainbow": "williams-ascher-rainbow-connection.txt",
-		  "dylan": "dont_think_twice.txt",
-		  "The Visitor": "the-visitor.txt"
-		};
+		const canvas = document.getElementById('gameCanvas');
+		const ctx = canvas.getContext('2d');
+		const restartButton = document.getElementById('restartButton');
+		const speedSlider = document.getElementById('speedSlider');
+		const speedLabel = document.getElementById('speedLabel');
+		const debugInfo = document.getElementById('debugInfo');
+		const debugData = document.getElementById('debugData');
+		const playListenButton = document.getElementById('playListenButton');
+		const ListenButton = document.getElementById('ListenButton');
+		const songSelector = document.getElementById('songSelector');
+		const audioElement = document.getElementById('backgroundMusic'); // FIXED ID to match your HTML!
 
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        const playButton = document.getElementById('playButton');
-        const restartButton = document.getElementById('restartButton');
-        const songSelector = document.getElementById('songSelector');	
-        const speedSlider = document.getElementById('speedSlider');
-        const speedLabel = document.getElementById('speedLabel');
-        const debugInfo = document.getElementById('debugInfo');
-        const debugData = document.getElementById('debugData');
-		// Adjust the allowance (48px) or the base (2020) (that is the eidth of the tape deck, the 
-	    // 48 is nominally to allow for the emojis
 		const CONTROLS_PLUS_EMOJI_WIDTH = 2020 + 48;
+
+		// Only ONE global currentSongKey:
+		let currentSongKey = '';
 
 		// Place the emoji once, then position the control row using the literal constant:
 		window.addEventListener('load', () => {
@@ -794,8 +816,8 @@ There’s a cricket on the twentieth floor
 			positionControlRowByConstant();
 
 			// Automatically trigger "Play&Listen"
-			const playListenButton = document.getElementById('playListenButton');
-			if (playListenButton) playListenButton.click();
+//			const playListenButton = document.getElementById('playListenButton');
+//			if (playListenButton) playListenButton.click();
 		});
 
 		// Parse ?a parameter ONCE and store globally
@@ -803,6 +825,10 @@ There’s a cricket on the twentieth floor
 		// global variable, could be null or "p" or "pages" or a URL
 		window.assetMode = params.get('a'); 
 
+		let baseBounceDuration = 0.84375; // fallback -- optional, but recommended
+		let indicatorX = 0;
+		let indicatorY = 0;
+		
 		// getPagesBaseURL()
 		// Returns the base URL for GitHub Pages hosting assets.
 		// Used for images and song files when ?a=pages or ?a=p.
@@ -853,19 +879,32 @@ There’s a cricket on the twentieth floor
 			}
 		}
 
-		const audioElement = document.getElementById('backgroundMusic');
+//   deleted for better table
+//		function updateAudioForSong(currentSongKey) {
+//		  const audioFile = songAudioMap[currentSongKey];
+//		  if (audioFile) {
+//			audioElement.src = getAssetSource(audioFile); // or just audioFile if using local paths
+//			console.log("4. Trying to load: ", audioElement.src);
+//			debugger;
+//			audioElement.load();
+//		  } else {
+//			audioElement.src = '';
+//		  }
+//		}
+
 
 		if (!audioElement) {
 		  console.error('#backgroundMusic element not found');
 		} else {
 		  audioElement.crossOrigin = 'anonymous';            // if you load from your Pages
-		  audioElement.src = getAssetSource('The_Visitor.mp3');		
 		  try { audioElement.load(); } catch (e) { console.warn(e); }
 
 		  // optional helpful error handler
 		  audioElement.addEventListener('error', () => {
 			console.error('Audio load error', audioElement.error, audioElement.src);
 			document.getElementById('loadingStatus').textContent = 'Audio load error — see console';
+			console.log("3. Trying to load:", audioElement.src);
+//			debugger;
 		  });
 		}
 		
@@ -1275,19 +1314,20 @@ There’s a cricket on the twentieth floor
         const speedValues = [1.0, 1.25, 1.5, 1.75, 2.0];
         const speedLabels = ["1.0x", "1.25x", "1.5x", "1.75x", "2.0x"];
         let currentSpeedIndex = 0;
-        const BASE_BOUNCE_DURATION = .84375;
+//		let baseBounceDuration = 0.84375; // default
+//        const baseBounceDuration = .84375;
         
         speedSlider.addEventListener('input', function() {
             currentSpeedIndex = parseInt(speedSlider.value);
             const speedMultiplier = speedValues[currentSpeedIndex];
-            BOUNCE_DURATION = BASE_BOUNCE_DURATION / speedMultiplier;
-			HALF_BOUNCE = BOUNCE_DURATION / 2;
+            bounceDuration = baseBounceDuration / speedMultiplier;
+			halfBounce = bounceDuration / 2;
             speedLabel.textContent = `Speed: ${speedLabels[currentSpeedIndex]}`;
             
             // Recalculate gravity for new bounce duration
             initBallPhysics();
             
-            console.log(`Speed: ${speedLabels[currentSpeedIndex]} (Duration: ${BOUNCE_DURATION.toFixed(3)}s)`);
+            console.log(`Speed: ${speedLabels[currentSpeedIndex]} (Duration: ${bounceDuration.toFixed(3)}s)`);
         });
 		
 		// Delay control
@@ -1305,7 +1345,7 @@ There’s a cricket on the twentieth floor
 		});
         
         // Song-specific timing constants - will be set when song is loaded
-        let BOUNCE_DURATION = BASE_BOUNCE_DURATION;
+        let bounceDuration = baseBounceDuration;
         let BOUNCES_PER_LINE = 8;
         
         let songData = {};
@@ -1320,10 +1360,10 @@ There’s a cricket on the twentieth floor
         let running = true;
         let songLineNumber = 1;
         let isDragging = false;
-        let currentSongKey = '';
         let ballY = BALL_HIGH_POSITION;
         let ballCenterX = 0;
         const ballRadius = 25;
+		const circleRadius = 12;
         const ballTop = BALL_HIGH_POSITION;
         let ballBottom = 0;
         let bounceStartTime = null;
@@ -1524,7 +1564,7 @@ There’s a cricket on the twentieth floor
        function initBallPhysics() {
             ballCenterX = canvas.width / 2;
             ballBottom = canvas.height - 100;
-            const fallTime = BOUNCE_DURATION / 2;
+            const fallTime = bounceDuration / 2;
             const bounceHeight = ballBottom - ballTop;
             gravity = (2 * bounceHeight) / (fallTime ** 2);
         }
@@ -1984,27 +2024,26 @@ There’s a cricket on the twentieth floor
             
             // Parse time signature and set song-specific timing
             const [beatsPerMeasure, noteValue] = parseTimeSignature(timeSignatureStr);
-            
             // Set bounces per line and bounce duration based on time signature and song
 			// debugger;;
 
 		   if (beatsPerMeasure === 3) {      // 3/4 time (Rainbow Connection)
                 BOUNCES_PER_LINE = 4;
-                BOUNCE_DURATION = BASE_BOUNCE_DURATION;
-			    HALF_BOUNCE = BOUNCE_DURATION / 2;  
+                bounceDuration = baseBounceDuration;
+			    halfBounce = bounceDuration / 2;  
 
             } else {                          // 4/4 time (Don't Think Twice)
                 BOUNCES_PER_LINE = 4;
-                BOUNCE_DURATION = BASE_BOUNCE_DURATION;
-				HALF_BOUNCE = BOUNCE_DURATION / 2;  
+                bounceDuration = baseBounceDuration;
+				halfBounce = bounceDuration / 2;  
             }
          
             // Apply speed multiplier
             const speedMultiplier = speedValues[currentSpeedIndex];
-            BOUNCE_DURATION = BASE_BOUNCE_DURATION / speedMultiplier;
-			HALF_BOUNCE = BOUNCE_DURATION / 2;            
+            bounceDuration = baseBounceDuration / speedMultiplier;
+			halfBounce = bounceDuration / 2;            
 			
-            console.log(`Time signature: ${beatsPerMeasure}/${noteValue}, Bounces per line: ${BOUNCES_PER_LINE}, Bounce duration: ${BOUNCE_DURATION}`);
+            console.log(`Time signature: ${beatsPerMeasure}/${noteValue}, Bounces per line: ${BOUNCES_PER_LINE}, Bounce duration: ${bounceDuration}`);
             
             sections = [];
             chords = [];
@@ -2104,7 +2143,7 @@ There’s a cricket on the twentieth floor
 		Calls image and song loaders in sequence.
 		Handles fallback logic for missing assets.
 		*/
-		function loadAssetsAndSong(songKey) {
+		function loadAssetsAndSong(currentSongKey) {
 			// Reset all balls to grey
 			assetStatus.tape_deck = "grey";
 			assetStatus.mag_tape = "grey";
@@ -2122,6 +2161,8 @@ There’s a cricket on the twentieth floor
 			];
 
 			let i = 0;
+
+			console.log("Loading all visual/audio assets for:", currentSongKey, "AssetMode:", aParam);
 
 	/*
 	Expanded Line-By-Line Explanation of Asset Image Loading
@@ -2160,7 +2201,7 @@ There’s a cricket on the twentieth floor
 						assetStatus.mag_tape !== "black" &&
 						assetStatus.background !== "black"
 					) {
-						loadSongAsset(songKey, aParam);
+						loadSongAsset(currentSongKey, aParam);
 					}
 					return;
 				}
@@ -2171,6 +2212,7 @@ There’s a cricket on the twentieth floor
 				const src = getAssetSource(info.file, aParam);
 
 				img.onload = function() {
+					console.log(`[IMAGE] Loaded OK: ${img.src}`);
 					assetStatus[info.name] = getAssetColor(info.file);
 					if (info.name === 'tape_deck') { controlsImage = img; scaleButtonCoords(); }
 					else if (info.name === 'mag_tape') { magTapeImage = img; }
@@ -2181,6 +2223,7 @@ There’s a cricket on the twentieth floor
 				};
 
 				img.onerror = function() {
+					console.warn(`[IMAGE] FAILED to load: ${img.src}`);
 					// Fallback for Pages mode only
 					if (!aParam || aParam === 'pages' || aParam === 'p') {
 						const pagesSrc = getPagesBaseURL() + info.file;
@@ -2214,19 +2257,31 @@ There’s a cricket on the twentieth floor
 					}
 				};
 
+				console.log(`[IMAGE] Trying to load: ${images[i].file} as ${img.src}`);
 				img.src = src;
 			}
 			loadNextImage();
 		}		
 
 		/*
-		loadSongAsset(songKey, aParam)
+		loadSongAsset(currentSongKey, aParam)
 		Loads the song text file or embedded data for the selected song.
 		Attempts primary and fallback sources, then embedded if needed.
 		Updates visual asset status for the song.
 		Ensures music and lyrics are available for rendering and animation.
 		*/
-		function loadSongAsset(songKey, aParam) {
+		async function loadSongAsset(currentSongKey, aParam) {
+			// --- Local Variables ---
+			// songText: assigned in try/catch block
+			// response: Response object (fetch result), assigned inline when used
+
+			const fileName = songFileMap[currentSongKey]?.base;
+			const lyricFile = fileName ? fileName + ".txt" : null;
+			let primarySrc = "";
+			let fallbackSrc = "";
+			let primaryColor = "";
+			let fallbackColor = "";
+
 			// Only try if all images succeeded
 			if (
 				assetStatus.tape_deck === "black" ||
@@ -2238,73 +2293,67 @@ There’s a cricket on the twentieth floor
 				return;
 			}
 
-			const fileName = songFileMap[songKey];
+			// Asset paths
 
 			if (fileName) {
-				let primarySrc, fallbackSrc, primaryColor, fallbackColor;
-
-				// Decide primary and fallback source based on aParam
 				if (aParam === 'pages' || aParam === 'p') {
-					// Pages is primary, local is fallback
-					primarySrc = getPagesBaseURL() + fileName;
-					fallbackSrc = fileName;
+					primarySrc = getPagesBaseURL() + lyricFile;
+					fallbackSrc = lyricFile;
 					primaryColor = "green";
 					fallbackColor = "orange";
 				} else if (aParam && aParam.startsWith('http')) {
-					// Custom remote is primary, Pages is fallback
-					primarySrc = aParam + fileName;
-					fallbackSrc = getPagesBaseURL() + fileName;
+					primarySrc = aParam + lyricFile;
+					fallbackSrc = getPagesBaseURL() + lyricFile;
 					primaryColor = "green";
-					fallbackColor = "green"; // fallback remote same as Pages/remote
+					fallbackColor = "green";
 				} else {
-					// Local is primary, Pages is fallback
-					primarySrc = fileName;
-					fallbackSrc = getPagesBaseURL() + fileName;
+					primarySrc = lyricFile;
+					fallbackSrc = getPagesBaseURL() + lyricFile;
 					primaryColor = "orange";
 					fallbackColor = "green";
 				}
 
-				console.log('🎵 ATTEMPTING TO LOAD SONG FROM (primary):', primarySrc);
-
-				fetch(primarySrc)
-					.then(res => res.ok ? res.text() : Promise.reject())
-					.then(text => {
-						assetStatus.song = primaryColor;
-						drawAssetStatusBallsOnCanvas();
-						processSongData(text);
-					})
-					.catch(() => {
-						console.log('❌ Primary song failed, trying fallback:', fallbackSrc);
-
-						fetch(fallbackSrc)
-							.then(res => res.ok ? res.text() : Promise.reject())
-							.then(text => {
-								assetStatus.song = fallbackColor;
-								drawAssetStatusBallsOnCanvas();
-								processSongData(text);
-							})
-							.catch(() => {
-								// Fallback failed, try embedded
-								console.log('❌ Fallback song failed, trying embedded data...');
-								if (embeddedSongs[songKey]) {
-									assetStatus.song = "pink";
-									drawAssetStatusBallsOnCanvas();
-									processSongData(embeddedSongs[songKey]);
-								} else {
-									assetStatus.song = "black";
-									drawAssetStatusBallsOnCanvas();
-									alert('ERROR: Song could not be loaded from any source.');
-								}
-							});
-					});
+				// Set & load audio
+				audioElement.src = getAssetSource(fileName + '.mp3');
+				audioElement.load();
+				console.log("7. Trying to load: ", audioElement.src);
+				// Lyrics loading logic (with fallback, and finally embedded)
+				let songText = null;
+				try {
+					// First try primary source
+					const response = await fetch(primarySrc);
+					if (!response.ok) throw new Error();
+					songText = await response.text();
+					assetStatus.song = primaryColor;
+				} catch {
+					// Try fallback source
+					try {
+						const response = await fetch(fallbackSrc);
+						if (!response.ok) throw new Error();
+						songText = await response.text();
+						assetStatus.song = fallbackColor;
+					} catch {
+						// Try embedded data
+						if (embeddedSongs[currentSongKey]) {
+							songText = embeddedSongs[currentSongKey];
+							assetStatus.song = "pink";
+						} else {
+							assetStatus.song = "black";
+							drawAssetStatusBallsOnCanvas();
+							alert('ERROR: Song could not be loaded from any source.');
+							return;
+						}
+					}
+				}
+				drawAssetStatusBallsOnCanvas();
+				processSongData(songText);
 
 			} else {
-				// No file, try embedded directly
-				console.log('📝 No file mapped for this song, using embedded data...');
-				if (embeddedSongs[songKey]) {
+				// No fileName: try embedded directly
+				if (embeddedSongs[currentSongKey]) {
 					assetStatus.song = "pink";
 					drawAssetStatusBallsOnCanvas();
-					processSongData(embeddedSongs[songKey]);
+					processSongData(embeddedSongs[currentSongKey]);
 				} else {
 					assetStatus.song = "black";
 					drawAssetStatusBallsOnCanvas();
@@ -2312,18 +2361,8 @@ There’s a cricket on the twentieth floor
 				}
 			}
 		}
-
-		songSelector.addEventListener('change', function(e) {
-			const songKey = e.target.value;
-			if (!songKey) {
-				document.getElementById('loadingStatus').textContent = 'Select a song to begin...';
-				return;
-			}
-			document.getElementById('loadingStatus').textContent = 'Loading ' + songKey + '...';
-			currentSongKey = songKey;
-			loadAssetsAndSong(songKey);
-		});
-      
+		
+     
 		// interpolateColor(color1, color2, factor)
 		// Linearly blends two RGB colors by a given factor (0..1).
 		// Used for gradients and progress indicators.
@@ -2394,20 +2433,20 @@ There’s a cricket on the twentieth floor
 		Keeps button consistent with actual playback state.
 		*/
         function updatePlayButton() {
+		    // playListenButton.disabled = false;
+			// ListenButton.disabled = false;
             if (waitingForStart) {
-                playButton.textContent = currentIndex === 0 ? "▶ PLAY" : "↻ RESTART";
-                playButton.className = '';
+                playListenButton.textContent = currentIndex === 0 ? "▶ PLAY" : "↻ RESTART";
+                playListenButton.className = '';
             } else if (songPaused) {
-                playButton.textContent = "▶ PLAY";
-                playButton.className = 'paused';
+                playListenButton.textContent = "▶ PLAY";
+                playListenButton.className = 'paused';
             } else {
-                playButton.textContent = "⏸ PAUSE";
-                playButton.className = '';
+                playListenButton.textContent = "⏸ PAUSE";
+                playListenButton.className = '';
             }
         }
 		
-		
-        
         function togglePlayback() {
             if (!currentSongKey) {
                 alert('Please select a song first');
@@ -2451,8 +2490,8 @@ There’s a cricket on the twentieth floor
 				// debugger;
 				const currentTime = performance.now() / 1000;
 				const dt = currentTime - bounceStartTime;
-				const positionInBounce = dt % BOUNCE_DURATION;
-				//if (positionInBounce > HALF_BOUNCE) {
+				const positionInBounce = dt % bounceDuration;
+				//if (positionInBounce > halfBounce) {
 				//	console.log('⏳ Ball is rising - wait until it is falling to jump');
 				//}
 			}
@@ -2483,7 +2522,7 @@ There’s a cricket on the twentieth floor
 			autoRunArmed = !autoRunArmed;
 			if (autoRunArmed) console.log("Auto-run ARMED: next time you press Play&Listen, all auto appointments will run.");
 		} else if (e.code === 'KeyD') {
-			debugger; // <-- This will pause execution in DevTools!
+//			debugger; // <-- This will pause execution in DevTools!
 			console.log('Debug key "d" pressed.');
 		} else if (e.code === 'KeyX') {
 			e.preventDefault();
@@ -2663,17 +2702,6 @@ There’s a cricket on the twentieth floor
                 e.preventDefault();
                 togglePlayback();
             }
-        });
-        
-        // Play button controls
-        playButton.addEventListener('click', function(e) {
-            e.preventDefault();
-            togglePlayback();
-        });
-        
-        playButton.addEventListener('touchstart', function(e) {
-            e.preventDefault();
-            togglePlayback();
         });
         
         // Restart button controls  
@@ -2873,8 +2901,8 @@ There’s a cricket on the twentieth floor
 			lastAudioPlaying = audioSnapshot.playingNow;
 
 			// Now reflect that change in the UI (minimal DOM writes)
-			const listenBtn = document.getElementById('listenButton');
-			const playListenBtn = document.getElementById('playListenButton');
+			const ListenButton = document.getElementById('ListenButton');
+			const playListenButton = document.getElementById('playListenButton');
 			const emojiSpan = document.getElementById('musicEmojis');
 
 			function setPlayingVisualSimple(btn) {
@@ -2890,13 +2918,13 @@ There’s a cricket on the twentieth floor
 
 			if (lastAudioPlaying) {
 			  // audio started
-			  setPlayingVisualSimple(listenBtn);
-			  setPlayingVisualSimple(playListenBtn);
+			  setPlayingVisualSimple(ListenButton);
+			  setPlayingVisualSimple(playListenButton);
 			  if (emojiSpan) emojiSpan.classList.remove('emoji-fill');
 			} else {
 			  // audio stopped/paused
-			  setPausedVisualSimple(listenBtn);
-			  setPausedVisualSimple(playListenBtn);
+			  setPausedVisualSimple(ListenButton);
+			  setPausedVisualSimple(playListenButton);
 			  if (emojiSpan) emojiSpan.classList.add('emoji-fill');
 			}
 		  }
@@ -3004,7 +3032,7 @@ There’s a cricket on the twentieth floor
 				  highlightingActive = true;
 
 				  const dt = currentTime - bounceStartTime;
-				  const beatProgress = (dt % BOUNCE_DURATION) / BOUNCE_DURATION;
+				  const beatProgress = (dt % bounceDuration) / bounceDuration;
 				  const beatFactor = rising ? beatProgress : (1.0 - beatProgress);
 
 				  // Render base text
@@ -3111,7 +3139,7 @@ There’s a cricket on the twentieth floor
 			debugText += `Beat Numbers: [${BEAT_NUMBERS.join(', ')}]\n`;
 			debugText += `Playback Mode: ${playbackMode}\n`;
 			debugText += `Speed: ${speedLabels[currentSpeedIndex]}\n`;
-			debugText += `Duration: ${BOUNCE_DURATION.toFixed(3)}s\n`;
+			debugText += `Duration: ${bounceDuration.toFixed(3)}s\n`;
 			if (BEAT_NUMBERS.length > 0) {
 			  const currentBeatNumber = BEAT_NUMBERS[bounceCount % BEAT_NUMBERS.length];
 			  debugText += `Current Beat: ${currentBeatNumber}\n`;
@@ -3123,8 +3151,8 @@ There’s a cricket on the twentieth floor
 		  if (!songPaused && !animationPaused && !waitingForStart && bounceStartTime !== null) {
 			const dt = currentTime - bounceStartTime;
 
-			if (dt <= BOUNCE_DURATION) {
-			  const fallTime = BOUNCE_DURATION / 2;
+			if (dt <= bounceDuration) {
+			  const fallTime = bounceDuration / 2;
 
 			  if (dt <= fallTime) {
 				falling = true;
@@ -3195,14 +3223,29 @@ There’s a cricket on the twentieth floor
 				initBallPhysics();
 				scaleButtonCoords();
 			});	
+
 			window.addEventListener('load', () => {
 				drawMusicEmojis();
 				positionControlRowByConstant();
-
-				// Automatically trigger "Play&Listen"
-				const playListenButton = document.getElementById('playListenButton');
-				if (playListenButton) playListenButton.click();
+				// DO NOT trigger playListenButton.click() here!
 			});
+
+//			window.addEventListener('load', () => {
+//				drawMusicEmojis();
+//				positionControlRowByConstant();
+//
+//  the next line was removed because the rules for html changed: can't do it without user input.
+//				// Automatically trigger "Play&Listen"
+//				const playListenButton = document.getElementById('playListenButton');
+//				if (playListenButton) playListenButton.click();
+//			});
+
+		function startTeleprompterAnimation() {
+			waitingForStart = false;
+			bounceStartTime = performance.now() / 1000;
+			if (typeof render === "function") requestAnimationFrame(render);
+			console.log("Teleprompter animation kicked off!");
+		}
 		
 		/*
 		drawAssetStatusBallsOnCanvas()
@@ -3257,163 +3300,156 @@ There’s a cricket on the twentieth floor
 		}
 
 		// Constants to avoid hardcoding
-		const VISITOR_MP3 = "The_Visitor.mp3";
+		const VISITOR_MP3 = "the-visitor.mp3";
 
-		// Defensive init after DOM is ready
-		function initListeningButtons() {
-			const listenBtn = document.getElementById('listenButton');
-			const playListenBtn = document.getElementById('playListenButton');
+			// Defensive init after DOM is ready
+			function initListeningButtons() {
+				const ListenButton = document.getElementById('ListenButton');
+				const playListenButton = document.getElementById('playListenButton');
 
-			if (!listenBtn && !playListenBtn) return;
+				if (!ListenButton && !playListenButton) return;
 
-			// Remember original labels
-			if (listenBtn && !listenBtn.dataset.orig) listenBtn.dataset.orig = listenBtn.textContent || '▶ LISTEN';
-			if (playListenBtn && !playListenBtn.dataset.orig) playListenBtn.dataset.orig = playListenBtn.textContent || '▶ PLAY&LISTEN';
+				// Remember original labels
+				if (ListenButton && !ListenButton.dataset.orig) ListenButton.dataset.orig = ListenButton.textContent || '▶ LISTEN';
+				if (playListenButton && !playListenButton.dataset.orig) playListenButton.dataset.orig = playListenButton.textContent || '▶ PLAY&LISTEN';
 
-			// Update the button visuals
-			function setPlayingVisual(btn) {
-				if (!btn) return;
-				btn.classList.remove('paused');
-				btn.textContent = '⏸ PAUSE';
-			}
+				// Update the button visuals
+				function setPlayingVisual(btn) {
+					if (!btn) return;
+					btn.classList.remove('paused');
+					btn.textContent = '⏸ PAUSE';
+				}
 
-			function setPausedVisual(btn) {
-				if (!btn) return;
-				btn.classList.add('paused');
-				btn.textContent = btn.dataset.orig || '▶';
-			}
+				function setPausedVisual(btn) {
+					if (!btn) return;
+					btn.classList.add('paused');
+					btn.textContent = btn.dataset.orig || '▶';
+				}
 
-			// Toggle between playing and paused states
-			function toggleVisual(btn) {
-				if (!btn) return;
-				if (btn.classList.contains('paused')) setPlayingVisual(btn);
-				else setPausedVisual(btn);
-			}
-
-			// Listen Button: Start/play or pause the audio
-			function handleListenButtonClick(e) {
-				e.preventDefault();
-				console.log('Listen button pressed.');
-
-				try {
-					if (isAudioActuallyPlaying()) {
-						audioElement.pause();
-					} else {
-						if (!audioElement.src || !audioElement.src.includes(VISITOR_MP3)) {
-							audioElement.src = ASSET_BASE_URL + VISITOR_MP3;
-							try { audioElement.load(); } catch (err) { console.warn('audio.load() threw', err); }
-						}
-						audioElement.play().catch((err) => {
-							console.error("Music could not be played:", err);
-							const statusEl = document.getElementById('loadingStatus');
-							if (statusEl) statusEl.textContent = 'Music could not be played — see console';
-						});
-					}
-				} catch (err) {
-					console.error('Listen button handler error', err);
+				// Toggle between playing and paused states
+				function toggleVisual(btn) {
+					if (!btn) return;
+					if (btn.classList.contains('paused')) setPlayingVisual(btn);
+					else setPausedVisual(btn);
 				}
 			}
 
-			// Register Listen button events
-			if (listenBtn && !listenBtn.dataset.bound) {
-				listenBtn.dataset.bound = '1';
-				listenBtn.addEventListener('click', handleListenButtonClick);
-				// Reuse the click handler for touchstart
-				listenBtn.addEventListener('touchstart', (e) => {
+				// Listen Button: Start/play or pause the audio
+				function handleListenButtonClick(e) {
 					e.preventDefault();
-					listenBtn.click(); // Reuse the click handler
-				}, { passive: false });
-			}
+					console.log('Listen button pressed.');
+					
+					try {
+						if (isAudioActuallyPlaying()) {
+							audioElement.pause();
+						} else {
+							const record = songFileMap[currentSongKey];
+							if (!record) {
+								audioElement.src = "";
+								console.warn("No valid record for currentSongKey:", currentSongKey, "- src not set.");
+								return;
+							}
 
-			// Play&Listen Button: Reset lyrics and audio when starting, or pause
-			function handlePlayListenButtonClick(e) {
-				e.preventDefault();
-				console.log('Play&Listen pressed — playing?', isAudioActuallyPlaying());
+							const audioFile = record.base + ".mp3";
+							audioElement.src = getAssetSource(audioFile);
+							console.log("Trying to load:", audioElement.src);
 
-				try {
-					if (isAudioActuallyPlaying()) {
-						// Pause only
-						audioElement.pause();
-					} else {
-						// Reset teleprompter to start
-						currentIndex = 0;
-						songLineNumber = 1;
-						bounceCount = 0;
-						songPaused = false;
-						waitingForStart = false;
-
-						// Set render() start time immediately
-						// bounceStartTime = performance.now() / 1000;
-
-						// Ensure audio source exists
-						if (!audioElement.src || !audioElement.src.includes(VISITOR_MP3)) {
-							audioElement.src = ASSET_BASE_URL + VISITOR_MP3;
 							try { audioElement.load(); } catch (err) { console.warn('audio.load() threw', err); }
+
+							audioElement.play().catch((err) => {
+								console.error("Music could not be played:", err);
+								const statusEl = document.getElementById('loadingStatus');
+								if (statusEl) statusEl.textContent = 'Music could not be played — see console';
+							});
 						}
-
-						// Rewind and play audio
-						try { audioElement.currentTime = 0; } catch (err) { /* ignore if not allowed */ }
-							// Wait for audio to ACTUALLY start before starting animation
-							const startAnimationOnAudioPlay = () => {
-								console.log(`🎵 Audio started - animation will start in ${animationDelayMs}ms`);
-								
-								setTimeout(() => {
-									bounceStartTime = performance.now() / 1000;
-									console.log('✅ Animation started NOW');
-								}, animationDelayMs);
-								
-								audioElement.removeEventListener('playing', startAnimationOnAudioPlay);
-							};
-							
-						audioElement.addEventListener('playing', startAnimationOnAudioPlay);
-
-						audioElement.play().catch((err) => {
-							console.error("Music could not be played:", err);
-							const statusEl = document.getElementById('loadingStatus');
-							if (statusEl) statusEl.textContent = 'Music could not be played — see console';
-						});
-
-						// Update the play button
-						updatePlayButton();
+					} catch (err) {
+						console.error('Listen button handler error', err);
 					}
-				} catch (err) {
-					console.error('Play&Listen handler error', err);
 				}
-			}
 
-			// Register Play&Listen button events
-			if (playListenBtn && !playListenBtn.dataset.bound) {
-				playListenBtn.dataset.bound = '1';
-				playListenBtn.addEventListener('click', handlePlayListenButtonClick);
-				// Reuse the click handler for touchstart
-				playListenBtn.addEventListener('touchstart', (e) => {
+				function handlePlayListenButtonClick(e) {
 					e.preventDefault();
-					playListenBtn.click(); // Reuse the click handler
-				}, { passive: false });
-			}
-		}
+				    if (!currentSongKey) {
+					  alert('Please select a song first');
+					  return;
+				    }
+				    waitingForStart = false;
+					togglePlayback();
+				    updatePlayButton();
+				    startTeleprompterAnimation();
+				    audioElement.currentTime = 0;
+				    audioElement.play().catch(e => console.log('Play error:', e));
+					console.log('Play&Listen pressed — playing?', isAudioActuallyPlaying());
+				}
+				
+			function initTeleprompter() {
+				const ListenButton = document.getElementById('ListenButton');
+				const playListenButton = document.getElementById('playListenButton');
 
-		// Initialization and startup sequence.
-		// Sets up visual assets, ball physics, UI state, and main render loop.
-		// Runs after DOM is loaded or refreshed.
-		// Ensures teleprompter is ready and responsive upon page load.
-		// Initialize the buttons only after DOM is fully loaded
-		(function initialize() {
-			if (document.readyState === 'loading') {
-				document.addEventListener('DOMContentLoaded', initListeningButtons);
-			} else {
-				initListeningButtons();
-			}
-		})();
+				if (ListenButton && !ListenButton.dataset.bound) {
+					ListenButton.dataset.bound = '1';
+					ListenButton.addEventListener('click', handleListenButtonClick);
+					ListenButton.addEventListener('touchstart', (e) => {
+						e.preventDefault();
+						ListenButton.click();
+					}, { passive: false });
+				}
 
-		// Step 3: Add the keyboard "Y" toggle handler globally, once.
-		document.addEventListener('keydown', function(e) {
-			if (e.key === 'Y' || e.key === 'y') { //
-				animationPaused = !animationPaused; //
-				console.log("animationPaused:", animationPaused); //
-			}
-		});
+				if (playListenButton && !playListenButton.dataset.bound) {
+					playListenButton.dataset.bound = '1';
+					playListenButton.addEventListener('click', handlePlayListenButtonClick);
+					playListenButton.addEventListener('touchstart', (e) => {
+						e.preventDefault();
+						playListenButton.click();
+					}, { passive: false });
+				}
 
-    </script>
-</body>
-</html>
+				// ... any other one-time startup stuff here
+			}
+			// Initialization and startup sequence.
+			// Sets up visual assets, ball physics, UI state, and main render loop.
+			// Runs after DOM is loaded or refreshed.
+			// Ensures teleprompter is ready and responsive upon page load.
+			// Initialize the buttons only after DOM is fully loaded
+			
+			(function initialize() {
+				function allInits() {
+					initListeningButtons();
+					initTeleprompter();
+				}
+				if (document.readyState === 'loading') {
+					document.addEventListener('DOMContentLoaded', allInits);
+				} else {
+					allInits();
+				}
+			})();
+			
+			// Step 3: Add the keyboard "Y" toggle handler globally, once.
+			document.addEventListener('keydown', function(e) {
+				if (e.key === 'Y' || e.key === 'y') { //
+					animationPaused = !animationPaused; //
+					console.log("animationPaused:", animationPaused); //
+				}
+			});
+
+			songSelector.addEventListener('change', function(e) {
+				currentSongKey = e.target.value; // set GLOBAL, not with let/const!
+
+				if (!currentSongKey) {
+					document.getElementById('loadingStatus').textContent = 'Select a song to begin...';
+					return;
+				}
+				document.getElementById('loadingStatus').textContent = 'Loading ' + currentSongKey + '...';
+				const aParam = (new URLSearchParams(window.location.search)).get('a');
+				console.log("Song selected:", currentSongKey, "Starting full asset load...");
+				loadAssetsAndSong(currentSongKey, aParam);
+				updatePlayButton();
+			});
+			
+			console.log('Frigging Document Object Model is loaded NOW April 9 10:49 AM');
+			togglePlayback();	
+			console.log('✅ Animation started NOW April 9 10:49 AM');
+
+		</script>
+	</body>
+	</html>
