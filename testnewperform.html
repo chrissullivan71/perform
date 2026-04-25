@@ -187,6 +187,11 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
 			line-height: 1;
 			display: inline-block;
 		  }
+		  
+		  #speedControl, #delayControl {
+			display: none;
+		  }
+		  
 	</style>
 </head>
 <body>
@@ -751,7 +756,7 @@ There’s a cricket on the twentieth floor
 [long cricket music]
 `
     };
-	
+
 		const songFileMap = {
 		  "dylan": {
 			base: "accuratedontThinkTwice",
@@ -841,9 +846,9 @@ There’s a cricket on the twentieth floor
 		let songConfig = {};
 		let bounceDuration = 0.84375;   // fallback value
 		let BOUNCES_PER_LINE = 4;       // fallback value
-		
+		let settingsOpen = false;
 		let indicatorY = 0;
-		
+				
 		// getPagesBaseURL()
 		// Returns the base URL for GitHub Pages hosting assets.
 		// Used for images and song files when ?a=pages or ?a=p.
@@ -973,6 +978,10 @@ There’s a cricket on the twentieth floor
         let scaledButtonCoords = {};
         let playbackMode = "normal"; // normal, playback_idle, playback_active
         let debugMode = false;
+		
+		function dlog(...args) {
+			if (debugMode) console.log(...args);
+		}
       
 		// setColoredBallStatus(asset, status)
 		// Sets color status for asset balls in the DOM.
@@ -1080,19 +1089,19 @@ There’s a cricket on the twentieth floor
             
             if (clickedButton) {
                 const currentTime = performance.now() / 1000;
-                console.log(`Controls button clicked: ${clickedButton}`);
+                dlog(`Controls button clicked: ${clickedButton}`);
                 
                 if (clickedButton === "playback_mode") {
                     // Cycle through playback modes
                     if (playbackMode === "normal") {
                         playbackMode = "playback_idle";
-                        console.log("Switched to playback mode (idle)");
+                        dlog("Switched to playback mode (idle)");
                     } else if (playbackMode === "playback_idle") {
                         playbackMode = "playback_active";
-                        console.log("Started playback mode (active)");
+                        dlog("Started playback mode (active)");
                     } else {
                         playbackMode = "normal";
-                        console.log("Returned to normal mode");
+                        dlog("Returned to normal mode");
                     }
                 } else if (clickedButton === "forward") {
                     // Main play/pause button
@@ -1105,9 +1114,9 @@ There’s a cricket on the twentieth floor
                         bounceStartTime = currentTime;
                         ballY = BALL_HIGH_POSITION;
                         songLineNumber++;
-                        console.log(`Fast forward to line ${currentIndex + 1}`);
+                        dlog(`Fast forward to line ${currentIndex + 1}`);
                     } else {
-                        console.log(`Already at last line ${lyrics.length}`);
+                        dlog(`Already at last line ${lyrics.length}`);
                     }
                 } else if (clickedButton === "fast_rewind") {
                     // Jump to previous line
@@ -1117,9 +1126,9 @@ There’s a cricket on the twentieth floor
                         bounceStartTime = currentTime;
                         ballY = BALL_HIGH_POSITION;
                         songLineNumber--;
-                        console.log(`Rewind to line ${currentIndex + 1}`);
+                        dlog(`Rewind to line ${currentIndex + 1}`);
                     } else {
-                        console.log("Already at first line");
+                        dlog("Already at first line");
                     }
                 } else if (clickedButton === "pause") {
                     // Pause/unpause toggle
@@ -1128,11 +1137,11 @@ There’s a cricket on the twentieth floor
                             const pauseDuration = currentTime - pauseTime;
                             bounceStartTime += pauseDuration;
                             songPaused = false;
-                            console.log("Unpaused from controls");
+                            dlog("Unpaused from controls");
                         } else {
                             songPaused = true;
                             pauseTime = currentTime;
-                            console.log("Paused from controls");
+                            dlog("Paused from controls");
                         }
                         updatePlayButton();
                     }
@@ -1141,12 +1150,12 @@ There’s a cricket on the twentieth floor
                     resetSong();
                     waitingForStart = true;
                     updatePlayButton();
-                    console.log("Restarted from controls");
+                    dlog("Restarted from controls");
                 } else if (clickedButton === "record") {
                     // Toggle debug mode
                     debugMode = !debugMode;
                     debugInfo.style.display = debugMode ? 'block' : 'none';
-                    console.log(`Debug mode: ${debugMode}`);
+                    dlog(`Debug mode: ${debugMode}`);
                 }
                 
                 return true;
@@ -1332,7 +1341,7 @@ There’s a cricket on the twentieth floor
             // Recalculate gravity for new bounce duration
             initBallPhysics();
             
-            console.log(`Speed: ${speedLabels[currentSpeedIndex]} (Duration: ${bounceDuration.toFixed(3)}s)`);
+            dlog(`Speed: ${speedLabels[currentSpeedIndex]} (Duration: ${bounceDuration.toFixed(3)}s)`);
         });
 		
 		// Delay control
@@ -1346,7 +1355,7 @@ There’s a cricket on the twentieth floor
 		delaySlider.addEventListener('input', function() {
 			animationDelayMs = parseInt(delaySlider.value) * 100;
 			delayLabel.textContent = `Delay: ${animationDelayMs}ms`;
-			console.log(`Animation delay set to: ${animationDelayMs}ms`);
+			dlog(`Animation delay set to: ${animationDelayMs}ms`);
 		});
         
         let songData = {};
@@ -1467,7 +1476,7 @@ There’s a cricket on the twentieth floor
 						if (cue.type === "jump" && typeof cue.nextIndex === "number") {
 							jumpProcessing(cue.nextIndex, true);
 							cue.fired = true;
-							console.log(`[AUTO-JUMP ${idx}] time ${cue.time}, nextIndex ${cue.nextIndex}, fired: ${cue.fired}, ref: ${cue.reference}`);
+							dlog(`[AUTO-JUMP ${idx}] time ${cue.time}, nextIndex ${cue.nextIndex}, fired: ${cue.fired}, ref: ${cue.reference}`);
 						} else if (
 							cue.type === "pause" ||
 							cue.type === "Y1pause"
@@ -1475,7 +1484,7 @@ There’s a cricket on the twentieth floor
 							audioElement.pause();           // Stop the audio FIRST
 							animationPaused = true;
 							cue.fired = true;
-							console.log(`[AUTO-PAUSE ${idx}] time ${cue.time}, fired: ${cue.fired}, ref: ${cue.reference}`);
+							dlog(`[AUTO-PAUSE ${idx}] time ${cue.time}, fired: ${cue.fired}, ref: ${cue.reference}`);
 							debugger;
 						// Ignore cue.nextIndex for pause!
 						}
@@ -1483,10 +1492,10 @@ There’s a cricket on the twentieth floor
 					}
 				});
 				// Log the entire appointments table after possible changes
-				console.log(`[AUTO-PAUSE ${idx}] time ${cue.time}, fired: ${cue.fired}, ref: ${cue.reference}`);
-				console.log("Appointments table after render:", JSON.stringify(appointmentParams, null, 2));
+				dlog(`[AUTO-PAUSE ${idx}] time ${cue.time}, fired: ${cue.fired}, ref: ${cue.reference}`);
+				dlog("Appointments table after render:", JSON.stringify(appointmentParams, null, 2));
 			}
-			console.log("fake render function running");
+			dlog("fake render function running");
 			// rest of render logic
 		}
 */
@@ -1528,7 +1537,11 @@ There’s a cricket on the twentieth floor
             ballBottom = canvas.height - 100;
             fallTime = bounceDuration / 2;
             const bounceHeight = ballBottom - ballTop;
-            gravity = (2 * bounceHeight) / (fallTime ** 2);
+            // gravity = (2 * bounceHeight) / (fallTime ** 2);
+			const visitorDuration = songFileMap["the-visitor"].bounceDuration;
+			// const gravityFactor = visitorDuration / bounceDuration;
+			const gravityFactor = 1;
+			gravity = (2 * bounceHeight) / (fallTime ** 2) * gravityFactor;
         }
 
 		// cleanText(text)
@@ -1670,6 +1683,57 @@ There’s a cricket on the twentieth floor
 			"visions": ["vi", "sions"],
 			"voices": ["voic", "es"],
 			"wonder": ["won", "der"],
+			"someone": ["some", "one"],
+			"every": ["ev", "ery"],
+			"ignore": ["ig", "nore"],
+			"under": ["un", "der"],
+			"calling": ["call", "ing"],
+
+			// Four Strong Winds
+			"alberta": ["al", "ber", "ta"],
+			"lonely": ["lone", "ly"],
+			"hundred": ["hun", "dred"],
+			"winter": ["win", "ter"],
+			"weather": ["weath", "er"],
+			"workin": ["work", "in"],
+			"movin": ["mov", "in"],
+			"goin": ["go", "in"],
+			"always": ["al", "ways"],
+			"bound": ["bound"],
+			"either": ["ei", "ther"],
+			
+			// Mary Ellen Carter
+			"october": ["oc", "to", "ber"],
+			"pouring": ["pour", "ing"],
+			"driving": ["driv", "ing"],
+			"skipper": ["skip", "per"],
+			"drinking": ["drink", "ing"],
+			"mortal": ["mor", "tal"],
+			"carter": ["car", "ter"],
+			"settled": ["set", "tled"],
+			"aboard": ["a", "board"],
+			"finally": ["fi", "nal", "ly"],
+			"heedless": ["heed", "less"],
+			"proclaim": ["pro", "claim"],
+			"owners": ["own", "ers"],
+			"service": ["ser", "vice"],
+			"insurance": ["in", "sur", "ance"],
+			"quarter": ["quar", "ter"],
+			"million": ["mil", "lion"],
+			"knowledge": ["knowl", "edge"],
+			"currents": ["cur", "rents"],
+			"cables": ["ca", "bles"],
+			"porthole": ["port", "hole"],
+			"tomorrow": ["to", "mor", "row"],
+			"adversity": ["ad", "ver", "si", "ty"],
+			"smiling": ["smil", "ing"],
+			"bastards": ["bas", "tards"],
+			"laughing": ["laugh", "ing"],
+			"crumble": ["crum", "ble"],
+			"living": ["liv", "ing"],
+			"another": ["an", "oth", "er"],
+			"everywhere": ["ev", "ery", "where"],
+			"strength": ["strength"],
 
 			// ---------------------------
 			// High Flight
@@ -1953,7 +2017,7 @@ There’s a cricket on the twentieth floor
                     return [parseInt(parts[0]), parseInt(parts[1])];
                 }
             } catch (e) {
-                console.log(`Could not parse time signature: ${timeSignatureStr}, using 4/4`);
+                dlog(`Could not parse time signature: ${timeSignatureStr}, using 4/4`);
             }
             return [4, 4];
         }
@@ -1997,9 +2061,9 @@ There’s a cricket on the twentieth floor
 			BOUNCES_PER_LINE = songConfig.bouncesPerLine;           // Use per-song or
             speedMultiplier = speedValues[currentSpeedIndex];
             bounceDuration = BounceDuration / speedMultiplier;
-			halfBounce = bounceDuration / 2;            
+			halfBounce = bounceDuration / 2;
 			
-            console.log(`Time signature: ${beatsPerMeasure}/${noteValue}, Bounces per line: ${BOUNCES_PER_LINE}, Bounce duration: ${bounceDuration}`);
+            dlog(`Time signature: ${beatsPerMeasure}/${noteValue}, Bounces per line: ${BOUNCES_PER_LINE}, Bounce duration: ${bounceDuration}`);
             
             sections = [];
             chords = [];
@@ -2048,7 +2112,7 @@ There’s a cricket on the twentieth floor
                 if (i < sections.length) sections[i] = getRidOfLL(sections[i]);
             }
             
-            console.log(`Loaded: ${sections.length} sections, ${chords.length} chords, ${lyrics.length} lyrics, ${beats.length} beats`);
+            dlog(`Loaded: ${sections.length} sections, ${chords.length} chords, ${lyrics.length} lyrics, ${beats.length} beats`);
             
             // Extract beat numbers from first beat line (like Python version)
             if (beats.length > 0) {
@@ -2062,10 +2126,10 @@ There’s a cricket on the twentieth floor
                         BEAT_NUMBERS.push(beatNum);
                     }
                 }
-                console.log("Beat numbers (from file):", BEAT_NUMBERS);
+                dlog("Beat numbers (from file):", BEAT_NUMBERS);
             } else {
                 BEAT_NUMBERS = [];
-                console.log("⚠️ No beat numbers found in file!");
+                dlog("⚠️ No beat numbers found in file!");
             }
             
             songData.title = title;
@@ -2119,7 +2183,7 @@ There’s a cricket on the twentieth floor
 
 			let i = 0;
 
-			console.log("Loading all visual/audio assets for:", currentSongKey, "AssetMode:", aParam);
+			dlog("Loading all visual/audio assets for:", currentSongKey, "AssetMode:", aParam);
 
 	/*
 	Expanded Line-By-Line Explanation of Asset Image Loading
@@ -2148,6 +2212,7 @@ There’s a cricket on the twentieth floor
 	- Loader function (`loadNextImage`) is recursive—loads all assets one by one, updating visuals and handling failure.
 	*/
 
+
 // After handling each asset (success or error), advances to the next by calling itself   // (recursion), so images load sequentially, not in parallel.
 
 			function loadNextImage() {
@@ -2169,7 +2234,7 @@ There’s a cricket on the twentieth floor
 				const src = getAssetSource(info.file, aParam);
 
 				img.onload = function() {
-					console.log(`[IMAGE] Loaded OK: ${img.src}`);
+					dlog(`[IMAGE] Loaded OK: ${img.src}`);
 					assetStatus[info.name] = getAssetColor(info.file);
 					if (info.name === 'tape_deck') { controlsImage = img; scaleButtonCoords(); }
 					else if (info.name === 'mag_tape') { magTapeImage = img; }
@@ -2214,7 +2279,7 @@ There’s a cricket on the twentieth floor
 					}
 				};
 
-				console.log(`[IMAGE] Trying to load: ${images[i].file} as ${img.src}`);
+				dlog(`[IMAGE] Trying to load: ${images[i].file} as ${img.src}`);
 				img.src = src;
 			}
 			loadNextImage();
@@ -2273,7 +2338,7 @@ There’s a cricket on the twentieth floor
 				// Set & load audio
 				audioElement.src = getAssetSource(fileName + '.mp3');
 				audioElement.load();
-				console.log("7. Trying to load: ", audioElement.src);
+				dlog("7. Trying to load: ", audioElement.src);
 				// Lyrics loading logic (with fallback, and finally embedded)
 				let songText = null;
 				try {
@@ -2304,12 +2369,12 @@ There’s a cricket on the twentieth floor
 				}
 				drawAssetStatusBallsOnCanvas();
 				processSongData(songText);
-				console.log("lyrics[0]:", lyrics[0]);
-				console.log("lyrics[1]:", lyrics[1]);
-				console.log("lyrics[2]:", lyrics[2]);
-				console.log("chords[0]:", chords[0]);
-				console.log("chords[1]:", chords[1]);
-				console.log("chords[2]:", chords[2]);
+				dlog("lyrics[0]:", lyrics[0]);
+				dlog("lyrics[1]:", lyrics[1]);
+				dlog("lyrics[2]:", lyrics[2]);
+				dlog("chords[0]:", chords[0]);
+				dlog("chords[1]:", chords[1]);
+				dlog("chords[2]:", chords[2]);
 
 			} else {
 				// No fileName: try embedded directly
@@ -2426,11 +2491,11 @@ There’s a cricket on the twentieth floor
 					resetSong();
 				}
 				waitingForStart = false;
-				console.log('Starting up: attempting to play music and begin bounce/animation sync...');
+				dlog('Starting up: attempting to play music and begin bounce/animation sync...');
 				backgroundMusic.play()
 					.then(() => {
 						bounceStartTime = performance.now() / 1000;
-						console.log('AUDIO PLAY resolved — animation and audio now synced!');
+						dlog('AUDIO PLAY resolved — animation and audio now synced!');
 						// (Optional: start animation loop here, if not already running:)
 						// if (typeof render === "function") requestAnimationFrame(render);
 					})
@@ -2470,7 +2535,7 @@ There’s a cricket on the twentieth floor
 				const dt = currentTime - bounceStartTime;
 				const positionInBounce = dt % bounceDuration;
 				//if (positionInBounce > halfBounce) {
-				//	console.log('⏳ Ball is rising - wait until it is falling to jump');
+				//	dlog('⏳ Ball is rising - wait until it is falling to jump');
 				//}
 			}
 
@@ -2487,24 +2552,20 @@ There’s a cricket on the twentieth floor
 			const now = performance.now() / 1000;
 			bounceStartTime = now - 0.001;
 //			ballY = ballBottom - 1;
-			console.log(`⚡ Jumped to lyric line ${currentIndex + 1} `);
-			console.log(`time x was pressed = ${now}`);
-			console.log(`audio time ${audioElement.currentTime.toFixed(2)}`);
+			dlog(`⚡ Jumped to lyric line ${currentIndex + 1} `);
+			dlog(`time x was pressed = ${now}`);
+			dlog(`audio time ${audioElement.currentTime.toFixed(2)}`);
 		}
 
-        // Keyboard controls
+		// Keyboard controls
 
 		document.addEventListener('keydown', function(e) {
 		if (e.code === 'KeyA') {
-			// Set up any automatic appointments (jump, cue, etc.)
 			autoRunArmed = !autoRunArmed;
-			if (autoRunArmed) console.log("Auto-run ARMED: next time you press Play&Listen, all auto appointments will run.");
-		} else if (e.code === 'KeyD') {
-//			debugger; // <-- This will pause execution in DevTools!
-			console.log('Debug key "d" pressed.');
+			if (autoRunArmed) dlog("Auto-run ARMED: next time you press Play&Listen, all auto appointments will run.");
 		} else if (e.code === 'KeyX') {
 			e.preventDefault();
-			console.log("X pressed at audio time:", audioElement.currentTime.toFixed(2), "targetIndex:", targetIndex);
+			dlog("X pressed at audio time:", audioElement.currentTime.toFixed(2), "targetIndex:", targetIndex);
 			jumpProcessing(targetIndex, false);
 		} else if (e.code === 'Space') {
             e.preventDefault();
@@ -2530,15 +2591,12 @@ There’s a cricket on the twentieth floor
                  const lastSlash = Math.max(fullPath.lastIndexOf('/'), fullPath.lastIndexOf('\\'));
                  if (lastSlash > 0) {
                      folderPath = fullPath.substring(0, lastSlash);
-                     // Clean up the path for different OS formats
                      if (folderPath.startsWith('/') && folderPath.includes(':')) {
-                         folderPath = folderPath.substring(1); // Remove leading slash on Windows
+                         folderPath = folderPath.substring(1);
                      }
                  }
              }
-         } catch (e) {
-            // Ignore errors, just won't show folder path
-         }
+         } catch (e) {}
                 
                 ctx.fillText('To close the program you must close this tab or window,', canvas.width/2, canvas.height/2 - 40);
                 if (folderPath) {
@@ -2549,14 +2607,21 @@ There’s a cricket on the twentieth floor
                     ctx.fillText('or go back to the folder you started this program from.', canvas.width/2, canvas.height/2);
                 }
                 ctx.textAlign = 'left';
-            } else if (e.code === 'KeyD') {
+        } else if (e.code === 'KeyS' && e.ctrlKey) {
+            e.preventDefault();
+            settingsOpen = !settingsOpen;
+			const speedControl = document.getElementById('speedControl');
+			const delayControl = document.getElementById('delayControl');
+			speedControl.style.display = settingsOpen ? 'flex' : 'none';
+			delayControl.style.display = settingsOpen ? 'flex' : 'none';
+            dlog("Settings:", settingsOpen);
+        } else if (e.code === 'KeyD') {
                 e.preventDefault();
                 debugMode = !debugMode;
                 debugInfo.style.display = debugMode ? 'block' : 'none';
-                console.log(`Debug mode: ${debugMode}`);
+                dlog(`Debug mode: ${debugMode}`);
             }
-		});
-        
+		});        
 		// Canvas click handler: Ctrl+Click for music, normal click for teleprompter
 
 		canvas.addEventListener('click', function(e) {
@@ -2584,7 +2649,7 @@ There’s a cricket on the twentieth floor
 
 //					audioElement.play().catch(function(err) {
 //						alert("Music could not be played: " //+ err.message);
-//						console.log(err);
+//						dlog(err);
 //					});
 					return;
 				} else if (button === "pause") {
@@ -2592,7 +2657,7 @@ There’s a cricket on the twentieth floor
 					if (audioElement.paused) {
 						audioElement.play().catch(function(err) {
 							alert("Music could not be played: " + err.message);
-							console.log(err);
+							dlog(err);
 						});
 					} else {
 						audioElement.pause();
@@ -2634,7 +2699,7 @@ There’s a cricket on the twentieth floor
 				audioElement.currentTime = 0;
 				audioElement.play().catch(function(e) {
 					alert("Music could not be played: " + e.message);
-					console.log(e);
+					dlog(e);
 				});
 				// Emoji color now updates based on actual audio state using isAudioActuallyPlaying()
 
@@ -2839,6 +2904,38 @@ There’s a cricket on the twentieth floor
 			make_appointment(appt.time, appt.type, appt.nextIndex, appt.reference)
 		);
 
+		function drawSettingsOverlay() {
+			const panelX = canvas.width / 2 - 200;
+			const panelY = canvas.height / 2 - 150;
+			const panelW = 400;
+			const panelH = 300;
+
+			// Background panel
+			ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
+			ctx.fillRect(panelX, panelY, panelW, panelH);
+			ctx.strokeStyle = '#00ff00';
+			ctx.lineWidth = 2;
+			ctx.strokeRect(panelX, panelY, panelW, panelH);
+
+			// Title
+			ctx.fillStyle = '#00ff00';
+			ctx.font = 'bold 24px Courier New';
+			ctx.textAlign = 'center';
+			ctx.fillText('SETTINGS (Ctrl+S to close)', canvas.width / 2, panelY + 40);
+
+			// Speed label
+			ctx.font = 'bold 18px Courier New';
+			ctx.fillText('Speed: ' + speedLabels[currentSpeedIndex], canvas.width / 2, panelY + 100);
+
+			// Delay label
+			ctx.fillText('Delay: ' + animationDelayMs + 'ms', canvas.width / 2, panelY + 160);
+
+			ctx.textAlign = 'left';
+			
+			document.getElementById('speedControl').style.display = 'flex';
+			document.getElementById('delayControl').style.display = 'flex';
+		}
+
 		// render()
 		// Main animation loop using requestAnimationFrame.
 		// Draws all visuals: background, tape, controls, ball, lyrics, chords, emojis.
@@ -2853,18 +2950,18 @@ There’s a cricket on the twentieth floor
 					if (!cue.fired && audioElement.currentTime >= cue.time) {
 						if (cue.type === "jump" && typeof cue.nextIndex === "number") {
 							jumpProcessing(cue.nextIndex, true);
-							console.log(`[AUTO-JUMP] time ${cue.time}, nextIndex ${cue.nextIndex}, ref: ${cue.reference}`);
+							dlog(`[AUTO-JUMP] time ${cue.time}, nextIndex ${cue.nextIndex}, ref: ${cue.reference}`);
 							cue.fired = true;
 						} else if (cue.type === "Y1pause") {
 							if (!animationPaused) {
 								animationPaused = true;
-								console.log(`[AUTO-Y1] Paused at t=${cue.time} (${cue.reference})`);
+								dlog(`[AUTO-Y1] Paused at t=${cue.time} (${cue.reference})`);
 								cue.fired = true;
 							}
 						} else if (cue.type === "Y2resume") {
 							if (animationPaused) {
 								animationPaused = false;
-								console.log(`[AUTO-Y2] Resumed at t=${cue.time} (${cue.reference})`);
+								dlog(`[AUTO-Y2] Resumed at t=${cue.time} (${cue.reference})`);
 								cue.fired = true;
 							}
 						}
@@ -2963,11 +3060,6 @@ There’s a cricket on the twentieth floor
 			  const progressText = String(songLineNumber).padStart(3, '0');
 			  ctx.fillText(progressText, controlsX + 50, controlsY + 60);
 			}
-		  }
-
-		  // Rescale button coordinates if controlsImage available
-		  if (controlsImage && controlsImage.complete) {
-			scaleButtonCoords();
 		  }
 
 		  // Draw title and time signature
@@ -3080,11 +3172,11 @@ There’s a cricket on the twentieth floor
 				  syllablePositions[currentIndex][bNum] = { syllable, x: syllableX, y: syllableY };
 
 				  // Debugging log for recorded syllables
-				  console.log(
+				  dlog(
 					`Recording syllable: Beat ${bNum}, Syllable "${syllable}", ` +
 					`X=${syllableX}, Y=${syllableY}`
 				  );
-				  console.log(`songPaused: ${songPaused}`);
+				  dlog(`songPaused: ${songPaused}`);
 				}
 
 				// -------------------------------------
@@ -3098,7 +3190,7 @@ There’s a cricket on the twentieth floor
 				  syllablePositions[currentIndex][bNum].chord = { chord, x: chordX, y: chordY };
 
 				  // Debugging log for recorded chords
-				  console.log(
+				  dlog(
 					`Recording chord: Beat ${bNum}, Chord "${chord}", X=${chordX}, Y=${chordY}`
 				  );
 				}
@@ -3181,8 +3273,8 @@ There’s a cricket on the twentieth floor
 		  // draw emojis for audio playing indicator
 		  drawMusicEmojis();
 
-		  // draw the asset-status balls LAST so they're visible on top of background/controls
-		  drawAssetStatusBallsOnCanvas();
+		  // draw the asset-status bal();
+		  if (settingsOpen) drawSettingsOverlay();
 		  requestAnimationFrame(render);
 		}
 			
@@ -3222,7 +3314,7 @@ There’s a cricket on the twentieth floor
 			waitingForStart = false;
 			bounceStartTime = performance.now() / 1000;
 			if (typeof render === "function") requestAnimationFrame(render);
-			console.log("Teleprompter animation kicked off!");
+			dlog("Teleprompter animation kicked off!");
 		}
 		
 		/*
@@ -3315,7 +3407,7 @@ There’s a cricket on the twentieth floor
 				// Listen Button: Start/play or pause the audio
 				function handleListenButtonClick(e) {
 					e.preventDefault();
-					console.log('Listen button pressed.');
+					dlog('Listen button pressed.');
 					
 					try {
 						if (isAudioActuallyPlaying()) {
@@ -3330,7 +3422,7 @@ There’s a cricket on the twentieth floor
 
 							const audioFile = record.base + ".mp3";
 							audioElement.src = getAssetSource(audioFile);
-							console.log("Trying to load:", audioElement.src);
+							dlog("Trying to load:", audioElement.src);
 
 							try { audioElement.load(); } catch (err) { console.warn('audio.load() threw', err); }
 
@@ -3356,8 +3448,8 @@ There’s a cricket on the twentieth floor
 //				    updatePlayButton();
 //				    startTeleprompterAnimation();
 //				    audioElement.currentTime = 0;
-//				    audioElement.play().catch(e => console.log('Play error:', e));
-					console.log('Play&Listen pressed — playing?', isAudioActuallyPlaying());
+//				    audioElement.play().catch(e => dlog('Play error:', e));
+					dlog('Play&Listen pressed — playing?', isAudioActuallyPlaying());
 				}
 				
 			function initTeleprompter() {
@@ -3406,7 +3498,7 @@ There’s a cricket on the twentieth floor
 			document.addEventListener('keydown', function(e) {
 				if (e.key === 'Y' || e.key === 'y') { //
 					animationPaused = !animationPaused; //
-					console.log("animationPaused:", animationPaused); //
+					dlog("animationPaused:", animationPaused); //
 				}
 			});
 
@@ -3419,7 +3511,7 @@ There’s a cricket on the twentieth floor
 				}
 				document.getElementById('loadingStatus').textContent = 'Loading ' + currentSongKey + '...';
 				const aParam = (new URLSearchParams(window.location.search)).get('a');
-				console.log("Song selected:", currentSongKey, "Starting full asset load...");
+				dlog("Song selected:", currentSongKey, "Starting full asset load...");
 				songConfig = songFileMap[currentSongKey];
 				bounceDuration = songConfig.bounceDuration;
 				BOUNCES_PER_LINE = songConfig.bouncesPerLine;
@@ -3428,9 +3520,9 @@ There’s a cricket on the twentieth floor
 				updatePlayButton();
 			});
 			
-			console.log('Frigging Document Object Model is loaded NOW April 9 10:49 AM');
+			dlog('Frigging Document Object Model is loaded NOW April 9 10:49 AM');
 			togglePlayback();	
-			console.log('✅ Animation started NOW April 9 10:49 AM');
+			dlog('✅ Animation started NOW April 9 10:49 AM');
 
 		</script>
 	</body>
