@@ -36,30 +36,29 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
 			pointer-events: auto;
 		  }
 
-		/* Song selector: place 122px down and aligned to the right; limit width so it won't span the page */
-		#songSelector {
-		  position: absolute;
-		  top: 82px;            /* 82px below top of viewport (under the mag-tape) */
-		  right: 10px;           /* align near right edge; change to 0px if you want flush */
-		  z-index: 2500;
-		  padding: 8px 10px;
-		  border-radius: 6px;
-		  border: 2px solid #00ff00;
-		  background: rgba(0,0,0,0.7);
-		  color: #fff;
-		  font-family: 'Courier New', monospace;
-		  font-size: 14px;
-		  box-sizing: border-box;
-
-		  /* prevent full-width stretching */
-		  width: auto;           /* let the selector size to its contents */
-		  min-width: 160px;      /* minimum usable size */
-		  max-width: 420px;      /* caps width so it won't span the canvas */
-		  display: inline-block; /* avoid block-level width expansion */
-		  overflow: hidden;
-		  text-overflow: ellipsis;
-		  white-space: nowrap;
-		}
+		/* Song selector: place and aligned to the right; limit width so it won't span the page */
+			#songSelector {
+			  position: absolute;
+			  bottom: 10px;        /* moved to bottom right */
+			  right: 10px;
+			  z-index: 2500;
+			  padding: 8px 10px;
+			  border-radius: 6px;
+			  border: 2px solid #00ff00;
+			  background: rgba(0,0,0,0.7);
+			  color: #fff;
+			  font-family: 'Courier New', monospace;
+			  font-size: 14px;
+			  box-sizing: border-box;
+			  /* prevent full-width stretching */
+			  width: auto;           /* let the selector size to its contents */
+			  min-width: 160px;      /* minimum usable size */
+			  max-width: 420px;      /* caps width so it won't span the canvas */
+			  display: inline-block; /* avoid block-level width expansion */
+			  overflow: hidden;
+			  text-overflow: ellipsis;
+			  white-space: nowrap;
+			}
 
 		  /* Right-side help block */
 		  #controls {
@@ -158,7 +157,7 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
 			border-radius: 5px;
 			color: white;
 			font-size: 12px;
-			display: flex;
+			display: none;
 			flex-direction: column;
 			align-items: flex-start;
 			gap: 6px;
@@ -218,7 +217,7 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
 		<div id="speedLabel">Speed: 1.0x</div>
 	  </div>
 	  
-		<div id="delayControl" style="background: rgba(0,0,0,0.7); border: 2px solid #00ff00; padding: 6px 8px; border-radius: 5px; color: white; font-size: 12px; display: flex; flex-direction: column; align-items: flex-start; gap: 6px; min-width: 140px; max-width: 220px;">
+		<div id="delayControl" style="background: rgba(0,0,0,0.7); border: 2px solid #00ff00; padding: 6px 8px; border-radius: 5px; color: white; font-size: 12px; display: none; flex-direction: column; align-items: flex-start; gap: 6px; min-width: 140px; max-width: 220px;">
 		  <div>Start Delay:</div>
 		  <input type="range" id="delaySlider" min="0" max="9" value="0" step="1" style="width: 120px; margin: 0;">
 		  <div id="delayLabel">Delay: 0ms</div>
@@ -231,7 +230,7 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
         <div id="debugData"></div>
     </div>
     
-    <div id="controls">
+<!--    <div id="controls">
         <strong>KEYBOARD:</strong><br>
         Space: Play/Pause<br>
         R: Restart<br>
@@ -248,7 +247,7 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
         <strong>DRAG:</strong><br>
         Magnetic tape: change position
     </div>
-
+--!>
     <canvas id="gameCanvas"></canvas>
 	
 	<!-- Background music audio element -->
@@ -758,12 +757,51 @@ There’s a cricket on the twentieth floor
     };
 
 		const songFileMap = {
-		  "dylan": {
+		    "dylan": {
 			base: "accuratedontThinkTwice",
 			display: "Don't Think Twice, It's All Right",
 			bouncesPerLine: 8,
-			bounceDuration: 0.53,
-			appointments: []
+			bounceDuration: 1.06,
+			appointments: [
+				{ time: 0.00, type: "jump", nextIndex: 1,  reference: "intro", fired: false },
+				{ time: 6.56, type: "jump", nextIndex: 1,  reference: "Well it ain't no use to sit and wonder why, baby", fired: false },
+				{ time: 12.37, type: "jump", nextIndex: 1,  reference: "If'n you don't know by now", fired: false },
+				{ time: 16.12, type: "jump", nextIndex: 0,  reference: "An ain't no use to sit and wonder why baby", fired: false },
+				{ time: 21.37, type: "jump", nextIndex: 3,  reference: "It'll never do somehow", fired: false },
+				{ time: 24.37, type: "jump", nextIndex: 4,  reference: "When your rooster crows", fired: false },
+				{ time: 30.00, type: "jump", nextIndex: 5,  reference: "Look out your window", fired: false },
+				{ time: 34.12, type: "jump", nextIndex: 6,  reference: "You're the reason I'm a travelin on", fired: false },
+				{ time: 38.24, type: "jump", nextIndex: 7,  reference: "Don't think twice chorus 1", fired: false },
+				{ time: 42.74, type: "jump", nextIndex: 8,  reference: "Harmonica break 1", fired: false },
+				{ time: 53.61, type: "jump", nextIndex: 9,  reference: "It ain't no use in turnin on your light babe", fired: false },
+				{ time: 58.11, type: "jump", nextIndex: 10, reference: "The light I never knowed", fired: false },
+				{ time: 62.52, type: "jump", nextIndex: 11, reference: "An it ain't no use in turnin on your light babe repeat", fired: false },
+				{ time: 67.52, type: "jump", nextIndex: 12, reference: "I'm on the dark side of the road", fired: false },
+				{ time: 70.92, type: "jump", nextIndex: 13, reference: "I wish there was somethin you would do or say", fired: false },
+				{ time: 75.64, type: "jump", nextIndex: 14, reference: "To try and make me change my mind and stay", fired: false },
+				{ time: 80.00, type: "jump", nextIndex: 15, reference: "We never did too much talkin anyway", fired: false },
+				{ time: 84.16, type: "jump", nextIndex: 16, reference: "So don't think twice chorus 2", fired: false },
+				{ time: 87.47, type: "jump", nextIndex: 17, reference: "Harmonica break 2", fired: false },
+				{ time: 97.27, type: "jump", nextIndex: 18, reference: "No it ain't no use in callin out my name gal", fired: false },
+				{ time: 102.44, type: "jump", nextIndex: 19, reference: "Like you never done before", fired: false },
+				{ time: 105.96, type: "jump", nextIndex: 20, reference: "An it ain't no use in callin out my name gal repeat", fired: false },
+				{ time: 110.95, type: "jump", nextIndex: 21, reference: "I can't hear you anymore", fired: false },
+				{ time: 114.46, type: "jump", nextIndex: 22, reference: "I'm a thinkin and a wondrin walkin down the road", fired: false },
+				{ time: 118.89, type: "jump", nextIndex: 23, reference: "I once loved a woman a child I'm told", fired: false },
+				{ time: 123.32, type: "jump", nextIndex: 24, reference: "I give her my heart but she wanted my soul", fired: false },
+				{ time: 127.95, type: "jump", nextIndex: 25, reference: "Don't think twice chorus 3", fired: false },
+				{ time: 130.73, type: "jump", nextIndex: 26, reference: "Harmonica break 3", fired: false },
+				{ time: 144.40, type: "jump", nextIndex: 27, reference: "So long honey babe", fired: false },
+				{ time: 148.28, type: "jump", nextIndex: 28, reference: "Where I'm bound I can't tell", fired: false },
+				{ time: 153.27, type: "jump", nextIndex: 29, reference: "Goodbye is too good a word gal", fired: false },
+				{ time: 157.89, type: "jump", nextIndex: 30, reference: "So I'll just say fare thee well", fired: false },
+				{ time: 161.77, type: "jump", nextIndex: 31, reference: "I ain't sayin you treated me unkind", fired: false },
+				{ time: 165.83, type: "jump", nextIndex: 32, reference: "You could have done better but I don't mind", fired: false },
+				{ time: 170.55, type: "jump", nextIndex: 33, reference: "You just kinda wasted my precious time", fired: false },
+				{ time: 174.58, type: "jump", nextIndex: 34, reference: "But don't think twice chorus 4", fired: false },
+				{ time: 177.85, type: "jump", nextIndex: 35, reference: "Harmonica break 5 line 1", fired: false },
+				{ time: 213.93, type: "jump", nextIndex: 37, reference: "Harmonica break 5 line 3", fired: false }
+			]
 		  },
 		  "Four Strong Winds": {
 			base: "fourStrongWinds",
@@ -777,7 +815,39 @@ There’s a cricket on the twentieth floor
 			display: "Rainbow Connection",
 			bouncesPerLine: 4,
 			bounceDuration: 1.5625,
-			appointments: []
+			appointments: [
+				{ time: 0.00, type: "jump", nextIndex: 0,  reference: "Intro", fired: false },
+				{ time: 6.06, type: "jump", nextIndex: 1,  reference: "Why are there so many songs abour rainbows", fired: false },
+				{ time: 12.28, type: "jump", nextIndex: 2,  reference: "And what's on the other side?", fired: false },
+				{ time: 18.82, type: "jump", nextIndex: 3,  reference: "Rainbows are visions, but only illusions", fired: false },
+				{ time: 24.56, type: "jump", nextIndex: 4,  reference: "And rainbows have nothing to hide", fired: false },
+				{ time: 30.94, type: "jump", nextIndex: 5,  reference: "So we've been told", fired: false },
+				{ time: 37.17, type: "jump", nextIndex: 6,  reference: "I know they're wrong", fired: false },
+				{ time: 43.71, type: "jump", nextIndex: 7,  reference: "Some day we'll find it - chorus 1", fired: false },
+				{ time: 49.84, type: "jump", nextIndex: 8,  reference: "The lovers the dreamers - chorus 1", fired: false },
+				{ time: 53.94, type: "jump", nextIndex: 9, reference: "break", fired: false },
+				{ time: 59.18, type: "jump", nextIndex: 10, reference: "Who said that every wish would be heard and answered", fired: false },
+				{ time: 65.25, type: "jump", nextIndex: 11, reference: "When wished on the morning star", fired: false },
+				{ time: 71.70, type: "jump", nextIndex: 12, reference: "Somebody thought of that", fired: false },				
+				{ time: 77.52, type: "jump", nextIndex: 13, reference: "And look what it's done so far", fired: false },
+				{ time: 84.54, type: "jump", nextIndex: 14, reference: "What's so amazing", fired: false },
+				{ time: 90.31, type: "jump", nextIndex: 15, reference: "And what do we think we might see", fired: false },
+				{ time: 96.99, type: "jump", nextIndex: 16, reference: "Some day we'll find it - chorus 2", fired: false },
+				{ time: 102.73, type: "jump", nextIndex: 17, reference: "The lovers the dreamers - chorus 2", fired: false },
+				{ time: 107.68, type: "jump", nextIndex: 18, reference: "All of us under its spell", fired: false },
+				{ time: 111.98, type: "jump", nextIndex: 19, reference: "We know that it's probably magic", fired: false },
+				{ time: 120.48, type: "jump", nextIndex: 20, reference: "Have you been half asleep", fired: false },
+				{ time: 126.98, type: "jump", nextIndex: 21, reference: "I've heard them calling my name", fired: false },
+				{ time: 132.72, type: "jump", nextIndex: 22, reference: "Is this the sweet sound", fired: false },
+				{ time: 138.88, type: "jump", nextIndex: 23, reference: "The voice might be one and the same", fired: false },
+				{ time: 145.48, type: "jump", nextIndex: 24, reference: "I've heard it too many times", fired: false },
+				{ time: 151.39, type: "jump", nextIndex: 25, reference: "It's something that I'm supposed to be", fired: false },
+				{ time: 157.84, type: "jump", nextIndex: 26, reference: "Someday we'll find it - chorus 3", fired: false },
+				{ time: 163.83, type: "jump", nextIndex: 27, reference: "The lovers the dreamers - chorus 3", fired: false },
+				{ time: 168.88, type: "jump", nextIndex: 28, reference: "Da dee da dee dum", fired: false },
+				{ time: 173.24, type: "jump", nextIndex: 29, reference: "Dum dee dee", fired: false },
+				{ time: 183.55, type: "Y1pause", nextIndex: 30, reference: "song ended", fired: false }
+			]
 		  },
     	  "the-visitor": {
 			base: "the-visitor",
@@ -1348,9 +1418,12 @@ There’s a cricket on the twentieth floor
 		const delaySlider = document.getElementById('delaySlider');
 		const delayLabel = document.getElementById('delayLabel');
 		let animationDelayMs = 0;
-		delaySlider.value = 1; // Set slider to 100ms (1 x 100ms)
-		animationDelayMs = 100;
-		delayLabel.textContent = "Delay: 100ms";
+//		delaySlider.value = 1; // Set slider to 100ms (1 x 100ms)
+//		animationDelayMs = 100;
+//		delayLabel.textContent = "Delay: 100ms";
+		delaySlider.value = 0; // Set slider to 100ms (1 x 100ms)
+		animationDelayMs = 0;
+		delayLabel.textContent = "Delay: 0ms";
 
 		delaySlider.addEventListener('input', function() {
 			animationDelayMs = parseInt(delaySlider.value) * 100;
@@ -2454,6 +2527,8 @@ There’s a cricket on the twentieth floor
 			backgroundMusic.currentTime = 0;
 
 			updatePlayButton();
+			
+			APPOINTMENTS = (songConfig.appointments || []).map(a => ({ ...a, fired: false }));
 		}
 
 		/*
@@ -3152,51 +3227,7 @@ There’s a cricket on the twentieth floor
 			  // Render the entire line of chords and lyrics unhighlighted
 			  renderText(chordText, 50, POSITION_CHORDS, [255, 165, 0]); // Orange for chords
 			  renderText(lyricText, 50, POSITION_LYRIC_LINE, [255, 255, 255]); // White for lyrics
-
-			  // Record syllable and chord positions
-			  if (!syllablePositions[currentIndex]) {
-				syllablePositions[currentIndex] = {}; // Initialize storage for the current line
-			  }
-
-			  const beatPositions = findBeatPositions(getRidOfLL(beats[currentIndex])); // Retrieve beat positions
-
-			  for (const [bNum, charIndex] of beatPositions) {
-				// -------------------------------------
-				// Record syllable positions
-				// -------------------------------------
-				const syllable = extractSyllableAtPosition(lyricText, charIndex); // Get the syllable for this beat
-				const syllableX = calculatePixelPosition(lyricText, 50, charIndex); // Calculate X position of the syllable
-				const syllableY = POSITION_LYRIC_LINE; // Constant Y position for lyric lines
-
-				if (!syllablePositions[currentIndex][bNum]) {
-				  syllablePositions[currentIndex][bNum] = { syllable, x: syllableX, y: syllableY };
-
-				  // Debugging log for recorded syllables
-				  dlog(
-					`Recording syllable: Beat ${bNum}, Syllable "${syllable}", ` +
-					`X=${syllableX}, Y=${syllableY}`
-				  );
-				  dlog(`songPaused: ${songPaused}`);
-				}
-
-				// -------------------------------------
-				// Record chord positions
-				// -------------------------------------
-				const chord = extractItemAtPosition(chordText, charIndex); // Get the chord for this beat
-				const chordX = calculatePixelPosition(chordText, 50, charIndex); // Calculate X position for the chord
-				const chordY = POSITION_CHORDS; // Constant Y position for chords
-
-				if (!syllablePositions[currentIndex][bNum].chord) {
-				  syllablePositions[currentIndex][bNum].chord = { chord, x: chordX, y: chordY };
-
-				  // Debugging log for recorded chords
-				  dlog(
-					`Recording chord: Beat ${bNum}, Chord "${chord}", X=${chordX}, Y=${chordY}`
-				  );
-				}
-			  }
-			}        
-
+			}
 			if (sections.length > 0) {
 			  renderText(sections[currentIndex % sections.length], 50, POSITION_SECTION, [0, 0, 255]);
 			}
@@ -3518,6 +3549,7 @@ There’s a cricket on the twentieth floor
 				APPOINTMENTS = (songConfig.appointments || []).map(a => ({ ...a, fired: false }));
 				loadAssetsAndSong(currentSongKey, aParam);
 				updatePlayButton();
+				initBallPhysics();
 			});
 			
 			dlog('Frigging Document Object Model is loaded NOW April 9 10:49 AM');
