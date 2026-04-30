@@ -1,31 +1,149 @@
-[Chorus]
-Four strong winds that blow lonely
-Seven seas that run high
-All those things that don't change come what may
-But our good times are all gone
-And I'm bound for movin' on
-I'll look for you if I'm ever back this way
+Four Strong  Winds by Ian Tyson
+4/4
+
+[Intro]
+     C         Dm       F      G
+	 *         *        *      *
+     1         3        5      7                                  ZZZ         LL 01
 
 [Verse 1]
+           C           Dm
 Think I'll go out to Alberta
+           1           3                                         ZZZ         LL 03
+
+[Verse 1]
+          G7                C
 Weather's good there in the fall
+          5                 7                                    ZZZ         LL 04
+	  
+[Verse 1]
+           C                  Dm            G           G7
 I got some friends that I can go to workin' for
+           1                  3             5           7        ZZZ         LL 05
+		   
+[Verse 1]
+        C                      Dm
 Still I wish you'd change your mind
+        1                      3                                ZZZ         LL 06
+                      
+[Verse 1]
+     G7                 C
 If I asked you one more time
+     5                  7                                       ZZZ         LL 07
+	 
+[Verse 1]
+          Dm                  F                G       G7       
 But we've been through that a hundred times or more
+          1                   3                5       7        ZZZ         LL 08
+		 
+[Chorus]
+            C               Dm
+Four strong winds that blow lonely
+            1               3                                   ZZZ         LL 09
 
 [Chorus]
-Four strong winds that blow lonely
+      G7            C
 Seven seas that run high
-All those things that don't change come what may
+      5             7                                           ZZZ         LL 10
+	  
+[Chorus] 
+          C                 Dm
+All those things that don't change
+          1                 3                                   ZZZ         LL 11
+
+[Chorus]
+          G                 G          G7
+come what may
+          5                 7                                   ZZZ         LL 12
+
+[Chorus]
+        C                  Dm
 But our good times are all gone
+        1                  3                                    ZZZ         LL 13
+
+[Chorus]
+        G7               C
 And I'm bound for movin' on
-I'll look for you if I'm ever back this way
+        5                7                                      ZZZ         LL 14
+		
+[Chorus]
+          Dm             F
+I'll look for you if I'm ever             
+		  1 		     3                                      ZZZ         LL 15
+
+[Chorus]
+          G          G7
+back this way        
+          5          7                                          ZZZ         LL 16
+
 
 [Verse 2]
+     C                    Dm
 If I get there before the snow flies
+     1                    3                                     ZZZ         LL 17
+
+[Verse 2]
+       G7               C
 And if things are goin' good
+       5                7                                       ZZZ         LL 18
+
+[Verse 2]
+          C            Dm                G           G7
 You could meet me if I sent you down the fare
+          1            3                 5           7          ZZZ         LL 19
+
+[Verse 2]
+       C                Dm
 But by then it would be winter
+       1                3                                       ZZZ         LL 20
+		
+[Verse 2]
+                G7              C
 There ain't too much for you to do
+                5               7                               ZZZ         LL 21
+
+[Verse 2]
+          Dm                  F            G       G7       
 And those winds sure can blow cold way out there
+          1                   3            5       7           ZZZ         LL 22
+
+[Chorus]
+            C               Dm
+Four strong winds that blow lonely
+                            3                                 ZZZ         LL 23
+
+[Chorus]
+      G7            C
+Seven seas that run high
+      5             7                                         ZZZ         LL 24
+	  
+[Chorus] 
+          C                 Dm
+All those things that don't change
+          1                 3                                 ZZZ         LL 25
+
+[Chorus]
+          G                 G          G7
+come what may
+          5                 7                                  ZZZ         LL 26
+
+[Chorus]
+        C                  Dm
+But our good times are all gone
+        1                  3                                  ZZZ         LL 27
+
+[Chorus]
+        G7               C
+And I'm bound for movin' on
+        5                7                                    ZZZ         LL 28
+		
+[Chorus]
+          Dm             F
+I'll look for you if I'm ever             
+		  1 		     3                                    ZZZ         LL 29
+
+[Chorus]
+          G          G7
+back this way        
+          5          7                                        ZZZ         LL 30
+
