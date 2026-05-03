@@ -2495,7 +2495,7 @@ There’s a cricket on the twentieth floor
 			// response: Response object (fetch result), assigned inline when used
 
 			const fileName = songFileMap[currentSongKey]?.base;
-			const lyricFile = fileName ? fileName + ".txt" : null;
+			const lyricFile = fileName ? fileName + ".txt?v=" + Date.now() : null;
 			let primarySrc = "";
 			let fallbackSrc = "";
 			let primaryColor = "";
@@ -2533,7 +2533,7 @@ There’s a cricket on the twentieth floor
 				}
 
 				// Set & load audio
-				audioElement.src = getAssetSource(fileName + '.mp3');
+				audioElement.src = getAssetSource(fileName + '.mp3?v=' + Date.now());
 				audioElement.load();
 				dlog("7. Trying to load: ", audioElement.src);
 				// Lyrics loading logic (with fallback, and finally embedded)
@@ -2667,6 +2667,7 @@ There’s a cricket on the twentieth floor
 			backgroundMusic.pause();
 			backgroundMusic.currentTime = 0;
 
+			animationPaused = false;
 			updatePlayButton();
 			
 			APPOINTMENTS = (songConfig.appointments || []).map(a => ({ ...a, fired: false }));
@@ -2711,9 +2712,10 @@ There’s a cricket on the twentieth floor
 				}
 				waitingForStart = false;
 				dlog('Starting up: attempting to play music and begin bounce/animation sync...');
+				bounceStartTime = performance.now() / 1000;
 				backgroundMusic.play()
 					.then(() => {
-						bounceStartTime = performance.now() / 1000;
+//						bounceStartTime = performance.now() / 1000;
 						dlog('AUDIO PLAY resolved — animation and audio now synced!');
 						// (Optional: start animation loop here, if not already running:)
 						// if (typeof render === "function") requestAnimationFrame(render);
@@ -3709,6 +3711,8 @@ There’s a cricket on the twentieth floor
 					document.getElementById('loadingStatus').textContent = 'Select a song to begin...';
 					return;
 				}
+				resetSong();
+				console.log('togglePlayback: waitingForStart=', waitingForStart, 'lyrics.length=', lyrics.length);
 				document.getElementById('loadingStatus').textContent = 'Loading ' + currentSongKey + '...';
 				const aParam = (new URLSearchParams(window.location.search)).get('a');
 				dlog("Song selected:", currentSongKey, "Starting full asset load...");
