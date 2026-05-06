@@ -15,7 +15,7 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
 			padding: 0;
 			background: #1e1e1e;
 			color: white;
-			font-family: 'Courier New', monospace;
+			font-family: 'Consolas', monospace;
 			overflow: hidden;
 			user-select: none;
 			-webkit-user-select: none;
@@ -47,7 +47,7 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
 			  border: 2px solid #00ff00;
 			  background: rgba(0,0,0,0.7);
 			  color: #fff;
-			  font-family: 'Courier New', monospace;
+			  font-family: 'Consolas', monospace;
 			  font-size: 14px;
 			  box-sizing: border-box;
 			  /* prevent full-width stretching */
@@ -120,7 +120,7 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
 			font-weight: bold;
 			cursor: pointer;
 			border-radius: 5px;
-			font-family: 'Courier New', monospace;
+			font-family: 'Consolas', monospace;
 			white-space: nowrap;
 			box-sizing: border-box;
 			min-width: 92px;                           /* prevents too-small buttons */
@@ -202,6 +202,7 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
         <option value="rainbow">Rainbow Connection</option>
         <option value="dylan">Don't Think Twice, It's All Right</option>
         <option value="the-visitor">The Visitor</option>
+		<option value="Rogers">Mary Ellen Carter</option>
     </select>
     <div id="loadingStatus">Select a song to begin...</div>
 
@@ -781,7 +782,7 @@ There’s a cricket on the twentieth floor
 				{ time: 75.64, type: "jump", nextIndex: 15, reference: "To try and make me change my mind and stay", fired: false },
 				{ time: 80.00, type: "jump", nextIndex: 16, reference: "We never did too much talkin anyway", fired: false },
 				{ time: 84.16, type: "jump", nextIndex: 17, reference: "So don't think twice chorus 2", fired: false },
-				{ time: 87.47, type: "jump", nextIndex: 18, reference: "Harmonica break 2", fired: false },
+				{ time: 87.47, type: "jump", nextIndex: 18, reference: "Harmonica break", fired: false },
 				{ time: 97.27, type: "jump", nextIndex: 19, reference: "No it ain't no use in callin out my name gal", fired: false },
 				{ time: 102.44, type: "jump", nextIndex: 20, reference: "Like you never done before", fired: false },
 				{ time: 105.96, type: "jump", nextIndex: 21, reference: "An it ain't no use in callin out my name gal repeat", fired: false },
@@ -790,7 +791,7 @@ There’s a cricket on the twentieth floor
 				{ time: 118.89, type: "jump", nextIndex: 24, reference: "I once loved a woman a child I'm told", fired: false },
 				{ time: 123.32, type: "jump", nextIndex: 25, reference: "I give her my heart but she wanted my soul", fired: false },
 				{ time: 127.95, type: "jump", nextIndex: 26, reference: "Don't think twice chorus 3", fired: false },
-				{ time: 130.73, type: "jump", nextIndex: 27, reference: "Harmonica break 3", fired: false },
+				{ time: 130.73, type: "jump", nextIndex: 27, reference: "Harmonica break", fired: false },
 				{ time: 144.40, type: "jump", nextIndex: 28, reference: "So long honey babe", fired: false },
 				{ time: 148.28, type: "jump", nextIndex: 29, reference: "Where I'm bound I can't tell", fired: false },
 				{ time: 153.27, type: "jump", nextIndex: 30, reference: "Goodbye is too good a word gal", fired: false },
@@ -799,62 +800,71 @@ There’s a cricket on the twentieth floor
 				{ time: 165.83, type: "jump", nextIndex: 33, reference: "You could have done better but I don't mind", fired: false },
 				{ time: 170.55, type: "jump", nextIndex: 34, reference: "You just kinda wasted my precious time", fired: false },
 				{ time: 174.58, type: "jump", nextIndex: 35, reference: "But don't think twice chorus 4", fired: false },
-				{ time: 177.85, type: "jump", nextIndex: 36, reference: "Harmonica break 5 line 1", fired: false },
-				{ time: 213.93, type: "jump", nextIndex: 37, reference: "Harmonica break 5 line 3", fired: false }
+				{ time: 177.85, type: "jump", nextIndex: 36, reference: "Harmonica break", fired: false },
+				{ time: 213.93, type: "jump", nextIndex: 37, reference: "Harmonica break", fired: false }
 			]
 		  },
-		  "Mary Ellen Carter": {
-			base: "maryEllenCarter",
+		  "Rogers": {
+			base: "maryEllenCarterJoelChris",
 			display: "Mary Ellen Carter",
 			bouncesPerLine: 4,
-			bounceDuration: 0.60,
+			bounceDuration: 1.2,
 			appointments: [
-			{ time: 0.00, type: "jump", nextIndex: 0,  reference: "She went down last October", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 1,  reference: "The skipper he'd been drinking", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 2,  reference: "Too close to Three Mile Rock", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 3,  reference: "And the Mary Ellen Carter settled low", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 4,  reference: "There was just us five aboard her", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 5,  reference: "We'd worked like hell to save her", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 6,  reference: "And the groan she gave as she went down", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 7,  reference: "That the Mary Ellen Carter would rise again - v1", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 8,  reference: "Well the owners wrote her off", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 9,  reference: "She gave twenty years of service", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 10, reference: "But insurance paid the loss to us", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 11, reference: "Then they laughed at us and said we had to go", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 12, reference: "But we talked of her all winter", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 13, reference: "She's worth a quarter million", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 14, reference: "And with every jar that hit the bar", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 15, reference: "And make the Mary Ellen Carter rise again - v2", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 16, reference: "Rise again rise again - chorus 1", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 17, reference: "Let her name not be lost - chorus 1", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 18, reference: "Those who loved her best - chorus 1", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 19, reference: "Will make the Mary Ellen Carter rise again - chorus 1", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 20, reference: "All spring now we've been with her", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 21, reference: "Three dives a day in hard hat suit", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 22, reference: "Thank God it's only sixty feet", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 23, reference: "Or I'd never have the strength to go below", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 24, reference: "But we've patched her rents stopped her vents", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 25, reference: "Put cables to her fore and aft", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 26, reference: "Tomorrow noon we hit the air", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 27, reference: "And make the Mary Ellen Carter rise again - v3", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 28, reference: "Rise again rise again - chorus 2", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 29, reference: "Let her name not be lost - chorus 2", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 30, reference: "Those who loved her best - chorus 2", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 31, reference: "Will make the Mary Ellen Carter rise again - chorus 2", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 32, reference: "Instrumental", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 33, reference: "For we couldn't leave her there", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 34, reference: "She'd saved our lives so many times", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 35, reference: "And the laughing drunken rats", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 36, reference: "They won't be laughing in another day", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 37, reference: "And you to whom adversity has dealt the final blow", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 38, reference: "With smiling bastards lying to you", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 39, reference: "Turn to and put out all your strength", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 40, reference: "And like the Mary Ellen Carter rise again - v4", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 41, reference: "Rise again rise again - chorus 3", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 42, reference: "Let her name not be lost - chorus 3", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 43, reference: "Those who loved her best - chorus 3", fired: false },
-			{ time: 0.00, type: "jump", nextIndex: 44, reference: "Will make the Mary Ellen Carter rise again - chorus 3", fired: false },
-			{ time: 0.00, type: "Y1pause", nextIndex: 45, reference: "song ended", fired: false }
+			{ time: 0.00, type: "jump", nextIndex: 0,  reference: "Intro", fired: false },
+			{ time: 5.88, type: "jump", nextIndex: 1,  reference: "Intro", fired: false },
+			{ time: 11.75, type: "jump", nextIndex: 2,  reference: "Intro", fired: false },
+			{ time: 17.63, type: "jump", nextIndex: 3,  reference: "Intro", fired: false },
+			{ time: 23.50, type: "jump", nextIndex: 4,  reference: "She went down last October", fired: false },
+			{ time: 28.54, type: "jump", nextIndex: 5,  reference: "The skipper he'd been drinking", fired: false },
+			{ time: 33.36, type: "jump", nextIndex: 6,  reference: "Too close to Three Mile Rock", fired: false },
+			{ time: 38.04, type: "jump", nextIndex: 7,  reference: "And the Mary Ellen Carter settled low", fired: false },
+			{ time: 43.09, type: "jump", nextIndex: 8,  reference: "There was just us five aboard her when she finally was awash", fired: false },
+			{ time: 48.13, type: "jump", nextIndex: 9,  reference: "We worked like hell to save her, all heedless of the cost", fired: false },
+			{ time: 52.95, type: "jump", nextIndex: 10,  reference: "And the groan she gave as ahe went down it caused us to proclaim", fired: false },
+			{ time: 57.69, type: "jump", nextIndex: 11,  reference: "That the Mary Ellen Carter would rise again", fired: false },
+			{ time: 61.02, type: "jump", nextIndex: 12,  reference: "guitar break", fired: false },
+			{ time: 78.82, type: "jump", nextIndex: 13,  reference: "Well the owners wrote her off, not a nickel would they spend", fired: false },
+			{ time: 83.67, type: "jump", nextIndex: 14,  reference: "She gave twenty years of service", fired: false },
+			{ time: 88.60, type: "jump", nextIndex: 15, reference: "But insurance paid the loss to us", fired: false },
+			{ time: 93.46, type: "jump", nextIndex: 16, reference: "Then they laughed at us and said we had to go", fired: false },
+			{ time: 98.50, type: "jump", nextIndex: 17, reference: "But we talked of her all winter", fired: false },
+			{ time: 103.53, type: "jump", nextIndex: 18, reference: "She's worth a quarter million", fired: false },
+			{ time: 108.29, type: "jump", nextIndex: 19, reference: "And with every jar that hit the bar", fired: false },
+			{ time: 113.05, type: "jump", nextIndex: 20, reference: "And make the Mary Ellen Carter rise again - v2", fired: false },
+			{ time: 118.37, type: "jump", nextIndex: 21, reference: "Rise again rise again - chorus 1", fired: false },
+			{ time: 123.40, type: "jump", nextIndex: 22, reference: "Let her name not be lost - chorus 1", fired: false },
+			{ time: 128.69, type: "jump", nextIndex: 23, reference: "Those who loved her best - chorus 1", fired: false },
+			{ time: 133.19, type: "jump", nextIndex: 24, reference: "Will make the Mary Ellen Carter rise again - chorus 1", fired: false },
+			{ time: 137.67, type: "jump", nextIndex: 25, reference: "guitar", fired: false },
+			{ time: 146.35, type: "jump", nextIndex: 26, reference: "All spring now we've been with her", fired: false },
+			{ time: 151.40, type: "jump", nextIndex: 27, reference: "Three dives a day in hard hat suit", fired: false },
+			{ time: 156.42, type: "jump", nextIndex: 28, reference: "Thank God it's only sixty feet", fired: false },
+			{ time: 161.40, type: "jump", nextIndex: 29, reference: "Or I'd never have the strength to go below", fired: false },
+			{ time: 166.33, type: "jump", nextIndex: 30, reference: "But we've patched her rents stopped her vents", fired: false },
+			{ time: 171.37, type: "jump", nextIndex: 31, reference: "Put cables to her fore and aft", fired: false },
+			{ time: 176.29, type: "jump", nextIndex: 32, reference: "Tomorrow noon we hit the air", fired: false },
+			{ time: 181.40, type: "jump", nextIndex: 33, reference: "And make the Mary Ellen Carter rise again - v3", fired: false },
+			{ time: 186.65, type: "jump", nextIndex: 34, reference: "Rise again rise again - chorus 2", fired: false },
+			{ time: 191.96, type: "jump", nextIndex: 35, reference: "Let her name not be lost - chorus 2", fired: false },
+			{ time: 197.14, type: "jump", nextIndex: 36, reference: "Those who loved her best - chorus 2", fired: false },
+			{ time: 206.51, type: "jump", nextIndex: 37, reference: "Will make the Mary Ellen Carter rise again - chorus 2", fired: false },
+			{ time: 209.44, type: "jump", nextIndex: 38, reference: "For we couldn't leave her there", fired: false },
+			{ time: 214.62, type: "jump", nextIndex: 39, reference: "She'd saved our lives so many times", fired: false },
+			{ time: 219.44, type: "jump", nextIndex: 40, reference: "And the laughing drunken rats", fired: false },
+			{ time: 224.98, type: "jump", nextIndex: 41, reference: "They won't be laughing in another day", fired: false },
+			{ time: 230.00, type: "jump", nextIndex: 42, reference: "And you to whom adversity has dealt the final blow", fired: false },
+			{ time: 234.77, type: "jump", nextIndex: 43, reference: "With smiling bastards lying to you", fired: false },
+			{ time: 240.00, type: "jump", nextIndex: 44, reference: "Turn to and put out all your strength", fired: false },
+			{ time: 244.69, type: "jump", nextIndex: 45, reference: "And like the Mary Ellen Carter rise again - v4", fired: false },
+			{ time: 249.93, type: "jump", nextIndex: 46, reference: "Rise again rise again", fired: false },
+			{ time: 255.18, type: "jump", nextIndex: 47, reference: "Though your heart it be broken and lfe about to end", fired: false },
+			{ time: 260.54, type: "jump", nextIndex: 48, reference: "No matter what you've lost be it a home a love a friend,", fired: false },
+			{ time: 265.32, type: "jump", nextIndex: 49, reference: "like the Mary Ellen Carter rise again", fired: false },
+			{ time: 270.51, type: "jump", nextIndex: 46, reference: "Rise again rise again", fired: false },
+			{ time: 275.79, type: "jump", nextIndex: 47, reference: "Though your heart it be broken and lfe about to end", fired: false },
+			{ time: 281.21, type: "jump", nextIndex: 48, reference: "No matter what you've lost be it a home a love a friend,", fired: false },
+			{ time: 286.08, type: "jump", nextIndex: 49, reference: "like the Mary Ellen Carter rise again", fired: false },
+			{ time: 300.20, type: "Y1pause", nextIndex: 50, reference: "song ended", fired: false }
 			]
 		  },
 		  "Four Strong Winds": {
@@ -1872,6 +1882,7 @@ There’s a cricket on the twentieth floor
 			"either": ["ei", "ther"],
 			
 			// Mary Ellen Carter
+			"again": ["a", "gain"],
 			"october": ["oc", "to", "ber"],
 			"pouring": ["pour", "ing"],
 			"driving": ["driv", "ing"],
@@ -1903,6 +1914,15 @@ There’s a cricket on the twentieth floor
 			"another": ["an", "oth", "er"],
 			"everywhere": ["ev", "ery", "where"],
 			"strength": ["strength"],
+			"mary": ["mary"],
+			
+			// music
+			"break": ["break"],
+			"harmonica": ["har", "mon", "i", "ca"],
+			"guitar": ["gui", "tar"],
+			"pedal": ["ped", "al"],
+			"steel": ["steel"],
+			"solo": ["so", "lo"],
 
 			// ---------------------------
 			// High Flight
@@ -2037,7 +2057,7 @@ There’s a cricket on the twentieth floor
 				wordEnd++;
 			}
 			
-			const word = line.substring(wordStart, wordEnd).trim().toLowerCase();
+			const word = line.substring(wordStart, wordEnd).trim();
 			const cleanWord = word.replace(/[^\w]/g, '').toLowerCase();
 			const isFirstWord = wordStart === 0 || line.substring(0, wordStart).trim() === "";
 			
@@ -2711,6 +2731,7 @@ There’s a cricket on the twentieth floor
 					resetSong();
 				}
 				waitingForStart = false;
+				animationPaused = false;
 				dlog('Starting up: attempting to play music and begin bounce/animation sync...');
 				bounceStartTime = performance.now() / 1000;
 				backgroundMusic.play()
@@ -2803,7 +2824,7 @@ There’s a cricket on the twentieth floor
            running = false;           ctx.fillStyle = '#1e1e1e';
            ctx.fillRect(0, 0, canvas.width, canvas.height);
            ctx.fillStyle = '#00ff00';
-           ctx.font = 'bold 28px Courier New';
+           ctx.font = 'bold 28px Consolas';
            ctx.textAlign = 'center';
                 
                 // Try to get the folder path
@@ -2824,7 +2845,7 @@ There’s a cricket on the twentieth floor
                 ctx.fillText('To close the program you must close this tab or window,', canvas.width/2, canvas.height/2 - 40);
                 if (folderPath) {
                     ctx.fillText('or go back to the folder you started from:', canvas.width/2, canvas.height/2);
-                    ctx.font = 'bold 24px Courier New';
+                    ctx.font = 'bold 24px Consolas';
                     ctx.fillText(folderPath, canvas.width/2, canvas.height/2 + 40);
                 } else {
                     ctx.fillText('or go back to the folder you started this program from.', canvas.width/2, canvas.height/2);
@@ -3078,7 +3099,7 @@ There’s a cricket on the twentieth floor
 		// Used for all major text elements in render loop.
 		*/
 		function renderText(text, x, y, color, fontSize = 40, align = 'left', baseline = 'alphabetic') {
-			ctx.font = `bold ${fontSize}px 'Courier New', monospace`;
+			ctx.font = `bold ${fontSize}px 'Consolas', monospace`;
 			ctx.textAlign = align;           // 'left' | 'center' | 'right'
 			ctx.textBaseline = baseline;     // 'alphabetic' | 'top' | 'bottom' | etc.
 			// subtle stroke for readability, then fill
@@ -3101,7 +3122,7 @@ There’s a cricket on the twentieth floor
         function calculatePixelPosition(text, x, charIndex, fontSize = 40) {
             if (charIndex >= text.length) return x;
             
-            ctx.font = `bold ${fontSize}px 'Courier New', monospace`;
+            ctx.font = `bold ${fontSize}px 'Consolas', monospace`;
             const textBefore = text.substring(0, charIndex);
             const width = ctx.measureText(textBefore).width;
             return x + width;
@@ -3115,7 +3136,7 @@ There’s a cricket on the twentieth floor
 		// Essential for dynamic per-beat feedback.
 		*/
         function renderWordAtPosition(word, x, y, color, fontSize = 40) {
-            ctx.font = `bold ${fontSize}px 'Courier New', monospace`;
+            ctx.font = `bold ${fontSize}px 'Consolas', monospace`;
             ctx.fillStyle = colorToString(color);
             ctx.fillText(word, x, y);
         }
@@ -3144,12 +3165,12 @@ There’s a cricket on the twentieth floor
 
 			// Title
 			ctx.fillStyle = '#00ff00';
-			ctx.font = 'bold 24px Courier New';
+			ctx.font = 'bold 24px Consolas';
 			ctx.textAlign = 'center';
 			ctx.fillText('SETTINGS (Ctrl+S to close)', canvas.width / 2, panelY + 40);
 
 			// Speed label
-			ctx.font = 'bold 18px Courier New';
+			ctx.font = 'bold 18px Consolas';
 			ctx.fillText('Speed: ' + speedLabels[currentSpeedIndex], canvas.width / 2, panelY + 100);
 
 			// Delay label
@@ -3289,7 +3310,7 @@ There’s a cricket on the twentieth floor
 
 			// Draw line number on controls
 			if (!waitingForStart) {
-			  ctx.font = 'bold 40px Courier New';
+			  ctx.font = 'bold 40px Consolas';
 			  ctx.fillStyle = colorToString([0, 255, 0]);
 			  const progressText = String(songLineNumber).padStart(3, '0');
 			  ctx.fillText(progressText, controlsX + 50, controlsY + 60);
@@ -3298,10 +3319,10 @@ There’s a cricket on the twentieth floor
 
 		  // Draw title and time signature
 		  if (songData.title) {
-			renderText(songData.title, 50, POSITION_TITLE, [0, 255, 0]);
+			renderText(songData.title, 5, POSITION_TITLE, [0, 255, 0]);
 		  }
 		  if (songData.timeSignature) {
-			renderText(songData.timeSignature, 50, POSITION_TIME_SIGNATURE, [0, 255, 0]);
+			renderText(songData.timeSignature, 5, POSITION_TIME_SIGNATURE, [0, 255, 0]);
 		  }
 
 		  // Draw messages
@@ -3340,8 +3361,8 @@ There’s a cricket on the twentieth floor
 				  const beatFactor = rising ? beatProgress : (1.0 - beatProgress);
 
 				  // Render base text
-				  renderText(chordText, 20, POSITION_CHORDS, [255, 165, 0]);
-				  renderText(lyricText, 20, POSITION_LYRIC_LINE, [255, 255, 255]);
+				  renderText(chordText, 5, POSITION_CHORDS, [255, 165, 0]);
+				  renderText(lyricText, 5, POSITION_LYRIC_LINE, [255, 255, 255]);
 
 				  // Find beat positions and highlight
 					const beatPositions = beatPositionsCache[currentIndex] || [];
@@ -3349,7 +3370,7 @@ There’s a cricket on the twentieth floor
 					if (bNum === beatNum) {
 					  if (word) {
 						const syllable = extractSyllableAtPosition(lyricText, charIndex);
-						const pixelX = calculatePixelPosition(lyricText, 20, charIndex);
+						const pixelX = calculatePixelPosition(lyricText, 5, charIndex);
 						const highlightColor = syllableHighlightColor;
 
 						// Clear background for highlighted word
@@ -3362,7 +3383,7 @@ There’s a cricket on the twentieth floor
 					  }
 
 					  if (chord) {
-						const pixelX = calculatePixelPosition(chordText, 20, charIndex);
+						const pixelX = calculatePixelPosition(chordText, 5, charIndex);
 						const highlightColor = syllableHighlightColor;
 
 						// Clear background for highlighted chord
@@ -3383,13 +3404,13 @@ There’s a cricket on the twentieth floor
 
 			if (!highlightingActive) {
 			  // Render the entire line of chords and lyrics unhighlighted
-			  renderText(chordText, 20, POSITION_CHORDS, [255, 165, 0]); // Orange for chords
-			  renderText(lyricText, 20, POSITION_LYRIC_LINE, [255, 255, 255]); // White for lyrics
+			  renderText(chordText, 5, POSITION_CHORDS, [255, 165, 0]); // Orange for chords
+			  renderText(lyricText, 5, POSITION_LYRIC_LINE, [255, 255, 255]); // White for lyrics
 				if (currentHLWord) {
 					const lyricText = lyrics[currentIndex % lyrics.length];
 					const wordIndex = lyricText.toLowerCase().indexOf(currentHLWord.toLowerCase());
 					if (wordIndex >= 0) {
-						const pixelX = calculatePixelPosition(lyricText, 50, wordIndex);
+						const pixelX = calculatePixelPosition(lyricText, 5, wordIndex);
 						const syllableWidth = ctx.measureText(currentHLWord).width;
 						ctx.fillStyle = '#1e1e1e';
 						ctx.fillRect(pixelX, POSITION_LYRIC_LINE - 35, syllableWidth, 45);
@@ -3397,7 +3418,7 @@ There’s a cricket on the twentieth floor
 					}
 				}			}
 			if (sections.length > 0) {
-			  renderText(sections[currentIndex % sections.length], 50, POSITION_SECTION, [0, 0, 255]);
+			  renderText(sections[currentIndex % sections.length], 5, POSITION_SECTION, [0, 0, 255]);
 			}
 		  }
 
@@ -3563,7 +3584,7 @@ There’s a cricket on the twentieth floor
 
 			// White label
 			ctx.fillStyle = '#fff';
-			ctx.font = "bold 12px 'Courier New', monospace";
+			ctx.font = "bold 12px 'Consolas', monospace";
 			ctx.textAlign = 'center';
 			ctx.textBaseline = 'middle';
 			ctx.fillText(item.name || '', POSITIONS[i].x, POSITIONS[i].y);
