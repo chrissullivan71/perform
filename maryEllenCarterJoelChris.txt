@@ -4,62 +4,62 @@ Mary Ellen Carter by Stan Rogers
 [Intro]
     D        Bm       A       D
     *        *        *       * 
-    1        3        5       7                                           ZZZ    LL 01
+    1        3        5       7                                             ZZZ    LL 01
 
 [Intro]
     Bm       Bm      Bm      A
     *        *       *       *
-    1        3       5       7                                            ZZZ    LL 02
+    1        3       5       7                                              ZZZ    LL 02
 	
 [Intro]
     D        D       Bm      A
     *        *       *       * 
-    1        3       5       7                                            ZZZ    LL 03
+    1        3       5       7                                              ZZZ    LL 03
 
 [Intro]
     D        Bm      A       D
     *        *       *       *
-    1        3       5       7                                            ZZZ    LL 04
+    1        3       5       7                                              ZZZ    LL 04
 
 [Verse  1]
     D                D(C#bass)  Bm      A       D
 She went down last October in a pouring driving rain
-    1                3          5       6       7                         ZZZ    LL 05
+    1                3          5       6       7                           ZZZ    LL 05
 
 [Verse 1]
-    Bm                Bm               Bm      Bm      A
-The skipper he'd been drinking and the mate he felt no pain
-    1                 3                5       6       7                  ZZZ    LL 06
+    Bm                Bm               Bm        Bm        A
+The skipper he'd been drinking and the mate he ##felt no pain
+    1                 3                5         6         7                ZZZ    LL 06
 
 [Verse 1]
-    D                   D(C#bass)        Bm        A      D
-Too close to Three Mile Rock and she was dealt her mortal blow
-    1                   3                5         6      7               ZZZ    LL 07
+    D                   D(C#bass)        Bm          A      D
+Too close to Three Mile Rock and she was dealt her ##mortal blow
+    1                   3                5           6      7               ZZZ    LL 07
 
 [Verse 1]
         Em         Em             Em         A
 And the Mary Ellen Carter settled low
-        1          3              5          7                            ZZZ    LL 08
+        1          3              5          7                              ZZZ    LL 08
 
 [Verse 2]
-          D             D(C#bass)          Bm      A    D
-There was just us five aboard her when she finally was awash
-          1             3                  5       6    7                 ZZZ    LL 09
+          D             D(C#bass)          Bm        A    D
+There was just us five aboard her when she finally ##was awash
+          1             3                  5         6    7                ZZZ    LL 09
 
 [Verse 2]
-     Bm                  Bm           Bm       Bm     A
-We'd worked like hell to save her all heedless of the cost
-     1                   3            5        6      7                   ZZZ    LL 10
+     Bm                  Bm           Bm       Bm       A
+We'd worked like hell to save her all heedless of the ##cost
+     1                   3            5        6        7                  ZZZ    LL 10
 
 [Verse 2]
-        D                 D(C#bass)        Bm        A      D
-And the groan she gave as she went down it caused us to proclaim
-        1                 3                5         6      7             ZZZ    LL 11
+        D                 D(C#bass)        Bm        A       D
+And the groan she gave as she went down it caused us to ##proclaim
+        1                 3                5         6       7             ZZZ    LL 11
 
 [Verse 2]
          Bm         A                  D
 That the Mary Ellen Carter would rise again
-         1          3                  5            7                     ZZZ    LL 12
+         1          3                  5            7                      ZZZ    LL 12
 
 [Guitar break]
     D        D            Bm      A
@@ -67,19 +67,19 @@ That the Mary Ellen Carter would rise again
     1        3            5       7                    					  ZZZ    LL 13
 	
 [Verse 3]
-         D                D(C#bass) Bm     A          D
-Well the owners wrote her off not a nickel would they spend
-         1                3         5      6          7                   ZZZ    LL 14
+         D                D(C#bass) Bm     A            D
+Well the owners wrote her off not a nickel would they ##spend
+         1                3         5      6            7                 ZZZ    LL 14
 
 [Verse 3]
-         Bm              Bm                Bm      Bm    A
-She gave twenty years of service boys then met her sorry end
-         1               3                 5             7                ZZZ    LL 15
+         Bm              Bm                Bm      Bm      A
+She gave twenty years of service boys then met her ##sorry end
+         1               3                 5               7              ZZZ    LL 15
 
 [Verse 3]
-      D                D(C#bass)     Bm      A      D
-But insurance paid the loss to us so let her rest below
-      1                3             5       6      7                     ZZZ    LL 16
+      D                D(C#bass)     Bm      A        D
+But insurance paid the loss to us so let her rest ##below
+      1                3             5       6        7                   ZZZ    LL 16
 
 [Verse 3]
           Em                Em             A
@@ -87,39 +87,39 @@ Then they laughed at us and said we had to go
           1                 3              5        7                     ZZZ    LL 17
 
 [Verse 4]
-       D                 D(C#bass)   Bm    A         D
-But we talked of her all winter some days around the clock
-       1                 3           5     6         7                    ZZZ    LL 18
+       D                 D(C#bass)   Bm    A           D
+But we talked of her all winter some days around the ##clock
+       1                 3           5     6           7                 ZZZ    LL 18
 
 [Verse 4]
       Bm              Bm       Bm        Bm     A
 She's worth a quarter million afloat and at the dock
-      1               3        5                7                         ZZZ    LL 19
+      1               3        5                7                        ZZZ    LL 19
 
 [Verse 4]
          D              D(C#bass)      Bm       A       D
-And with every jar that hit the bar we swore we would remain
-         1              3              5        6       7                 ZZZ    LL 20
+And with every jar that hit the bar we swore we would ##remain
+         1              3              5        6       7                ZZZ    LL 20
 
 [Verse 4]
              Em         A           D
 And make the Mary Ellen Carter rise again
-             1          3           5       7                             ZZZ    LL 21
+             1          3           5       7                            ZZZ    LL 21
 
 [Chorus]
       Bm    A     D
 Rise again, rise again!
-      1     3     5       7                                               ZZZ    LL 22
+      1     3     5       7                                              ZZZ    LL 22
 
 [Chorus]
-        Em                                   D
-Let her name not be lost to the knowledge of men
-        1           3           5            7                            ZZZ    LL 23
+        Em                                    D
+That her name not be lost to the knowledge of men
+        1           3           5             7                          ZZZ    LL 23
 
 [Chorus]
-D                   D(C#bass)     Bm       A       D
-Those who loved her best and were with her til the end
-1                   3             5        6       7                      ZZZ    LL 24
+    D                   D(C#bass)     Bm       A          D
+And those who loved her best and were with her till ##the end
+    1                   3             5        6          7              ZZZ    LL 24
 
 [Chorus]
               Em         A            D
@@ -132,19 +132,19 @@ Will make the Mary Ellen Carter rise again
     1        3        5       7                                           ZZZ    LL 26
 	
 [Verse 5]
-    D                     D(C#bass)     Bm         A    D
-All spring now we've been with her on a barge lent by a friend
-    1                     3             5          6    7                 ZZZ    LL 27
+    D                     D(C#bass)     Bm         A      D
+All spring now we've been with her on a barge lent by a## friend
+    1                     3             5          6      7               ZZZ    LL 27
 
 [Verse 5]
-      Bm             Bm                Bm         Bm      A
-Three dives a day in hard hat suit and twice I've had the bends
-      1              3                 5          6       7               ZZZ    LL 28
+      Bm             Bm                Bm         Bm    A
+Three dives a day in hard hat suit and twice I've had ##the bends
+      1              3                 5          6     7                 ZZZ    LL 28
 
 [Verse 5]
-      D             D(C#bass)      Bm       A        D
-Thank God it's only sixty feet and currents here are slow
-      1             3              5        6        7                    ZZZ    LL 29
+      D             D(C#bass)      Bm       A          D
+Thank God it's only sixty feet and currents here are ##slow
+      1             3              5        6          7                  ZZZ    LL 29
 
 [Verse 5]
        Em             Em             Em         A
@@ -152,9 +152,9 @@ Or I'd never have the strength to go below
        1              3              5          7                         ZZZ    LL 30
 
 [Verse 6]
-          D                 D(C#bass)                Bm        A        D
-But we've patched her rents stopped her vents dogged hatch and porthole down
-          1                 3                        5         6        7       ZZZ    LL 31
+          D                 D(C#bass)                  Bm        A        D
+But we've patched her rents stopped her vents dogged## hatch and porthole down
+          1                 3                          5         6        7       ZZZ    LL 31
 
 [Verse 6]
     Bm            Bm               Bm     Bm   A
@@ -162,9 +162,9 @@ Put cables to her fore and aft and girded her around
     1             3                5      6    7                          ZZZ    LL 32
 
 [Verse 6]
-  D              D(C#bass)       Bm        A      D
-Tomorrow noon we hit the air and then take up the strain
-  1              3               5         6      7                       ZZZ    LL 33
+      D              D(C#bass)       Bm        A        D
+And tomorrow noon we hit the air and then take up the ##strain
+      1              3               5         6        7                       ZZZ    LL 33
 
 [Verse 6]
              Em         A            D
@@ -182,9 +182,9 @@ That her name not be lost to the knowledge of men
         1           3           5            7                           ZZZ    LL 36
 
 [Chorus]
-D                   D(C#bass)     Bm       A       D
-Those who loved her best and were with her til the end
-1                   3             5        6       7                     ZZZ    LL 37
+    D                   D(C#bass)     Bm       A       D
+And those who loved her best and were with her til the end
+    1                   3             5        6       7                 ZZZ    LL 37
 
 [Chorus]
               Em         A            D
@@ -192,19 +192,19 @@ Will make the Mary Ellen Carter rise again
               1          3            5                                  ZZZ    LL 38
 
 [Verse 7]
-       D                  D(C#bass)        Bm      A    D
-For we couldn't leave her there you see to crumble into scale
-       1                  3                5       6    7                ZZZ    LL 39
+       D                  D(C#bass)        Bm      A      D
+For we couldn't leave her there you see to crumble into ##scale
+       1                  3                5       6                     ZZZ    LL 39
 
 [Verse 7]
-      Bm                 Bm         Bm     Bm          A
-She'd saved our lives so many times living through the gale
-      1                  3          5      6           7                 ZZZ    LL 40
+      Bm                 Bm         Bm     Bm            A
+She'd saved our lives so many times living through the ##gale
+      1                  3          5      6             7               ZZZ    LL 40
 
 [Verse 7]
-        D                D(C#bass)         Bm   A     D
-And the laughing drunken rats who left her to a sorry grave
-        1                3                 5    6     7                  ZZZ    LL 41
+        D                D(C#bass)         Bm   A       D
+And the laughing drunken rats who left her to a sorry ##grave
+        1                3                 5    6       7                ZZZ    LL 41
 
 [Verse 7]
      Em       Em       Em  Em     A
@@ -222,9 +222,9 @@ With smiling bastards lying to you everywhere you go
      1                3            5    6         7                     ZZZ    LL 44
 
 [Verse 7]
-     D              D(C#bass)            Bm      A         D
-Turn to and put out all your strength of arm and heart and brain
-     1              3                    5       6         7           ZZZ    LL 45
+     D              D(C#bass)            Bm        A         D
+Turn to and put out all your strength of arm and ##heart and brain
+     1              3                    5         6         7         ZZZ    LL 45
 
 [Verse 7]
              Em         A            D
@@ -242,9 +242,9 @@ Though your heart it be broken or life about to end
             1           3         5             7                      ZZZ    LL 48
 
 [Chorus]
-   D                  D(C#bass)     Bm      A       D
-No matter what you've lost, be it a home, a love, a friend
-   1                  3             5       6       7                  ZZZ    LL 49
+   D                  D(C#bass)     Bm      A         D
+No matter what you've lost, be it a home, a love, a ##friend
+   1                  3             5       6         7                ZZZ    LL 49
 
 [Chorus]
               Bm         A            D
@@ -262,9 +262,9 @@ Though your heart it be broken or life about to end
             1           3         5             7                      ZZZ    LL 52
 
 [Chorus]
-   D                  D(C#bass)     Bm      A       D
-No matter what you've lost, be it a home, a love, a friend
-   1                  3             5       6       7                  ZZZ    LL 53
+   D                  D(C#bass)     Bm      A         D
+No matter what you've lost, be it a home, a love, a ##friend
+   1                  3             5       6         7                ZZZ    LL 53
 
 [Chorus]
               Bm    A            D
