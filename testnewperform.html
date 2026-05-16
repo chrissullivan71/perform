@@ -194,7 +194,6 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
 	</style>
 </head>
 <body>
-<h1>THIS IS THE SERVED VERSION</h1>
 
 	<select id="songSelector">
         <option value="">Select Song...</option>
@@ -262,6 +261,10 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
 
 <script>
 	console.log("=== script is running ===");
+	
+		let overlayMode = null; // null, 'lyrics', 'artwork', 'credits'
+		let overlayScrollY = 0;	
+		let loadedLyricsText = null;
 
    // Embedded song data with real content
         const embeddedSongs = {
@@ -765,6 +768,9 @@ There’s a cricket on the twentieth floor
 				bouncesPerLine: 4,
 				bounceDuration: 0.75,
 				background: "twentiethCentury-bg.jpg",
+				artwork: "twentiethCentury-art.jpg",
+				credits: `The Twentieth Century is Almost Over\nWritten by Steve Goodman\nVocals and guitars: Joel Leblanc, Chris Sullivan,\nKathleen Johnson, Sally Thompson\nVenue: Arts Court, Ottawa, Ontario\n1987`,
+				lyricsFile: "twentiethCentury.lyric",
 				appointments: [
 					{ time: 0.00, type: "jump", nextIndex: 0, reference: "Intro", fired: false },
 					{ time: 12.11, type: "jump", nextIndex: 1, reference: "Back in Eighteen Ninety Nine", fired: false },
@@ -1111,7 +1117,8 @@ There’s a cricket on the twentieth floor
 		let indicatorY = 0;
 		let HL_APPOINTMENTS = [];
 		let currentHLWord = "";
-				
+		let artworkImage = null;
+		
 		// getPagesBaseURL()
 		// Returns the base URL for GitHub Pages hosting assets.
 		// Used for images and song files when ?a=pages or ?a=p.
@@ -1120,6 +1127,28 @@ There’s a cricket on the twentieth floor
 		function getPagesBaseURL() {
 			return "https://chrissullivan71.github.io/perform/";
 
+		}
+
+		async function loadAndShowLyrics() {
+			if (overlayMode === 'lyrics') {
+				overlayMode = null;
+				return;
+			}
+			if (!songConfig || !songConfig.lyricsFile) return;
+			
+			if (!loadedLyricsText) {
+				try {
+					const response = await fetch(getAssetSource(songConfig.lyricsFile));
+					if (response.ok) {
+						loadedLyricsText = await response.text();
+					} else {
+						loadedLyricsText = "No lyrics available.";
+					}
+				} catch {
+					loadedLyricsText = "No lyrics available.";
+				}
+			}
+			overlayMode = 'lyrics';
 		}
 
 		// getAssetColor(assetFile)
@@ -1894,7 +1923,7 @@ There’s a cricket on the twentieth floor
             
             return line.substring(start, end).trim();
         }
-        
+		
 		// ---------------------------
 		// SYLLABLE DICTIONARY
 		// ---------------------------
@@ -2634,6 +2663,54 @@ There’s a cricket on the twentieth floor
 			}
 		}
 
+		function drawArtworkOverlay() {
+			if (!songConfig || !songConfig.artwork) {
+				ctx.fillStyle = 'rgba(0, 0, 0, 0.92)';
+				ctx.fillRect(0, 0, canvas.width, canvas.height);
+				ctx.fillStyle = '#ffffff';
+				ctx.font = "bold 28px 'Consolas', monospace";
+				ctx.textAlign = 'center';
+				ctx.fillText('No artwork available', canvas.width / 2, canvas.height / 2);
+				return;
+			}
+			if (!artworkImage || artworkImage.src.indexOf(songConfig.artwork) === -1) {
+				artworkImage = new Image();
+				artworkImage.src = getAssetSource(songConfig.artwork);
+			}
+			if (artworkImage.complete && artworkImage.naturalWidth > 0) {
+				ctx.drawImage(artworkImage, 0, 0, canvas.width, canvas.height);
+			}
+		}
+		
+		function drawCreditsOverlay() {
+			if (!songConfig || !songConfig.credits) return;
+			
+			ctx.fillStyle = 'rgba(0, 0, 0, 0.92)';
+			ctx.fillRect(0, 0, canvas.width, canvas.height);
+			
+			const lines = songConfig.credits.split('\n');
+			const centerX = canvas.width / 2;
+			let y = canvas.height / 2 - (lines.length * 30) / 2;
+			
+			lines.forEach((line, i) => {
+				if (i === 0) {
+					ctx.font = "bold 28px 'Consolas', monospace";
+					ctx.fillStyle = '#00ff00';
+				} else {
+					ctx.font = "22px 'Consolas', monospace";
+					ctx.fillStyle = '#ffffff';
+				}
+				ctx.textAlign = 'center';
+				ctx.fillText(line, centerX, y);
+				y += 34;
+			});
+
+			ctx.font = "16px 'Consolas', monospace";
+			ctx.fillStyle = '#555555';
+			ctx.textAlign = 'center';
+			ctx.fillText('move mouse to dismiss', centerX, canvas.height - 20);
+		}
+
 		/*
 		loadSongAsset(currentSongKey, aParam)
 		Loads the song text file or embedded data for the selected song.
@@ -2825,7 +2902,7 @@ There’s a cricket on the twentieth floor
 			APPOINTMENTS = (songConfig.appointments || []).map(a => ({ ...a, fired: false }));
 			currentHLWord = "";
 			HL_APPOINTMENTS = HL_APPOINTMENTS.map(a => ({ ...a, fired: false }));
-			
+			loadedLyricsText = null;
 		}
 
 		/*
@@ -2996,8 +3073,29 @@ There’s a cricket on the twentieth floor
                 debugMode = !debugMode;
                 debugInfo.style.display = debugMode ? 'block' : 'none';
                 dlog(`Debug mode: ${debugMode}`);
-            }
-		});
+		} else if (e.code === 'KeyW') {
+			e.preventDefault();
+			overlayMode = overlayMode === 'artwork' ? null : 'artwork';
+		} else if (e.code === 'KeyC') {
+			e.preventDefault();
+			overlayMode = overlayMode === 'credits' ? null : 'credits';
+		} else if (e.code === 'KeyL') {
+			e.preventDefault();
+			loadAndShowLyrics();
+		} else if (e.code === 'ArrowDown' && overlayMode) {
+			e.preventDefault();
+			overlayScrollY += 30;
+		} else if (e.code === 'ArrowUp' && overlayMode) {
+			e.preventDefault();
+			overlayScrollY = Math.max(0, overlayScrollY - 30);
+		} else if (e.code === 'ArrowDown' && overlayMode) {
+			e.preventDefault();
+			overlayScrollY += 30;
+		} else if (e.code === 'ArrowUp' && overlayMode) {
+			e.preventDefault();
+			overlayScrollY = Math.max(0, overlayScrollY - 30);
+		}		
+	});
 		
 		
 		// Canvas click handler: Ctrl+Click for music, normal click for teleprompter
@@ -3222,6 +3320,10 @@ There’s a cricket on the twentieth floor
         canvas.addEventListener('contextmenu', function(e) {
             e.preventDefault();
         });
+		
+		canvas.addEventListener('mousemove', function() {
+			if (overlayMode) overlayMode = null;
+		});
         
 		/*
 		renderText(text, x, y, color, fontSize = 40, align = 'left', baseline = 'alphabetic')
@@ -3314,6 +3416,48 @@ There’s a cricket on the twentieth floor
 			document.getElementById('delayControl').style.display = 'flex';
 		}
 
+		function drawLyricsOverlay() {
+			if (!loadedLyricsText) return;
+			
+			// Dark semi-transparent background
+			ctx.fillStyle = 'rgba(0, 0, 0, 0.88)';
+			ctx.fillRect(0, 0, canvas.width, canvas.height);
+			
+			const lines = loadedLyricsText.split('\n');
+			const centerX = canvas.width / 2;
+			let y = 60 - overlayScrollY;
+			
+			lines.forEach((line, i) => {
+				// Title line
+				if (i === 0) {
+					ctx.font = "bold 32px 'Consolas', monospace";
+					ctx.fillStyle = '#00ff00';
+				// Byline
+				} else if (i === 1) {
+					ctx.font = "italic 22px 'Consolas', monospace";
+					ctx.fillStyle = '#aaaaaa';
+				// Empty line
+				} else if (line.trim() === '') {
+					y += 16;
+					return;
+				// Lyrics
+				} else {
+					ctx.font = "20px 'Consolas', monospace";
+					ctx.fillStyle = '#ffffff';
+				}
+				
+				ctx.textAlign = 'center';
+				ctx.fillText(line, centerX, y);
+				y += 28;
+			});
+			
+			// Dismiss hint
+			ctx.font = "16px 'Consolas', monospace";
+			ctx.fillStyle = '#555555';
+			ctx.textAlign = 'center';
+			ctx.fillText('move mouse to dismiss', centerX, canvas.height - 20);
+		}
+
 		// render()
 		// Main animation loop using requestAnimationFrame.
 		// Draws all visuals: background, tape, controls, ball, lyrics, chords, emojis.
@@ -3399,6 +3543,26 @@ There’s a cricket on the twentieth floor
 		  // Clear canvas
 		  ctx.fillStyle = '#1e1e1e';
 		  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+				// Draw overlays exclusively if active
+			if (overlayMode === 'lyrics') {
+				drawLyricsOverlay();
+				drawAssetStatusBallsOnCanvas();
+				requestAnimationFrame(render);
+				return;
+			}
+			if (overlayMode === 'artwork') {
+				drawArtworkOverlay();
+				drawAssetStatusBallsOnCanvas();
+				requestAnimationFrame(render);
+				return;
+			}
+			if (overlayMode === 'credits') {
+				drawCreditsOverlay();
+				drawAssetStatusBallsOnCanvas();
+				requestAnimationFrame(render);
+				return;
+			}
 
 		  // Draw background (may cover things) — asset-status balls will be drawn last
 		  if (backgroundImage && backgroundImage.complete && backgroundImage.naturalWidth > 0) {
@@ -3613,7 +3777,7 @@ There’s a cricket on the twentieth floor
 			  if (bounceCount >= BOUNCES_PER_LINE) {
 				bounceCount = 0;
 				const nextAppointmentPending = APPOINTMENTS.some(a => !a.fired && a.nextIndex === currentIndex + 1);
-				if (nextAppointmentPending) console.log('blocked at index', currentIndex, 'audio time', audioElement.currentTime.toFixed(2));
+//				if (nextAppointmentPending) console.log('blocked at index', currentIndex, 'audio time', audioElement.currentTime.toFixed(2));
 				if (!nextAppointmentPending) {
 				  if (lyrics.length > 0) {
 					if (currentIndex < lyrics.length - 1) {
@@ -3646,7 +3810,8 @@ There’s a cricket on the twentieth floor
 			// draw the asset-status ball();
 		  if (settingsOpen) drawSettingsOverlay();
 			drawAssetStatusBallsOnCanvas();
-			requestAnimationFrame(render);
+
+		  requestAnimationFrame(render);
 		}
 			
 			// Initialize and start
@@ -3889,14 +4054,15 @@ There’s a cricket on the twentieth floor
 				bounceDuration = songConfig.bounceDuration;
 				BOUNCES_PER_LINE = songConfig.bouncesPerLine;
 				APPOINTMENTS = (songConfig.appointments || []).map(a => ({ ...a, fired: false }));
+				loadedLyricsText = null;
 				loadAssetsAndSong(currentSongKey, aParam);
 				updatePlayButton();
 				initBallPhysics();
-			});
-			
+				artworkImage = null;
+		});
 			dlog('Frigging Document Object Model is loaded NOW April 9 10:49 AM');
 			togglePlayback();	
-			dlog('✅ Animation started NOW April 9 10:49 AM');
+			dlog('✅ Animation started NOW May 14, 2026 AM');
 
 		</script>
 	</body>
