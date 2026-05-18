@@ -1,230 +1,227 @@
 Mr. Tut By Michael Smith
 4/4
 
-Intro
+[Intro]
 Dm       Bb7      A7
 *        *        *
 1        3        4                                                                  ZZZ   LL 01
-Intro
-Dm       Bb7      A7
-*        *        *
-1        3        4                                                                  ZZZ   LL 02
 
-Verse 1
+[Verse 1]
    Dm                        A7
 Oh Mister Tut what good's it do
-   1          3              5                                                       ZZZ   LL 03
+   1          3              5                                                       ZZZ   LL 02
 
-Verse 1
+[Verse 1]
 A7                                        Dm      Bb7    A7
 They love your chair but nobody cares for you
-     1                   3                5       7                                   ZZZ   LL 04
+     1                   3                5       7                                  ZZZ   LL 03
 
-Verse 1
+[Verse 1]
  Dm                        A7
 Egyptian nights were never colder
- 1       3                 5                                                         ZZZ   LL 05
+ 1       3                 5                                                         ZZZ   LL 04
 
-Verse 1
+[Verse 1]
     A7                   Bb7       A7       Dm       Bb7     A7
 And now your friends are thousands of years older
-    1                    3                  5        7                               ZZZ   LL 06
+    1                    3                  5        7                               ZZZ   LL 05
 
-Verse 1
+[Verse 1]
 D7                        Gm
 Whatever happened to that gang down by the Sphinx
-1        3                5                7                                         ZZZ   LL 07
+1        3                5                7                                         ZZZ   LL 06
 
-Verse 1
+[Verse 1]
 C                  C7          F          Bb7     A7
 Seems they're only forty winks away
-1                  3            5                                                    ZZZ   LL 08
+1                  3            5                                                    ZZZ   LL 07
 
-Verse 1
+[Verse 1]
 D7                                Gm
 Those girls from Cairo with their belly button jewels
-      1          3                5            7                                     ZZZ   LL 09
+      1          3                5            7                                     ZZZ   LL 08
 
-Verse 1
+[Verse 1]
 Bb7               A7         Bb7       A7
 Made you play the fool yesterday yesterday
-1                 3          5         7                                             ZZZ   LL 10
+1                 3          5         7                                             ZZZ   LL 09
 
-Verse 1
+[Verse 1]
     Dm              Bb7                A7
 And now you keep in shape with Elmer's glue
-    1               3                  5                                             ZZZ   LL 12
+    1               3                  5                                             ZZZ   LL 10
 
-Verse 1
+[Verse 1]
              Dm                     Bb7   A7      Dm         Bb7   A7
 Cause you're all wrapped up in them dead Egyptian blues
-             1                      3     4       5          7                       ZZZ   LL 13
+             1                      3     4       5          7                       ZZZ   LL 11
 
-Verse 2
+[Verse 2]
    Dm                       A7
 Oh Mister Tut they love the mask
-   1         3              5          7                                             ZZZ   LL 14
+   1         3              5          7                                             ZZZ   LL 12
 
-Verse 2
+[Verse 2]
     A7                                      Dm      Bb7    A7
 But do they love you honey sweetheart don't ask
-    1                3                      5          7                             ZZZ   LL 15
+    1                3                      5          7                             ZZZ   LL 13
 
-Verse 2
+[Verse 2]
 Dm                                        A7
 Where's those baby browns and that pearly smile
-1                  3                      5          7                               ZZZ   LL 16
+1                  3                      5          7                               ZZZ   LL 14
 
-Verse 2
+[Verse 2]
      A7                                     Dm    Bb7    A7
 That smile that drove 'em wild by the early Nile
-     1                    3                 5            7                           ZZZ   LL 17
+     1                    3                 5            7                           ZZZ   LL 15
 
-Verse 2
+[Verse 2]
 D7                         Gm
 You make one terrific hieroglyphic don't you bro'
-1              3           5                 7                                       ZZZ   LL 18
+1              3           5                 7                                       ZZZ   LL 16
 
-Verse 2
+[Verse 2]
 C            C7                F               Bb7     A7
 Centuries of standing sideways turned you to a pro
-1            3                 5               7                                     ZZZ   LL 19
+1            3                 5               7                                     ZZZ   LL 17
 
-Verse 2
+[Verse 2]
       D7                     Gm
 Those girls from Cairo who filled your heart with lust
-      1                    3             5          7                                ZZZ   LL 20
+      1                    3             5          7                                ZZZ   LL 18
 
-Verse 2
+[Verse 2]
 C7                    F          Bb7       A7
 They've all turned to dust yesterday yesterday
-                      3          5         7                                         ZZZ   LL 21
+                      3          5         7                                         ZZZ   LL 19
 
-Verse 2
+[Verse 2]
           Dm              Bb7              A7
 And those bandages didn't do that much for you
-          1               3                5          7                              ZZZ   LL 22
+          1               3                5          7                              ZZZ   LL 20
 
-Verse 2
+[Verse 2]
            Bb7                    Bb7   A7      Dm         Bb7   A7
 Man you're all wrapped up in them dead Egyptian blues
-           1                      3             5          7                         ZZZ   LL 23
+           1                      3             5          7                         ZZZ   LL 21
 
-Verse 3
+[Verse 3]
    Dm                      A7
 Oh Mister Tut they dig the tomb, yeah
-   1               3       5     7                                                   ZZZ   LL 24
+   1               3       5     7                                                   ZZZ   LL 22
 
-Verse 3
+[Verse 3]
 A7                                Dm      Bb7    A7
 All that gold leaf brightens up a room
-1                  3              5       7                                         ZZZ   LL 25
+1                  3              5       7                                         ZZZ   LL 23
 
-Verse 3
+[Verse 3]
                Dm                                       A7
 But what's the diff when you're stiff what riff they're playing
-               1                3                       5          7                ZZZ   LL 26
+               1                3                       5          7                ZZZ   LL 24
 
-Verse 3
+[Verse 3]
           A7                   Bb7              Dm        Bb7    A7
 When your ears have spent five thousand years decaying
-          1                    3                5         7                         ZZZ   LL 27
+          1                    3                5         7                         ZZZ   LL 25
 
-Verse 3
+[Verse 3]
 D7                       Gm
 What does it matter what possessions you may boast
-1                        3             5          7                                 ZZZ   LL 28
+1                        3             5          7                                 ZZZ   LL 26
 
-Verse 3
+[Verse 3]
 C                  C7              F    Bb7   A7
 When you're just a ghost it's only jive clive
-1                  3               5    7                                           ZZZ   LL 29
+1                  3               5    7                                           ZZZ   LL 27
 
-Verse 3
+[Verse 3]
         D7                            Gm
 Your sarcophagus is glowing but your esophagus is showing
-        1           3                 5           7                                 ZZZ   LL 30
+        1           3                 5           7                                 ZZZ   LL 28
 
-Verse 3
+[Verse 3]
+    Bb7                A7                Bb7             A7
+Who cares how rich you are love when you look like Boris Karloff
+    1                  3                 5               7                         ZZZ   LL 29
 
-Who cares how rich you are love
-    1                  3         5          7                                       ZZZ   LL 31
-
-Verse 3
-
-When you look like Boris Karloff
-           1                      3             5          7                         ZZZ   LL 32
-
-Verse 3
+[Verse 3]
 Dm                  Bb7                A7
 Call Nautilus, they might even refund your dues
-           1                      3             5          7                         ZZZ   LL 33
+           1                      3             5          7                       ZZZ   LL 30
 
-Verse 3
+[Verse 3]
            Dm                     Bb7   A7      Dm         Bb7   A7
 Cause you're all wrapped up in them dead Egyptian blues
-           1                      3             5          7                         ZZZ   LL 34
+           1                      3             5          7                       ZZZ   LL 31
 
-Verse 4
+[Verse 3]
+           Dm                     Bb7   A7      Dm         Bb7   A7
+Guitar riff
+           1                      3             5          7                       ZZZ   LL 32
+
+[Verse 4]
    Dm                      A7
 Oh Mister Tut you wait and see
-   1                       5          7                                             ZZZ   LL 35
+   1                       5          7                                            ZZZ   LL 33
 
-Verse 4
+[Verse 4]
 A7                                              Dm      Bb7    A7
 Another few thousand years they're gonna dig up me
-1                    3                          5       7                           ZZZ   LL 36
+1                    3                          5       7                          ZZZ   LL 34
 
-Verse 4
+[Verse 4]
               Dm                              A7
 And I'll have all my little treasures near at hand
-              1             3                 5          7                          ZZZ   LL 37
+              1             3                 5          7                         ZZZ   LL 35
 
-Verse 4
+[Verse 4]
         A7                                   Dm    Bb7    A7
 A CD of Sergeant Pepper's Lonely Hearts Club Band
-        1                 3                  5     7                                ZZZ   LL 38
+        1                 3                  5     7                               ZZZ   LL 36
 
-Verse 4
+[Verse 4]
   D7                          Gm
 A little dried out Maui wowee crumbled in a bong
-  1                3          5             7                                       ZZZ   LL 39
+  1                3          5             7                                      ZZZ   LL 37
 
-Verse 4
+[Verse 4]
   C              C7           F            Bb7     A7
 A letter from my honey saying Love you kid so long
-  1              3            5            7                                        ZZZ   LL 40
+  1              3            5            7                                       ZZZ   LL 38
 
-Verse 4
+[Verse 4]
      D7                                 Gm
 Some peanut butter sandwiches that have long returned to sand
-     1             3                    5          7                                ZZZ   LL 41
+     1             3                    5          7                               ZZZ   LL 39
 
-Verse 4
+[Verse 4]
 Bb7              A7             Bb7            A7
 Not much gold or silver but Tut I think you'll understand
-1                3              5              7                                    ZZZ   LL 42
+1                3              5              7                                   ZZZ   LL 40
 
-Verse 4
+[Verse 4]
      Dm        Bb7               A7
 That in my way I'll be just like you
-     1         3                 5          7                                       ZZZ   LL 43
+     1         3                 5          7                                      ZZZ   LL 41
 
-Verse 4
+[Verse 4]
 Dm                     Bb7   A7      Dm         Bb7   A7
 All wrapped up in them dead Egyptian blues
-1           3          5             7                                              ZZZ   LL 44
+1           3          5             7                                             ZZZ   LL 42
 
-Coda
+[Coda]
 Dm                     Bb7   A7
 All wrapped up
-           1                 3                                                      ZZZ   LL 45
+           1                 3                                                     ZZZ   LL 43
 
-Coda
+[Coda]
 Dm                     Bb7   A7
 All wrapped up
-           1                 3                                                      ZZZ   LL 46
-Coda
+           1                 3                                                     ZZZ   LL 44
+
+[Coda]
 Dm                     Bb7   A7      D7 
 All wrapped up in them dead Egyptian blues
-1           3          5             7                                              ZZZ   LL 47
+1           3          5             7                                             ZZZ   LL 45

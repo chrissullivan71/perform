@@ -203,6 +203,7 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
         <option value="the-visitor">The Visitor</option>
 		<option value="Rogers">Mary Ellen Carter</option>
 		<option value="goodman">The Twentieth Century is Almost Over</option>
+		<option value="misterTut">Mr. Tut</option>	
     </select>
     <div id="loadingStatus">Select a song to begin...</div>
 
@@ -760,8 +761,62 @@ There’s a cricket on the twentieth floor
 [long cricket music]
 `
     };
-
 		const songFileMap = {
+					"misterTut": {
+				base: "misterTut",
+				display: "Mr. Tut",
+				bouncesPerLine: 4,
+				bounceDuration: 1.1,
+				background: "background.jpg",
+				appointments: [
+					{ time: 0.00, type: "jump", nextIndex: 0, reference: "Intro - instrumental", fired: false },
+					{ time: 10.77, type: "jump", nextIndex: 1, reference: "Oh Mister Tut what good's it do", fired: false },
+					{ time: 15.27, type: "jump", nextIndex: 2, reference: "They love your chair", fired: false },
+					{ time: 19.69, type: "jump", nextIndex: 3, reference: "Egyptian nights were never colder", fired: false },
+					{ time: 24.15, type: "jump", nextIndex: 4, reference: "And now your friends are thousands of years older", fired: false },
+					{ time: 29.31, type: "jump", nextIndex: 5, reference: "Whatever happened to that gang down by the Sphinx", fired: false },
+					{ time: 33.45, type: "jump", nextIndex: 6, reference: "Seems they're only forty winks away", fired: false },
+					{ time: 37.95, type: "jump", nextIndex: 7, reference: "Those girls from Cairo with their belly button jewels", fired: false },
+					{ time: 42.10, type: "jump", nextIndex: 8, reference: "Made you play the fool yesterday", fired: false },
+					{ time: 46.44, type: "jump", nextIndex: 9, reference: "And now you keep in shape with Elmer's glue", fired: false },
+					{ time: 50.94, type: "jump", nextIndex: 10, reference: "Cause you're all wrapped up", fired: false },
+					{ time: 57.73, type: "jump", nextIndex: 11, reference: "Oh Mister Tut they love the mask", fired: false },
+					{ time: 62.51, type: "jump", nextIndex: 12, reference: "But do they love you honey sweetheart don't ask", fired: false },
+					{ time: 66.84, type: "jump", nextIndex: 13, reference: "Where's those baby browns and that pearly smile", fired: false },
+					{ time: 71.10, type: "jump", nextIndex: 14, reference: "That smile that drove em wild by the early Nile", fired: false },
+					{ time: 76.19, type: "jump", nextIndex: 14, reference: "You make one terrific hieroglyphic", fired: false },
+					{ time: 80.66, type: "jump", nextIndex: 16, reference: "Centuries of standing sideways", fired: false },
+					{ time: 85.15, type: "jump", nextIndex: 17, reference: "Those girls from Cairo who filled your heart with lust", fired: false },
+					{ time: 89.27, type: "jump", nextIndex: 18, reference: "They've all turned to dust yesterday", fired: false },
+					{ time: 93.19, type: "jump", nextIndex: 19, reference: "And those bandages didn't do that much for you", fired: false },
+					{ time: 101.02, type: "jump", nextIndex: 20, reference: "Cause you're all wrapped up", fired: false },
+					{ time: 104.46, type: "jump", nextIndex: 21, reference: "Oh Mister Tut they dig the tomb", fired: false },
+					{ time: 109.43, type: "jump", nextIndex: 22, reference: "All that gold leaf brightens up the room", fired: false },
+					{ time: 113.05, type: "jump", nextIndex: 23, reference: "But what's the diff when you're stiff", fired: false },
+					{ time: 118.02, type: "jump", nextIndex: 24, reference: "When your ears have spent five thousand years decaying", fired: false },
+					{ time: 122.99, type: "jump", nextIndex: 25, reference: "What does it matter what possessions you may boast", fired: false },
+					{ time: 127.38, type: "jump", nextIndex: 26, reference: "When you're just a ghost", fired: false },
+					{ time: 131.01, type: "jump", nextIndex: 27, reference: "Your sarcophagus is glowing", fired: false },
+					{ time: 135.59, type: "jump", nextIndex: 28, reference: "Who cares how rich you are love", fired: false },
+					{ time: 144.57, type: "jump", nextIndex: 29, reference: "Call Nautilus they might even refund your dues", fired: false },
+					{ time: 147.81, type: "jump", nextIndex: 30, reference: "Cause you're all wrapped up", fired: false },
+					{ time: 151.44, type: "jump", nextIndex: 31, reference: "Guitar riff", fired: false },
+					{ time: 157.93, type: "jump", nextIndex: 32, reference: "Oh Mister Tut you wait and see", fired: false },
+					{ time: 162.52, type: "jump", nextIndex: 33, reference: "Another few thousand years", fired: false },
+					{ time: 166.72, type: "jump", nextIndex: 34, reference: "And I'll have all my little treasures", fired: false },
+					{ time: 170.73, type: "jump", nextIndex: 35, reference: "A CD of Sergeant Pepper's", fired: false },
+					{ time: 175.89, type: "jump", nextIndex: 36, reference: "A little dried out Maui wowee", fired: false },
+					{ time: 180.38, type: "jump", nextIndex: 37, reference: "A letter from my honey", fired: false },
+					{ time: 184.48, type: "jump", nextIndex: 38, reference: "Some peanut butter sandwiches", fired: false },
+					{ time: 189.24, type: "jump", nextIndex: 39, reference: "Not much gold or silver", fired: false },
+					{ time: 193.44, type: "jump", nextIndex: 40, reference: "That in my way I'll be just like you", fired: false },
+					{ time: 198.23, type: "jump", nextIndex: 41, reference: "All wrapped up in them dead Egyptian blues", fired: false },
+					{ time: 202.67, type: "jump", nextIndex: 42, reference: "Coda - All wrapped up", fired: false },
+					{ time: 204.91, type: "jump", nextIndex: 43, reference: "Coda - All wrapped up", fired: false },
+					{ time: 207.20, type: "jump", nextIndex: 44, reference: "Coda - All wrapped up in them dead Egyptian blues", fired: false },
+					{ time: 220.00, type: "Y1pause", nextIndex: 45, reference: "song ended", fired: false }
+				]
+			},
 			"goodman": {
 				base: "twentiethCentury",
 				display: "The Twentieth Century is Almost Over",
