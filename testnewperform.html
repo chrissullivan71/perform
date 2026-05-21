@@ -1173,6 +1173,7 @@ There’s a cricket on the twentieth floor
 		let HL_APPOINTMENTS = [];
 		let currentHLWord = "";
 		let artworkImage = null;
+		let highlightedStatus = {};
 		
 		// getPagesBaseURL()
 		// Returns the base URL for GitHub Pages hosting assets.
@@ -2508,6 +2509,17 @@ There’s a cricket on the twentieth floor
             }
             return defaultBounceCount;
         }
+		
+		function buildHighlightedStatus() {
+			highlightedStatus = {};
+			for (const lineIdx in beatChordWordData) {
+				highlightedStatus[lineIdx] = {};
+				for (let syllIdx = 0; syllIdx < beatChordWordData[lineIdx].length; syllIdx++) {
+					highlightedStatus[lineIdx][syllIdx] = false;
+				}
+			}
+		}
+		
 		/*
 		processSongData(data)
 		Parses loaded song text into sections, chords, lyrics, beats.
@@ -2587,25 +2599,46 @@ There’s a cricket on the twentieth floor
             dlog(`Loaded: ${sections.length} sections, ${chords.length} chords, ${lyrics.length} lyrics, ${beats.length} beats`);
             
             // Extract beat numbers from first beat line (like Python version)
-            if (beats.length > 0) {
-                const firstBeatLine = beats[0];
-                BEAT_NUMBERS = [];
-                const regex = /\d+/g;
-                let match;
-                while ((match = regex.exec(firstBeatLine)) !== null) {
-                    const beatNum = parseInt(match[0]);
-                    if (beatNum >= 1 && beatNum <= 15) {
-                        BEAT_NUMBERS.push(beatNum);
-                    }
-                }
+//            if (beats.length > 0) {
+//                const firstBeatLine = beats[0];
+//                BEAT_NUMBERS = [];
+//                const regex = /\d+/g;
+//                let match;
+//                while ((match = regex.exec(firstBeatLine)) !== null) {
+//                    const beatNum = parseInt(match[0]);
+//                    if (beatNum >= 1 &&/ beatNum <= 15) {
+//                        BEAT_NUMBERS.push(beatNum);
+//                    }
+//                }
+//                dlog("Beat numbers (from file):", BEAT_NUMBERS);
+//            } else {
+//                BEAT_NUMBERS = [];
+//                dlog("⚠️ No beat numbers found in file!");
+//            }
+   
+			if (beats.length > 0) {
+				const firstBeatLine = beats[0];
+				BEAT_NUMBERS = [];
+				let lastBeat = 0;
+				const regex = /\d+/g;
+				let match;
+				while ((match = regex.exec(firstBeatLine)) !== null) {
+					const beatNum = parseInt(match[0]);
+					if (beatNum >= 1 && beatNum <= 19 && beatNum > lastBeat) {
+						BEAT_NUMBERS.push(beatNum);
+						lastBeat = beatNum;
+					}
+				}
                 dlog("Beat numbers (from file):", BEAT_NUMBERS);
             } else {
                 BEAT_NUMBERS = [];
                 dlog("⚠️ No beat numbers found in file!");
             }
-            
+   
             songData.title = title;
             songData.timeSignature = timeSignatureStr;
+
+			buildHighlightedStatus();
         }
 
 		// Returns the correct file path or URL (local, GitHub Pages, or remote) for a given asset,
@@ -3012,6 +3045,9 @@ There’s a cricket on the twentieth floor
 			currentHLWord = "";
 			HL_APPOINTMENTS = HL_APPOINTMENTS.map(a => ({ ...a, fired: false }));
 			loadedLyricsText = null;
+			
+			buildHighlightedStatus();
+			
 		}
 
 		/*
@@ -3752,66 +3788,59 @@ There’s a cricket on the twentieth floor
 
 			let highlightingActive = false;
 			const shouldHighlightBall = currentIndex in beatChordWordData && rising;
+			const currentBeatData = beatChordWordData[currentIndex];
+			let currentBeatNumber = -1;
 
-			  if (shouldHighlightBall) {
-				const currentBeatData = beatChordWordData[currentIndex];
-				const currentBeatNumber = currentBeatData[bounceCount % currentBeatData.length][0];
-
-			  for (const [beatNum, chord, word] of currentBeatData) {
-				if (beatNum === currentBeatNumber) {
-				  console.log('bounce', bounceCount, 'beat', currentBeatNumber, 'word', word);
-				  highlightingActive = true;
-
-				  const dt = currentTime - bounceStartTime;
-				  const beatProgress = (dt % bounceDuration) / bounceDuration;
-				  const beatFactor = rising ? beatProgress : (1.0 - beatProgress);
-
-				  // Render base text
-				  renderText(chordText, 5, POSITION_CHORDS, [255, 165, 0]);
-				  if (lyricText.includes('##')) {
-						const parts = lyricText.split('##');
-						renderText(parts[0].trimEnd(), 5, POSITION_LYRIC_LINE, [255, 255, 255]);
-						renderText(parts[1].trimStart(), 5, POSITION_LYRIC_LINE + 45, [255, 255, 255]);
-					} else {
-						renderText(lyricText, 5, POSITION_LYRIC_LINE, [255, 255, 255]);
-				  }
-
-				  // Find beat positions and highlight
-					const beatPositions = beatPositionsCache[currentIndex] || [];
-					for (const [bNum, charIndex] of beatPositions) {
-					if (bNum === beatNum) {
-					  if (word) {
-						const syllable = extractSyllableAtPosition(lyricText, charIndex);
-						const pixelX = calculatePixelPosition(lyricText, 5, charIndex);
-						const highlightColor = syllableHighlightColor;
-
-						// Clear background for highlighted word
-						ctx.fillStyle = '#1e1e1e';
-						const syllableWidth = ctx.measureText(syllable).width;
-						ctx.fillRect(pixelX, POSITION_LYRIC_LINE - 35, syllableWidth, 45);
-
-						// Draw highlighted syllable
-						renderWordAtPosition(syllable, pixelX, POSITION_LYRIC_LINE, highlightColor);
-					  }
-
-					  if (chord) {
-						const pixelX = calculatePixelPosition(chordText, 5, charIndex);
-						const highlightColor = syllableHighlightColor;
-
-						// Clear background for highlighted chord
-						ctx.fillStyle = '#1e1e1e';
-						const chordWidth = ctx.measureText(chord).width;
-						ctx.fillRect(pixelX, POSITION_CHORDS - 35, chordWidth, 45);
-
-						// Draw highlighted chord
-						renderWordAtPosition(chord, pixelX, POSITION_CHORDS, highlightColor);
-					  }
-					  break;
+			if (shouldHighlightBall) {
+				if (bounceCount >= currentBeatData.length) {
+					highlightingActive = false;
+				} else {
+					currentBeatNumber = currentBeatData[bounceCount][0];
+					for (const [beatNum, chord, word] of currentBeatData) {
+						if (beatNum === currentBeatNumber) {
+							console.log('bounce', bounceCount, 'beat', currentBeatNumber, 'word', word);
+							highlightingActive = true;
+							const dt = currentTime - bounceStartTime;
+							const beatProgress = (dt % bounceDuration) / bounceDuration;
+							const beatFactor = rising ? beatProgress : (1.0 - beatProgress);
+							renderText(chordText, 5, POSITION_CHORDS, [255, 165, 0]);
+							if (lyricText.includes('##')) {
+								const parts = lyricText.split('##');
+								renderText(parts[0].trimEnd(), 5, POSITION_LYRIC_LINE, [255, 255, 255]);
+								renderText(parts[1].trimStart(), 5, POSITION_LYRIC_LINE + 45, [255, 255, 255]);
+							} else {
+								renderText(lyricText, 5, POSITION_LYRIC_LINE, [255, 255, 255]);
+							}
+							const beatPositions = beatPositionsCache[currentIndex] || [];
+							for (const [bNum, charIndex] of beatPositions) {
+								if (bNum === beatNum) {
+									if (highlightedStatus[currentIndex] && highlightedStatus[currentIndex][bounceCount]) {
+										break;
+									}
+									if (word) {
+										const syllable = extractSyllableAtPosition(lyricText, charIndex);
+										const pixelX = calculatePixelPosition(lyricText, 5, charIndex);
+										const highlightColor = syllableHighlightColor;
+										ctx.fillStyle = '#1e1e1e';
+										const syllableWidth = ctx.measureText(syllable).width;
+										ctx.fillRect(pixelX, POSITION_LYRIC_LINE - 35, syllableWidth, 45);
+										renderWordAtPosition(syllable, pixelX, POSITION_LYRIC_LINE, highlightColor);
+									}
+									if (chord) {
+										const pixelX = calculatePixelPosition(chordText, 5, charIndex);
+										const highlightColor = syllableHighlightColor;
+										ctx.fillStyle = '#1e1e1e';
+										const chordWidth = ctx.measureText(chord).width;
+										ctx.fillRect(pixelX, POSITION_CHORDS - 35, chordWidth, 45);
+										renderWordAtPosition(chord, pixelX, POSITION_CHORDS, highlightColor);
+									}
+									break;
+								}
+							}
+							break;
+						}
 					}
-				  }
-				  break;
 				}
-			  }
 			}
 
 			if (!highlightingActive) {
@@ -3881,9 +3910,15 @@ There’s a cricket on the twentieth floor
 			  // Complete bounce cycle - start new bounce
 			  bounceStartTime = currentTime;
 			  ballY = ballTop;
+
+			  if (highlightedStatus[currentIndex]) {
+				highlightedStatus[currentIndex][bounceCount] = true;
+			  }
+
 			  bounceCount++;
 
 			  // Advance text every BOUNCES_PER_LINE bounces
+			  // we are done a line: do the next one.
 			  if (bounceCount >= BOUNCES_PER_LINE) {
 				bounceCount = 0;
 				const nextAppointmentPending = APPOINTMENTS.some(a => !a.fired && a.nextIndex === currentIndex + 1);
@@ -3906,8 +3941,7 @@ There’s a cricket on the twentieth floor
 		  }
 
 		  // Draw ball with highlighting
-		  const shouldHighlightBall = currentIndex in beatChordWordData && rising && BEAT_NUMBERS.length > 0 &&
-			beatChordWordData[currentIndex].some(([beatNum]) => beatNum === BEAT_NUMBERS[bounceCount % BEAT_NUMBERS.length]);
+		  const shouldHighlightBall = currentIndex in beatChordWordData && rising && bounceCount < BOUNCES_PER_LINE;
 
 		  ctx.beginPath();
 		  ctx.arc(ballCenterX, ballY, ballRadius, 0, 2 * Math.PI);
