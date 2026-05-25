@@ -1,191 +1,195 @@
 The Last Great Waltz  by Mason Williams
 various time signatures
 
+[Intro]
+D        A       D
+*        *       *
+1        3       5                                                             ZZZ   LL 01
 
 [{ Verse 1 (4/4 time) }]
 D        A  Bm    F#m   G      A       D 
 Jonathan W. Astor was a master dancing man
-1           3           5              7                                       ZZZ   LL 01
+1           3           5              7                                       ZZZ   LL 02
 
 [ Verse 1 ]
    D          A        Bm     F#m       G       A          D 
 He danced the day that he was born, his parents thought it grand  
-   1          3                         5                  7                   ZZZ   LL 02
+   1          3                         5                  7                   ZZZ   LL 03
 
 [ Verse 1 ]
     G             F#m      G              A
 The samba and the tango he did with great alarm
-    1             3        5              7                                    ZZZ   LL 03
+    1             3        5              7                                    ZZZ   LL 04
 
 [ Verse 1 ]
 D           A        Bm     F#m        G       A        D 
 But most he liked to dance the waltz until the break of dawn
-1           3                          5                7                      ZZZ   LL 04
+1           3                          5                7                      ZZZ   LL 05
 
 
 [{ Chorus 1 (3/4 time) }]
 D                 A7
 I like the waltz, it has its faults
-1                 4                                                            ZZZ   LL 05
+1                 4                                                            ZZZ   LL 06
 
 [ Chorus 1 ]
 Bm           F#m  G           A7
 Oh there are some dances more fancy
-1            3    5           7                                                ZZZ   LL 06
+1            3    5           7                                                ZZZ   LL 07
 
 [ Chorus 1 ]
 D                A7
 I like the waltz simply because
-1                5                                                             ZZZ   LL 07
+1                5                                                             ZZZ   LL 08
 
 [ Chorus 1 ]
 Bm          F#m     G      A D
 It makes me feel so da  a  ancy
-1           3       5        7                                                 ZZZ   LL 08
+1           3       5        7                                                 ZZZ   LL 09
 
 
 [{ Verse 2 (4/4 time) }]
     D      A      Bm  F#m    G    A        D 
 One day he got an invitation to a ballroom dance
-    1             3          5             7                                   ZZZ   LL 09
+    1             3          5             7                                   ZZZ   LL 10
 
 [ Verse 2 ]
     G               F#m       G        A
 And he decided to accept, for he might get the chance
-    1          3              5        7                                       ZZZ   LL 10
+    1          3              5        7                                       ZZZ   LL 11
 
 [ Verse 2 ]
    G                 F#m         G                A
 To dance with lovely ladies with perfume in their hair
-   1                 3           5                7                            ZZZ   LL 11
+   1                 3           5                7                            ZZZ   LL 12
 
 [ Verse 2 ]
    D    A       Bm   F#m      G      A      D 
 Or even fat and ugly ones, he really didn't care
-   1            3             5             7                                  ZZZ   LL 12
+   1            3             5             7                                  ZZZ   LL 13
 
 
 
 [{ Verse 3 (4/4 time) }]
     D      A        Bm       F#m   G      A         D 
 But in the ball the same old story made his evening grim
-    1               3              5                7                          ZZZ   LL 13
+    1               3              5                7                          ZZZ   LL 14
 
 [ Verse 3 ]
 G           F#m            G          A          D
 He was a perfectionist and none would dance with him
-1           3              5          7          9                             ZZZ   LL 14
+1           3              5          7          9                             ZZZ   LL 15
 
 [ Verse 3 ]
     G                  F#m              G              A
 And so he thought he'd just go home and turn his radio on
-    1                  3                5              7                       ZZZ   LL 15
+    1                  3                5              7                       ZZZ   LL 16
 
 [ Verse 3 ]
     D      A      Bm      F#m  G        A    D 
 But on his way he spied a girl waltzing all alone
-    1             3            5             7                                 ZZZ   LL 16
+    1             3            5             7                                 ZZZ   LL 17
 
 
 [{ Chorus 3 (3/4 time) }]
 D                 A7
 I like the waltz, it has its faults
-1                 4                                                            ZZZ   LL 17
+1                 4                                                            ZZZ   LL 18
 
 [ Chorus 3 ]
 Bm            F#m   G              A
 It's not much fun unless danced by two
-1             3     5              7                                           ZZZ   LL 18
+1             3     5              7                                           ZZZ   LL 19
 
 [ Chorus 3 ]
 D             A7
 I wish I knew somebody who
-1             5                                                                ZZZ   LL 19
+1             5                                                                ZZZ   LL 20
 
 [ Chorus 3 ]
 Bm               F#m     G       A  D
 Would waltz with me, I'm so blue danube
-1                3       5          7                                          ZZZ   LL 20
+1                3       5          7                                          ZZZ   LL 21
 
 
 [{ Verse 4 (4/4 time) }]
 D       A        Bm    F#m        G    A      D 
 She was waltzing by herself there in a little nook
-1       3                         5    7                                       ZZZ   LL 21
+1       3                         5    7                                       ZZZ   LL 22
 
 [ Verse 4 ]
    G                F#m              G            A
 He quietly crept to where she was to get a better look
-   1                3                             7                            ZZZ   LL 22
+   1                3                             7                            ZZZ   LL 23
 
 [ Verse 4 ]
     G            F#m            G      A      D
 She was a little different from either you or me
-    1            3              5      7      9                                ZZZ   LL 23
+    1            3              5      7      9                                ZZZ   LL 24
 
 [ Verse 4 ]
     D       A        Bm       F#m   G       A         D 
 For she did not have two good legs, she had one, two, three
-    1                3              5       7         9                        ZZZ   LL 24
+    1                3              5       7         9                        ZZZ   LL 25
 
 
 [{ Chorus 4 (3/4 time) }]
 D                 A7
 I like the waltz, I have my faults
-1                 4                                                            ZZZ   LL 25
+1                 4                                                            ZZZ   LL 26
 
 [ Chorus 4 ]
 Bm           F#m      G           A
 I have three legs but I'm in good health
-1            3        5           7                                            ZZZ   LL 26
+1            3        5           7                                            ZZZ   LL 27
 
 [ Chorus 4 ]
 D                A7
 I like the waltz mostly because
-1          3     5        7                                                    ZZZ   LL 27
+1          3     5        7                                                    ZZZ   LL 28
 
 [ Chorus 4 ]
 Bm        F#m   G      A D
 I have to dance all by myself
-1         3     5        7                                                     ZZZ   LL 28
+1         3     5        7                                                     ZZZ   LL 29
 
 [{ Verse 5 (4/4 time) }]
 D        A  Bm    F#m        G        A       D 
 Jonathan W. Astor asked her, if she'd like to dance
-1           3                5        7       9                                ZZZ   LL 29
+1           3                5        7       9                                ZZZ   LL 30
 
 [ Verse 5 ]
 G       F#m        G         A      D
 And she answered, "Yes sir!"
-1       3          5         7      9                                          ZZZ   LL 30
+1       3          5         7      9                                          ZZZ   LL 31
 
 [ Verse 5 ]
    G             F#m        G      A      D
 So they began to waltz in a most peculiar way
-   1             3          5      7      9                                    ZZZ   LL 31
+   1             3          5      7      9                                    ZZZ   LL 32
 
 [ Verse 5 ]
 D       A           Bm     F#m      G         A       D 
 She had three legs, he had two, and those who saw did say
-1                   3               5         7       9                        ZZZ   LL 32
+1                   3               5         7       9                        ZZZ   LL 33
 
 
 [{ Last Chorus (5/4 time) }]
 D                    A7
 They like the waltz, they have their faults
-1             3      5               7                                         ZZZ   LL 33
+1             3      5               7                                         ZZZ   LL 34
 
 [ Last Chorus ]
 Bm           F#m    G        A
 But who's to blame, we can't decide
-1            3      5        7                                                 ZZZ   LL 34
+1            3      5        7                                                 ZZZ   LL 35
 
 [ Last Chorus ]
 D               A7
 Maybe it's him, maybe it's her
-1          3    5          7                                                   ZZZ   LL 35
+1          3    5          7                                                   ZZZ   LL 36
 
 [ Last Chorus ]
 Bm        F#m   G      A        D                A7
 But it is them, that's for darn sure (two three, one two)
-1         3     5      7        9                13                            ZZZ   LL 36
+1         3     5      7        9                13                            ZZZ   LL 37

@@ -4,6 +4,9 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
 -->
 <html lang="en">
 <head>
+	<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Expires" content="0">
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -204,6 +207,7 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
 		<option value="Rogers">Mary Ellen Carter</option>
 		<option value="goodman">The Twentieth Century is Almost Over</option>
 		<option value="misterTut">Mr. Tut</option>	
+		<option value="lastWaltz">The Last Great Waltz</option>
     </select>
     <div id="loadingStatus">Select a song to begin...</div>
 
@@ -762,7 +766,54 @@ There’s a cricket on the twentieth floor
 `
     };
 		const songFileMap = {
-					"misterTut": {
+			"lastWaltz": {
+				base: "theLastGreatWaltz",
+				display: "The Last Great Waltz",
+				bouncesPerLine: 8,
+				bounceDuration: 1.0,
+				background: "background.jpg",
+				appointments: [
+					{ time: 0.00, type: "jump", nextIndex: 99, reference: "Beginning", fired: false },
+					{ time: 9.45, type: "jump", nextIndex: 1, reference: "Jonathan W. Astor", fired: false },
+					{ time: 12.91, type: "jump", nextIndex: 2, reference: "He danced the day", fired: false },
+					{ time: 16.37, type: "jump", nextIndex: 3, reference: "The samba and the tango", fired: false },
+					{ time: 19.54, type: "jump", nextIndex: 4, reference: "But most he liked to dance", fired: false },
+					{ time: 27.27, type: "jump", nextIndex: 5, reference: "I like the waltz - Chorus 1", fired: false },
+					{ time: 31.93, type: "jump", nextIndex: 6, reference: "Oh there are some dances", fired: false },
+					{ time: 36.56, type: "jump", nextIndex: 7, reference: "I like the waltz simply because", fired: false },
+					{ time: 41.10, type: "jump", nextIndex: 8, reference: "It makes me feel so dancy", fired: false },
+					{ time: 52.02, type: "jump", nextIndex: 9, reference: "One day he got an invitation", fired: false },
+					{ time: 55.48, type: "jump", nextIndex: 10, reference: "And he decided to accept", fired: false },
+					{ time: 59.08, type: "jump", nextIndex: 11, reference: "To dance with lovely ladies", fired: false },
+					{ time: 60.03, type: "jump", nextIndex: 12, reference: "Or even fat and ugly ones", fired: false },
+					{ time: 69.48, type: "jump", nextIndex: 13, reference: "But at the dance the same old story", fired: false },
+					{ time: 73.12, type: "jump", nextIndex: 14, reference: "He was a erfectionist so none would dance", fired: false },
+					{ time: 76.58, type: "jump", nextIndex: 15, reference: "And so he thought he'd just go home", fired: false },
+					{ time: 79.96, type: "jump", nextIndex: 16, reference: "And in the hall he spied a girl", fired: false },
+					{ time: 92.40, type: "jump", nextIndex: 17, reference: "I like the waltz, it has its faultz", fired: false },
+					{ time: 96.95, type: "jump", nextIndex: 18, reference: "It's not much fun unless danced by two", fired: false },
+					{ time: 101.50, type: "jump", nextIndex: 19, reference: "I wish I knew somebody who", fired: false },
+					{ time: 106.05, type: "jump", nextIndex: 20, reference: "Would waltz with me, i'm so blue Danube", fired: false },
+					{ time: 113.76, type: "jump", nextIndex: 21, reference: "She was standing by herself there in a little nook", fired: false },
+					{ time: 117.14, type: "jump", nextIndex: 22, reference: "He quietly crept to where she was to", fired: false },
+					{ time: 120.68, type: "jump", nextIndex: 23, reference: "She was a little different", fired: false },
+					{ time: 124.38, type: "jump", nextIndex: 24, reference: "For she did not have two good legs", fired: false },
+					{ time: 132.42, type: "jump", nextIndex: 25, reference: "I like the waltz - Chorus 4", fired: false },
+					{ time: 137.15, type: "jump", nextIndex: 26, reference: "I have three legs", fired: false },
+					{ time: 141.88, type: "jump", nextIndex: 27, reference: "I like the waltz mostly because", fired: false },
+					{ time: 146.43, type: "jump", nextIndex: 28, reference: "I have to dance all by myself", fired: false },
+					{ time: 154.42, type: "jump", nextIndex: 29, reference: "Jonathan W. Astor asked her", fired: false },
+					{ time: 158.24, type: "jump", nextIndex: 30, reference: "And she answered Yes sir", fired: false },
+					{ time: 161.43, type: "jump", nextIndex: 31, reference: "So they began to dance in a most peculiar way", fired: false },
+					{ time: 165.17, type: "jump", nextIndex: 32, reference: "For she had three legs he had two", fired: false },
+					{ time: 172.62, type: "jump", nextIndex: 33, reference: "They like the waltz", fired: false },
+					{ time: 176.44, type: "jump", nextIndex: 34, reference: "But who's to blame, we can't decide", fired: false },
+					{ time: 180.37, type: "jump", nextIndex: 35, reference: "Maybe it's him, maybe it's her", fired: false },
+					{ time: 184.18, type: "jump", nextIndex: 36, reference: "But it is them", fired: false },
+					{ time: 209.53, type: "Y1pause", nextIndex: 37, reference: "song ended", fired: false }
+				]
+			},	
+			"misterTut": {
 				base: "misterTut",
 				display: "Mr. Tut",
 				bouncesPerLine: 8,
@@ -2230,6 +2281,39 @@ There’s a cricket on the twentieth floor
 			"silver": ["sil", "ver"],
 			"understand": ["un", "der", "stand"],
 			"coda": ["co", "da"],
+			
+			// Last Great Waltz
+			"jonathan": ["jon", "a", "than"],
+			"astor": ["as", "tor"],
+			"master": ["mas", "ter"],
+			"dancing": ["danc", "ing"],
+			"parents": ["par", "ents"],
+			"tango": ["tan", "go"],
+			"samba": ["sam", "ba"],
+			"elan": ["e", "lan"],
+			"waltz": ["waltz"],
+			"faults": ["faults"],
+			"dances": ["danc", "es"],
+			"fancy": ["fan", "cy"],
+			"dancy": ["dan", "cy"],
+			"invitation": ["in", "vi", "ta", "tion"],
+			"ballroom": ["ball", "room"],
+			"decided": ["de", "cid", "ed"],
+			"accept": ["ac", "cept"],
+			"ladies": ["la", "dies"],
+			"perfume": ["per", "fume"],
+			"ugly": ["ug", "ly"],
+			"perfectionist": ["per", "fec", "tion", "ist"],
+			"anguished": ["an", "guished"],
+			"waltzing": ["waltz", "ing"],
+			"quietly": ["qui", "et", "ly"],
+			"peculiar": ["pe", "cul", "iar"],
+			"danube": ["dan", "ube"],
+			"themselves": ["them", "selves"],
+			"somebody": ["some", "bod", "y"],
+			"unless": ["un", "less"],
+			"herself": ["her", "self"],
+			"decided": ["de", "cid", "ed"],
 
 			// ---------------------------
 			// CONTRACTIONS: Don't Think Twice, It's All Right
@@ -3919,6 +4003,8 @@ There’s a cricket on the twentieth floor
 
 			  // Advance text every BOUNCES_PER_LINE bounces
 			  // we are done a line: do the next one.
+			  console.log('APPOINTMENTS:', APPOINTMENTS.length, JSON.stringify(APPOINTMENTS.slice(0,3)));
+			  
 			  if (bounceCount >= BOUNCES_PER_LINE) {
 				bounceCount = 0;
 				const nextAppointmentPending = APPOINTMENTS.some(a => !a.fired && a.nextIndex === currentIndex + 1);
