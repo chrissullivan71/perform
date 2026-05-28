@@ -1004,9 +1004,14 @@ There’s a cricket on the twentieth floor
 					{ time: 161.77, type: "jump", nextIndex: 32, reference: "I ain't sayin you treated me unkind", fired: false },
 					{ time: 165.83, type: "jump", nextIndex: 33, reference: "You could have done better but I don't mind", fired: false },
 					{ time: 170.55, type: "jump", nextIndex: 34, reference: "You just kinda wasted my precious time", fired: false },
-					{ time: 174.58, type: "jump", nextIndex: 35, reference: "But don't think twice chorus 4", fired: false },
+					{ time: 174.58, type: "jump", nextIndex: 35, reference: "But don't think twice", fired: false },
 					{ time: 177.85, type: "jump", nextIndex: 36, reference: "Harmonica break", fired: false },
-					{ time: 213.93, type: "jump", nextIndex: 37, reference: "Harmonica break", fired: false }
+					{ time: 186.52, type: "jump", nextIndex: 37, reference: "Harmonica break", fired: false },
+					{ time: 194.58, type: "jump", nextIndex: 38, reference: "Harmonica break", fired: false },
+					{ time: 199.63, type: "jump", nextIndex: 39, reference: "Harmonica break", fired: false },
+					{ time: 203.58, type: "jump", nextIndex: 40, reference: "Harmonica break", fired: false },
+					{ time: 208.08, type: "jump", nextIndex: 41, reference: "Harmonica break", fired: false },
+					{ time: 213.93, type: "Y1pause", nextIndex: 42, reference: "End", fired: false }
 				]
 			  },
 		  "Rogers": {
@@ -1067,12 +1072,12 @@ There’s a cricket on the twentieth floor
 			{ time: 249.93, type: "jump", nextIndex: 46, reference: "Rise again rise again", fired: false },
 			{ time: 255.18, type: "jump", nextIndex: 47, reference: "Though your heart it be broken and lfe about to end", fired: false },
 			{ time: 260.54, type: "jump", nextIndex: 48, reference: "No matter what you've lost be it a home a love a friend,", fired: false },
-			{ time: 265.32, type: "jump", nextIndex: 49, reference: "like the Mary Ellen Carter rise again", fired: false },
-			{ time: 270.51, type: "jump", nextIndex: 46, reference: "Rise again rise again", fired: false },
-			{ time: 275.79, type: "jump", nextIndex: 47, reference: "Though your heart it be broken and lfe about to end", fired: false },
-			{ time: 281.21, type: "jump", nextIndex: 48, reference: "No matter what you've lost be it a home a love a friend,", fired: false },
-			{ time: 286.08, type: "jump", nextIndex: 49, reference: "like the Mary Ellen Carter rise again", fired: false },
-			{ time: 300.20, type: "Y1pause", nextIndex: 50, reference: "song ended", fired: false }
+			{ time: 265.35, type: "jump", nextIndex: 49, reference: "like the Mary Ellen Carter rise again", fired: false },
+			{ time: 270.35, type: "jump", nextIndex: 50, reference: "Rise again rise again", fired: false },
+			{ time: 275.81, type: "jump", nextIndex: 51, reference: "Though your heart it be broken and lfe about to end", fired: false },
+			{ time: 281.02, type: "jump", nextIndex: 52, reference: "No matter what you've lost be it a home a love a friend", fired: false },
+			{ time: 286.15, type: "jump", nextIndex: 53, reference: "like the Mary Ellen Carter rise again", fired: false },
+			{ time: 322.45, type: "Y1pause", nextIndex: 54, reference: "song ended", fired: false}
 			]
 		  },
 		  "Four Strong Winds": {
@@ -1253,6 +1258,13 @@ There’s a cricket on the twentieth floor
 		function getPagesBaseURL() {
 			return "https://chrissullivan71.github.io/perform/";
 
+		}
+		
+		function getLineLengthLimit() {
+			const width = window.innerWidth;
+			if (width >= 1200) return 56;      // laptop/desktop
+			if (width >= 900) return 48;       // iPad landscape
+			return 35;                          // phone landscape
 		}
 
 		async function loadAndShowLyrics() {
@@ -2084,6 +2096,7 @@ There’s a cricket on the twentieth floor
 			"anymore": ["an", "y", "more"],
 			"anyway": ["an", "y", "way"],
 			"somehow": ["some", "how"],
+			"harmonica": ["har","mon", "ica"],
 
 			// ---------------------------
 			// Rainbow Connection
@@ -2131,6 +2144,8 @@ There’s a cricket on the twentieth floor
 			"always": ["al", "ways"],
 			"bound": ["bound"],
 			"either": ["ei", "ther"],
+			"pedal": ["ped","al"],
+			"steel":["steel"],
 			
 			// Mary Ellen Carter
 			"again": ["a", "gain"],
@@ -2169,7 +2184,7 @@ There’s a cricket on the twentieth floor
 			
 			// music
 			"break": ["break"],
-			"harmonica": ["har", "mon", "i", "ca"],
+			"harmonica": ["har", "mon", "ica"],
 			"guitar": ["gui", "tar"],
 			"pedal": ["ped", "al"],
 			"steel": ["steel"],
@@ -2478,12 +2493,11 @@ There’s a cricket on the twentieth floor
 				}
 			}
 			
-			// Capitalize first word of line unless escaped with backslash
 			const originalWord = line.substring(wordStart, wordEnd).trim();
-			if (isFirstWord && originalWord.length > 0 && !originalWord.startsWith("\\")) {
+			const isFirstSyllable = charIndex === wordStart;
+			if (isFirstWord && isFirstSyllable && originalWord.length > 0 && !originalWord.startsWith("\\")) {
 				result = result.charAt(0).toUpperCase() + result.slice(1);
-			}
-			
+			}			// Capitalize first word of line unless escaped with backsl
 			return result;
 		}
 
@@ -3716,6 +3730,15 @@ There’s a cricket on the twentieth floor
 		function render() {
 
 		  if (!running) return;
+
+		  if (window.innerWidth < window.innerHeight) {
+			  ctx.fillStyle = '#1e1e1e';
+			  ctx.fillRect(0, 0, canvas.width, canvas.height);
+			  renderText('Please rotate your device', canvas.width / 2, canvas.height / 2 - 30, [0, 255, 0], 36, 'center', 'middle');
+			  renderText('to landscape mode', canvas.width / 2, canvas.height / 2 + 30, [0, 255, 0], 36, 'center', 'middle');
+			  requestAnimationFrame(render);
+			  return;
+		  }
 				  
 			if (autoRunArmed) {
 				APPOINTMENTS.forEach((cue, idx) => {
