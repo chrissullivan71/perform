@@ -774,6 +774,9 @@ There’s a cricket on the twentieth floor
 				background: "background.jpg",
 				fontSize: 36,
 				font: "Consolas",
+				lyricsFile: "theLastGreatWaltz.lyric",
+				chords: "lastGreatWaltzChords_v3.jpg",
+				credits: `The Last Great Waltz\nWritten by Mason Williams\nJoe Rubinski, Chris Sullivan, Bob Hewus — vocals\nChris Sullivan — guitar\nDave Charron — keyboards\nBob Hewus — bass\nDave Reade — vocals\nISRB\nSt. Clair College, Windsor, Ontario, 1979`,
 				appointments: [
 					{ time: 0.00, type: "jump", nextIndex: 99, reference: "Beginning", fired: false },
 					{ time: 9.45, type: "jump", nextIndex: 1, reference: "Jonathan W. Astor", fired: false },
@@ -823,6 +826,9 @@ There’s a cricket on the twentieth floor
 				background: "background.jpg",
 				fontSize: 36,
 				font: "Consolas",
+				chords: "mrTutChords_v3.jpg",
+				lyricsFile: "misterTut.lyric",
+				credits: `Mr. Tut\nWritten by Michael Smith\nChris Sullivan — vocals, guitar\nArts Court, Ottawa, 1987`,
 				appointments: [
 					{ time: 0.00, type: "jump", nextIndex: 0, reference: "Intro - instrumental", fired: false },
 					{ time: 10.77, type: "jump", nextIndex: 1, reference: "Oh Mister Tut what good's it do", fired: false },
@@ -877,12 +883,13 @@ There’s a cricket on the twentieth floor
 				display: "The Twentieth Century is Almost Over",
 				bouncesPerLine: 8,
 				bounceDuration: 0.75,
-				background: "twentiethCentury-bg.jpg",
+				background: "background.jpg",
 				fontSize: 36,
 				font: "Consolas",
 				artwork: "twentiethCentury-art.jpg",
 				credits: `The Twentieth Century is Almost Over\nWritten by Steve Goodman\nVocals and guitars: Joel Leblanc, Chris Sullivan,\nKathleen Johnson, Sally Thompson\nVenue: Arts Court, Ottawa, Ontario\n1987`,
 				lyricsFile: "twentiethCentury.lyric",
+				chords: "twentiethCenturyChords_v4.jpg",
 				appointments: [
 					{ time: 0.00, type: "jump", nextIndex: 0, reference: "Intro", fired: false },
 					{ time: 12.11, type: "jump", nextIndex: 1, reference: "Back in Eighteen Ninety Nine", fired: false },
@@ -968,7 +975,9 @@ There’s a cricket on the twentieth floor
 				background: "background.jpg",
 				fontSize: 36,
 				font: "Consolas",
-				appointments: [
+                chords: "dontThinkTwiceChords_v4.jpg",
+				lyricsFile: "accuratedontThinkTwice.lyric",
+				credits: `Don't Think Twice, It's All Right\nWritten and performed by Bob Dylan\nvocals, guitar, harmonica\nProduced by John Hammond\nColumbia Records, 1963\nFrom: The Freewheelin' Bob Dylan`,				appointments: [
 					{ time: 0.00, type: "jump", nextIndex: 0,  reference: "intro", fired: false },
 					{ time: 7.12, type: "jump", nextIndex: 1,  reference: "Well it ain't no use to sit and wonder why, baby", fired: false },
 					{ time: 12.37, type: "jump", nextIndex: 2,  reference: "If'n you don't know by now", fired: false },
@@ -1022,6 +1031,8 @@ There’s a cricket on the twentieth floor
 			background: "background.jpg",
 			fontSize: 36,
 			font: "Consolas",
+			lyricsFile: "maryEllenCarterJoelChris.lyric",
+			credits: `The Mary Ellen Carter\nWritten by Stan Rogers\nChris Sullivan — vocals, 12-string guitar\nJoel Leblanc — vocals, 6-string guitar\nArts Court, Ottawa, 1987`,
 			appointments: [
 			{ time: 0.00, type: "jump", nextIndex: 0,  reference: "Intro", fired: false },
 			{ time: 5.88, type: "jump", nextIndex: 1,  reference: "Intro", fired: false },
@@ -1088,6 +1099,9 @@ There’s a cricket on the twentieth floor
 			background: "background.jpg",
 			fontSize: 36,
 			font: "Consolas",
+			chords: "fourStrongWindsChords_v3.jpg",
+			lyricsFile: "fourStrongWinds.lyric",
+			credits: `Four Strong Winds\nWritten by Ian Tyson\nNeil Young — vocals, guitar\nEmmylou Harris — vocals\nPegi Young — harmony vocals\nBen Keith — steel guitar\nSpooner Oldham — keyboards\nGrant Boatwright — harmony vocals, guitar\nDir. Jonathan Demme\nRyman Auditorium, Nashville, 2005`,			
 			appointments: [
 			{ time: 0.00, type: "jump", nextIndex: 0,  reference: "Intro", fired: false },
 			{ time: 16.72, type: "jump", nextIndex: 1,  reference: "Think I'll go out to Alberta", fired: false},   
@@ -1137,6 +1151,8 @@ There’s a cricket on the twentieth floor
 			fontSize: 36,
 			font: "Consolas",
 			chords: "rainbowConnectionChords_v6.jpg",
+			lyricsFile: "rainbowConnection.lyric",
+			credits: `Rainbow Connection\nWritten by Paul Williams and Kenneth Ascher\nPerformed by Jim Henson as Kermit the Frog\nProduced by Paul Williams\nA&M Studios, Hollywood, 1978\nAtlantic Records, 1979\nFrom: The Muppet Movie`,
 			appointments: [
 				{ time: 0.00, type: "jump", nextIndex: 0,  reference: "Intro", fired: false },
 				{ time: 6.06, type: "jump", nextIndex: 1,  reference: "Why are there so many songs abour rainbows", fired: false },
@@ -1179,6 +1195,9 @@ There’s a cricket on the twentieth floor
 			background: "background.jpg",
 			fontSize: 36,
 			font: "Consolas",
+			chords: "theVisitorChords_v4.jpg",
+			lyricsFile: "the-visitor.lyric",
+			credits: `The Visitor\nWritten by Chris Sullivan\nKathleen Johnson — vocals\nChris Sullivan — guitar\nGreg Jeeves — keyboards, bass, sound effects, engineering\nRecorded 1988`,
 			appointments: [
 				{ time: 15.42,  type: "jump",     nextIndex: 5,  reference: "5 lines, jump 1 to Verse 1 after intro and Cricket Music 1", fired: false },
 				{ time: 42.86,  type: "jump",     nextIndex: 13, reference: "first line of cricket music 3", fired: false },
@@ -4369,7 +4388,6 @@ There’s a cricket on the twentieth floor
 				initBallPhysics();
 				artworkImage = null;
 				chordsImage = null;
-				chordsVisible = false;
 				if (songConfig.chords) {
 					const img = new Image();
 					img.onload = () => { chordsImage = img; };
