@@ -765,6 +765,15 @@ There’s a cricket on the twentieth floor
 [long cricket music]
 `
 	};
+		let currentFont = "Consolas";
+		const messageFontSize = 28;
+		const titleFontSize = 36;
+		const sectionFontSize = 36;
+		let songFontSize = 36;
+		let chordsImage = null;
+		let chordFontSize = songFontSize
+		
+		
 		const songFileMap = {
 			"lastWaltz": {
 				base: "theLastGreatWaltz",
@@ -772,7 +781,7 @@ There’s a cricket on the twentieth floor
 				bouncesPerLine: 8,
 				bounceDuration: 1.0,
 				background: "background.jpg",
-				fontSize: 36,
+				fontSize: songFontSize,
 				font: "Consolas",
 				lyricsFile: "theLastGreatWaltz.lyric",
 				chords: "lastGreatWaltzChords_v3.jpg",
@@ -824,7 +833,7 @@ There’s a cricket on the twentieth floor
 				bouncesPerLine: 8,
 				bounceDuration: 1.05,
 				background: "background.jpg",
-				fontSize: 36,
+				fontSize: songFontSize,
 				font: "Consolas",
 				chords: "mrTutChords_v3.jpg",
 				lyricsFile: "misterTut.lyric",
@@ -884,10 +893,10 @@ There’s a cricket on the twentieth floor
 				bouncesPerLine: 8,
 				bounceDuration: 0.75,
 				background: "background.jpg",
-				fontSize: 36,
+				fontSize: songFontSize,
 				font: "Consolas",
 				artwork: "twentiethCentury-art.jpg",
-				credits: `The Twentieth Century is Almost Over\nWritten by Steve Goodman\nVocals and guitars: Joel Leblanc, Chris Sullivan,\nKathleen Johnson, Sally Thompson\nVenue: Arts Court, Ottawa, Ontario\n1987`,
+				credits: `The Twentieth Century is Almost Over\nWritten by Steve Goodman\nChris Sullivan — banjo\nKathleen Johnson, Joel Leblanc, Sally Thompson — vocals\nArts Court, Ottawa, 1987`,
 				lyricsFile: "twentiethCentury.lyric",
 				chords: "twentiethCenturyChords_v4.jpg",
 				appointments: [
@@ -973,7 +982,7 @@ There’s a cricket on the twentieth floor
 				bouncesPerLine: 8,
 				bounceDuration: 1.06,
 				background: "background.jpg",
-				fontSize: 36,
+				fontSize: songFontSize,
 				font: "Consolas",
                 chords: "dontThinkTwiceChords_v4.jpg",
 				lyricsFile: "accuratedontThinkTwice.lyric",
@@ -1029,16 +1038,16 @@ There’s a cricket on the twentieth floor
 			bouncesPerLine: 8,
 			bounceDuration: 1.2,
 			background: "background.jpg",
-			fontSize: 36,
+			fontSize: 32,
 			font: "Consolas",
 			lyricsFile: "maryEllenCarterJoelChris.lyric",
-			credits: `The Mary Ellen Carter\nWritten by Stan Rogers\nChris Sullivan — vocals, 12-string guitar\nJoel Leblanc — vocals, 6-string guitar\nArts Court, Ottawa, 1987`,
-			appointments: [
+			chords: "maryellenCarterChords_v3.jpg",
+			credits: `The Mary Ellen Carter\nWritten by Stan Rogers\nChris Sullivan — vocals, 12-string guitar\nJoel Leblanc — vocals, 6-string guitar\nArts Court, Ottawa, 1987\nI played this song in DADGAD with the capo on the 5th fret.\nThat is as near as I can tell how Stan used to play it.\nThat puts it in the key of G.\nThe ukulele chords under the Promptoid K key are in G.`,			appointments: [
 			{ time: 0.00, type: "jump", nextIndex: 0,  reference: "Intro", fired: false },
 			{ time: 5.88, type: "jump", nextIndex: 1,  reference: "Intro", fired: false },
 			{ time: 11.75, type: "jump", nextIndex: 2,  reference: "Intro", fired: false },
 			{ time: 17.63, type: "jump", nextIndex: 3,  reference: "Intro", fired: false },
-			{ time: 23.50, type: "jump", nextIndex: 4,  reference: "She went down last October", fired: false },
+			{ time: 23.85, type: "jump", nextIndex: 4,  reference: "She went down last October", fired: false },
 			{ time: 28.54, type: "jump", nextIndex: 5,  reference: "The skipper he'd been drinking", fired: false },
 			{ time: 33.36, type: "jump", nextIndex: 6,  reference: "Too close to Three Mile Rock", fired: false },
 			{ time: 38.04, type: "jump", nextIndex: 7,  reference: "And the Mary Ellen Carter settled low", fired: false },
@@ -1097,7 +1106,7 @@ There’s a cricket on the twentieth floor
 			bouncesPerLine: 8,
 			bounceDuration: 1.10,
 			background: "background.jpg",
-			fontSize: 36,
+			fontSize: songFontSize,
 			font: "Consolas",
 			chords: "fourStrongWindsChords_v3.jpg",
 			lyricsFile: "fourStrongWinds.lyric",
@@ -1148,7 +1157,7 @@ There’s a cricket on the twentieth floor
 			bouncesPerLine: 8,
 			bounceDuration: 1.5625,
 			background: "background.jpg",
-			fontSize: 36,
+			fontSize: songFontSize,
 			font: "Consolas",
 			chords: "rainbowConnectionChords_v6.jpg",
 			lyricsFile: "rainbowConnection.lyric",
@@ -1193,7 +1202,7 @@ There’s a cricket on the twentieth floor
 			bouncesPerLine: 4,
 			bounceDuration: 0.84375,
 			background: "background.jpg",
-			fontSize: 36,
+			fontSize: songFontSize,
 			font: "Consolas",
 			chords: "theVisitorChords_v4.jpg",
 			lyricsFile: "the-visitor.lyric",
@@ -1267,8 +1276,6 @@ There’s a cricket on the twentieth floor
 		let artworkImage = null;
 		let highlightedStatus = {};
 		let currentFontSize = 36;
-		let currentFont = "Consolas";
-		let chordsImage = null;
 		
 		
 		// getPagesBaseURL()
@@ -2176,7 +2183,7 @@ There’s a cricket on the twentieth floor
 			"skipper": ["skip", "per"],
 			"drinking": ["drink", "ing"],
 			"mortal": ["mor", "tal"],
-			"carter": ["car", "ter"],
+			"Carter": ["Carter"],
 			"settled": ["set", "tled"],
 			"aboard": ["a", "board"],
 			"finally": ["fi", "nal", "ly"],
@@ -2201,15 +2208,16 @@ There’s a cricket on the twentieth floor
 			"another": ["an", "oth", "er"],
 			"everywhere": ["ev", "ery", "where"],
 			"strength": ["strength"],
-			"mary": ["mary"],
+			"Mary": ["Mary"],
+			"Guitar": ["Guitar"],
 			
 			// music
 			"break": ["break"],
-			"harmonica": ["har", "mon", "ica"],
-			"guitar": ["gui", "tar"],
-			"pedal": ["ped", "al"],
+			"harmonica": ["harmonica"],
+			"guitar": ["guitar"],
+			"pedal": ["pedal"],
 			"steel": ["steel"],
-			"solo": ["so", "lo"],
+			"solo": ["solo"],
 
 			// ---------------------------
 			// High Flight
@@ -3780,8 +3788,8 @@ There’s a cricket on the twentieth floor
 		  if (window.innerWidth < window.innerHeight) {
 			  ctx.fillStyle = '#1e1e1e';
 			  ctx.fillRect(0, 0, canvas.width, canvas.height);
-			  renderText('Please rotate your device', canvas.width / 2, canvas.height / 2 - 30, [0, 255, 0], 36, 'center', 'middle');
-			  renderText('to landscape mode', canvas.width / 2, canvas.height / 2 + 30, [0, 255, 0], 36, 'center', 'middle');
+			  renderText('Please rotate your device', canvas.width / 2, canvas.height / 2 - 30, [0, 255, 0],messageFontSize, 'center', 'middle');
+			  renderText('to landscape mode', canvas.width / 2, canvas.height / 2 + 30, [0, 255, 0],messageFontSize, 'center', 'middle');
 			  requestAnimationFrame(render);
 			  return;
 		  }
@@ -3791,8 +3799,9 @@ There’s a cricket on the twentieth floor
 					if (!cue.fired && !waitingForStart && audioElement.currentTime >= cue.time) {
 						if (cue.type === "jump" && typeof cue.nextIndex === "number") {
 							jumpProcessing(cue.nextIndex, true);
-							dlog(`[AUTO-JUMP] time ${cue.time}, nextIndex ${cue.nextIndex}, ref: ${cue.reference}`);
+							console.log(`[AUTO-JUMP] time ${cue.time}, nextIndex ${cue.nextIndex}, ref: ${cue.reference}`);
 							cue.fired = true;
+							console.log(`[APPT] fired: time=${cue.time} nextIndex=${cue.nextIndex} ref=${cue.reference} audio=${audioElement.currentTime.toFixed(2)}`);
 						} else if (cue.type === "Y1pause") {
 							if (!animationPaused) {
 								animationPaused = true;
@@ -3939,19 +3948,19 @@ There’s a cricket on the twentieth floor
 
 		  // Draw title and time signature
 		  if (songData.title) {
-			renderText(songData.title, 5, POSITION_TITLE, [0, 255, 0]);
+			renderText(songData.title, 5, POSITION_TITLE, [0, 255, 0],titleFontSize);
 		  }
 		  if (songData.timeSignature) {
-			renderText(songData.timeSignature, 5, POSITION_TIME_SIGNATURE, [0, 255, 0]);
+			renderText(songData.timeSignature, 5, POSITION_TIME_SIGNATURE, [0, 255, 0],titleFontSize);
 		  }
 
 		  // Draw messages
 		  if (waitingForStart && !currentSongKey) {
 			const message = "Press Play or spacebar";
-			renderText(message, canvas.width - 1000, canvas.height - 500, [255, 255, 255]);
+			renderText(message, canvas.width - 1000, canvas.height - 500, [255, 255, 255],messageFontSize);
 		  } else if (waitingForStart) {
 			const message = currentIndex === 0 ? "Press Play or spacebar" : "Play or spacebar";
-			renderText(message, canvas.width - 1000, canvas.height - 500, [255, 255, 255]);
+			renderText(message, canvas.width - 1000, canvas.height - 500, [255, 255, 255],messageFontSize);
 		  }
 
 		  // Draw lyrics, chords, sections, highlighting, etc.
@@ -3980,13 +3989,13 @@ There’s a cricket on the twentieth floor
 							const dt = currentTime - bounceStartTime;
 							const beatProgress = (dt % bounceDuration) / bounceDuration;
 							const beatFactor = rising ? beatProgress : (1.0 - beatProgress);
-							renderText(chordText, 5, POSITION_CHORDS, [255, 165, 0]);
+							renderText(chordText, 5, POSITION_CHORDS, [255, 165, 0],currentFontSize);
 							if (lyricText.includes('##')) {
 								const parts = lyricText.split('##');
-								renderText(parts[0].trimEnd(), 5, POSITION_LYRIC_LINE, [255, 255, 255]);
-								renderText(parts[1].trimStart(), 5, POSITION_LYRIC_LINE + 45, [255, 255, 255]);
+								renderText(parts[0].trimEnd(), 5, POSITION_LYRIC_LINE, [255, 255, 255], currentFontSize);
+								renderText(parts[1].trimStart(), 5, POSITION_LYRIC_LINE + 45, [255, 255, 255], currentFontSize);
 							} else {
-								renderText(lyricText, 5, POSITION_LYRIC_LINE, [255, 255, 255]);
+								renderText(lyricText, 5, POSITION_LYRIC_LINE, [255, 255, 255], currentFontSize);
 							}
 							const beatPositions = beatPositionsCache[currentIndex] || [];
 							for (const [bNum, charIndex] of beatPositions) {
@@ -4003,6 +4012,8 @@ There’s a cricket on the twentieth floor
 										const pixelX = calculatePixelPosition(lyricText, 5, charIndex, currentFontSize);
 										const highlightColor = syllableHighlightColor;
 										ctx.fillStyle = '#1e1e1e';
+										ctx.font = `bold ${currentFontSize}px '${currentFont}', monospace`;
+										ctx.font = `bold ${currentFontSize}px '${currentFont}', monospace`;
 										const syllableWidth = ctx.measureText(syllable).width;
 										ctx.fillRect(pixelX, POSITION_LYRIC_LINE - 35, syllableWidth, 45);
 										renderWordAtPosition(syllable, pixelX, POSITION_LYRIC_LINE, highlightColor);
@@ -4011,7 +4022,7 @@ There’s a cricket on the twentieth floor
 										const pixelX = calculatePixelPosition(chordText, 5, charIndex, currentFontSize);
 										const highlightColor = syllableHighlightColor;
 										ctx.fillStyle = '#1e1e1e';
-										const chordWidth = ctx.measureText(chord).width;
+										ctx.font = `bold ${currentFontSize}px '${currentFont}', monospace`;										const chordWidth = ctx.measureText(chord).width;
 										ctx.fillRect(pixelX, POSITION_CHORDS - 35, chordWidth, 45);
 										renderWordAtPosition(chord, pixelX, POSITION_CHORDS, highlightColor);
 									}
@@ -4027,14 +4038,14 @@ There’s a cricket on the twentieth floor
 			if (!highlightingActive) {
 			  // Render the entire line of chords and lyrics unhighlighted
 			  // Orange for chords
-			  renderText(chordText, 5, POSITION_CHORDS, [255, 165, 0]);
+			  renderText(chordText, 5, POSITION_CHORDS, [255, 165, 0], currentFontSize);
 			  // White for lyrics
 			  if (lyricText.includes('##')) {
 				const parts = lyricText.split('##');
-				renderText(parts[0].trimEnd(), 5, POSITION_LYRIC_LINE, [255, 255, 255]);
-				renderText(parts[1].trimStart(), 5, POSITION_LYRIC_LINE + 45, [255, 255, 255]);
+				renderText(parts[0].trimEnd(), 5, POSITION_LYRIC_LINE, [255, 255, 255],currentFontSize);
+				renderText(parts[1].trimStart(), 5, POSITION_LYRIC_LINE + 45, [255, 255, 255],currentFontSize);
 			  } else {
-				renderText(lyricText, 5, POSITION_LYRIC_LINE, [255, 255, 255]);
+				renderText(lyricText, 5, POSITION_LYRIC_LINE, [255, 255, 255],currentFontSize);
 			  }
 				if (currentHLWord) {
 				  const lyricText = lyrics[currentIndex % lyrics.length];
@@ -4048,7 +4059,7 @@ There’s a cricket on the twentieth floor
 					}
 				}			}
 			if (sections.length > 0) {
-			  renderText(sections[currentIndex % sections.length], 5, POSITION_SECTION, [0, 0, 255]);
+			  renderText(sections[currentIndex % sections.length], 5, POSITION_SECTION, [0, 0, 255],sectionFontSize);
 			}
 		  }
 
@@ -4377,7 +4388,9 @@ There’s a cricket on the twentieth floor
 				const aParam = (new URLSearchParams(window.location.search)).get('a');
 				dlog("Song selected:", currentSongKey, "Starting full asset load...");
 				songConfig = songFileMap[currentSongKey];
-				currentFontSize = songConfig.fontSize || 40;
+				currentFontSize = songConfig.fontSize || 36;
+				songFontSize = songConfig.fontSize || 36;
+				chordFontSize = songConfig.fontSize || 36;
 				currentFont = songConfig.font || "Consolas";
 				bounceDuration = songConfig.bounceDuration;
 				BOUNCES_PER_LINE = songConfig.bouncesPerLine;
