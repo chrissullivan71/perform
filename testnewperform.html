@@ -208,6 +208,7 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
 		<option value="goodman">The Twentieth Century is Almost Over</option>
 		<option value="misterTut">Mr. Tut</option>	
 		<option value="lastWaltz">The Last Great Waltz</option>
+		<option value="foreignAffair">A Foreign Affair</option>
     </select>
     <div id="loadingStatus">Select a song to begin...</div>
 
@@ -772,9 +773,50 @@ There’s a cricket on the twentieth floor
 		let songFontSize = 36;
 		let chordsImage = null;
 		let chordFontSize = songFontSize
-		
-		
 		const songFileMap = {
+			"foreignAffair": {
+				base: "aForeignAffair",
+				display: "A Foreign Affair",
+				bouncesPerLine: 8,
+				bounceDuration: 1.0,
+				background: "background.jpg",
+				fontSize: 32,
+				font: "Consolas",
+				lyricsFile: "aForeignAffair.lyric",
+				chords: "aForeignAffairChords_v1.jpg",
+				credits: `A Foreign Affair\nWritten by Tom Waits\nChris Sullivan — vocals, guitar\nKathleen Johnson — vocals (bridge)\nRecorded Ottawa`,		
+				appointments: [
+					{ time: 0.00,   type: "jump", nextIndex: 99,  reference: "beginning", fired: false },
+					// { time: 1.00,   type: "jump", nextIndex: 1,  reference: "Intro", fired: false },
+					{ time: 13.04,  type: "jump", nextIndex: 1,  reference: "When traveling abroad", fired: false },
+					{ time: 19.28,  type: "jump", nextIndex: 2,  reference: "It's my belief", fired: false },
+					{ time: 29.09,  type: "jump", nextIndex: 3,  reference: "And subsequently", fired: false },
+					{ time: 35.37,  type: "jump", nextIndex: 4,  reference: "Allows you a perspective", fired: false },
+					{ time: 41.84,  type: "jump", nextIndex: 5,  reference: "And though you'll find", fired: false },
+					{ time: 48.92,  type: "jump", nextIndex: 6,  reference: "Your wanderlust", fired: false },
+					{ time: 55.24,  type: "jump", nextIndex: 7,  reference: "And you'll wonder", fired: false },
+					{ time: 61.21,  type: "jump", nextIndex: 8,  reference: "To stay within the city limits", fired: false },
+					{ time: 69.46,  type: "jump", nextIndex: 9, reference: "Most vagabonds", fired: false },
+					{ time: 76.97,  type: "jump", nextIndex: 10, reference: "That remains the object", fired: false },
+					{ time: 83.85,  type: "jump", nextIndex: 11, reference: "The obsession's in the chasing", fired: false },
+					{ time: 91.83,  type: "jump", nextIndex: 12, reference: "The pursuit you see", fired: false },
+					{ time: 102.69, type: "jump", nextIndex: 13, reference: "Without fear of contradiction", fired: false },
+					{ time: 108.86, type: "jump", nextIndex: 14, reference: "In conjunction", fired: false },
+					{ time: 115.00, type: "jump", nextIndex: 15, reference: "By a girl that drives a rambler", fired: false },
+					{ time: 119.81, type: "jump", nextIndex: 16, reference: "Is overly concerned", fired: false },
+					{ time: 126.60, type: "jump", nextIndex: 17, reference: "Planes and trains", fired: false },
+					{ time: 135.65, type: "jump", nextIndex: 18, reference: "evoke a common attitude of blue", fired: false },
+					{ time: 143.80, type: "jump", nextIndex: 19, reference: "Unless you have a suitcase", fired: false },
+					{ time: 151.23, type: "jump", nextIndex: 20, reference: "And the cargo", fired: false },
+					{ time: 161.37, type: "jump", nextIndex: 21, reference: "A foreign affair juxtaposed", fired: false },
+					{ time: 168.80, type: "jump", nextIndex: 22, reference: "And domestically approved", fired: false },
+					{ time: 175.50, type: "jump", nextIndex: 23, reference: "Is mysteriously attractive", fired: false },
+					{ time: 184.55, type: "jump", nextIndex: 24, reference: "It will only be parlayed", fired: false },
+					{ time: 196.51, type: "jump", nextIndex: 25, reference: "Outro", fired: false },
+					{ time: 208.625, type: "Y1pause", nextIndex: 26, reference: "song ended", fired: false }
+				]
+			},
+
 			"lastWaltz": {
 				base: "theLastGreatWaltz",
 				display: "The Last Great Waltz",
@@ -2452,7 +2494,40 @@ There’s a cricket on the twentieth floor
 			"there's": ["there's"],
 			"we're": ["we're"],
 			"you're": ["you're"],
-			"*": ["*"]
+			"*": ["*"],
+
+			// A Foreign Affair by Tom Waits
+
+			"traveling": ["trav", "el", "ing"],
+			"continental": ["con", "ti", "nen", "tal"],
+			"subsequently": ["sub", "se", "quent", "ly"],
+			"transient": ["tran", "sient"],
+			"perspective": ["per", "spec", "tive"],
+			"itinerary": ["i", "tin", "er", "ar", "y"],
+			"wanderlust": ["wan", "der", "lust"],
+			"fathomed": ["fath", "omed"],
+			"midwestern": ["mid", "west", "ern"],
+			"vagabonds": ["vag", "a", "bonds"],
+			"relentless": ["re", "lent", "less"],
+			"obsession": ["ob", "ses", "sion"],
+			"apprehending": ["ap", "pre", "hend", "ing"],
+			"contradiction": ["con", "tra", "dic", "tion"],
+			"conjunction": ["con", "junc", "tion"],
+			"handkerchief": ["han", "ker", "chief"],
+			"furthermore": ["fur", "ther", "more"],
+			"concerned": ["con", "cerned"],
+			"characteristically": ["char", "ac", "ter", "is", "tic", "ally"],
+			"suitcase": ["suit", "case"],
+			"passport": ["pass", "port"],
+			"juxtaposed": ["jux", "ta", "posed"],
+			"domestically": ["do", "mes", "tic", "ally"],
+			"romantic": ["ro", "man", "tic"],
+			"mysteriously": ["mys", "te", "ri", "ous", "ly"],
+			"attractive": ["at", "trac", "tive"],
+			"circumstances": ["cir", "cum", "stanc", "es"],
+			"parlayed": ["par", "layed"],
+			"foreign": ["for", "eign"],
+			"affair": ["af", "fair"]
 		};
       
 		/*
