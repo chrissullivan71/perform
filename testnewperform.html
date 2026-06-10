@@ -2496,38 +2496,74 @@ There’s a cricket on the twentieth floor
 			"you're": ["you're"],
 			"*": ["*"],
 
-			// A Foreign Affair by Tom Waits
-
-			"traveling": ["trav", "el", "ing"],
-			"continental": ["con", "ti", "nen", "tal"],
-			"subsequently": ["sub", "se", "quent", "ly"],
-			"transient": ["tran", "sient"],
-			"perspective": ["per", "spec", "tive"],
-			"itinerary": ["i", "tin", "er", "ar", "y"],
-			"wanderlust": ["wan", "der", "lust"],
-			"fathomed": ["fath", "omed"],
-			"midwestern": ["mid", "west", "ern"],
-			"vagabonds": ["vag", "a", "bonds"],
-			"relentless": ["re", "lent", "less"],
-			"obsession": ["ob", "ses", "sion"],
-			"apprehending": ["ap", "pre", "hend", "ing"],
-			"contradiction": ["con", "tra", "dic", "tion"],
-			"conjunction": ["con", "junc", "tion"],
-			"handkerchief": ["han", "ker", "chief"],
-			"furthermore": ["fur", "ther", "more"],
-			"concerned": ["con", "cerned"],
-			"characteristically": ["char", "ac", "ter", "is", "tic", "ally"],
-			"suitcase": ["suit", "case"],
-			"passport": ["pass", "port"],
-			"juxtaposed": ["jux", "ta", "posed"],
-			"domestically": ["do", "mes", "tic", "ally"],
-			"romantic": ["ro", "man", "tic"],
-			"mysteriously": ["mys", "te", "ri", "ous", "ly"],
+			// A Foreign Affair
+			"abroad": ["a", "broad"],
+			"affair": ["af", "fair"],
+			"allows": ["al", "lows"],
+			"approved": ["ap", "proved"],
+			"arrest": ["ar", "rest"],
+			"attempt": ["at", "tempt"],
+			"attitude": ["at", "ti", "tude"],
 			"attractive": ["at", "trac", "tive"],
+			"belief": ["be", "lief"],
+			"blessing": ["bless", "ing"],
+			"buses": ["bus", "es"],
+			"cargo": ["car", "go"],
+			"carrying": ["car", "ry", "ing"],
+			"characteristically": ["char", "ac", "ter", "is", "tic", "ally"],
+			"chasing": ["chas", "ing"],
 			"circumstances": ["cir", "cum", "stanc", "es"],
-			"parlayed": ["par", "layed"],
+			"common": ["com", "mon"],
+			"concerned": ["con", "cerned"],
+			"conjunction": ["con", "junc", "tion"],
+			"content": ["con", "tent"],
+			"continental": ["con", "ti", "nen", "tal"],
+			"contradiction": ["con", "tra", "dic", "tion"],
+			"culprit": ["cul", "prit"],
+			"discreet": ["dis", "creet"],
+			"domestically": ["do", "mes", "tic", "ally"],
+			"evoke": ["e", "voke"],
+			"fancy": ["fan", "cy"],
+			"fathomed": ["fath", "omed"],
 			"foreign": ["for", "eign"],
-			"affair": ["af", "fair"]
+			"furthermore": ["fur", "ther", "more"],
+			"handkerchief": ["han", "ker", "chief"],
+			"hollered": ["hol", "lered"],
+			"itinerary": ["i", "tin", "er", "ar", "y"],
+			"juxtaposed": ["jux", "ta", "posed"],
+			"knowing": ["know", "ing"],
+			"limits": ["lim", "its"],
+			"memory": ["mem", "o", "ry"],
+			"midwestern": ["mid", "west", "ern"],
+			"mysteriously": ["mys", "te", "ri", "ous", "ly"],
+			"object": ["ob", "ject"],
+			"obsession": ["ob", "ses", "sion"],
+			"overly": ["o", "ver", "ly"],
+			"parlayed": ["par", "layed"],
+			"passport": ["pass", "port"],
+			"perspective": ["per", "spec", "tive"],
+			"position": ["po", "si", "tion"],
+			"pursuit": ["pur", "suit"],
+			"rambler": ["ram", "bler"],
+			"relentless": ["re", "lent", "less"],
+			"remains": ["re", "mains"],
+			"romantic": ["ro", "man", "tic"],
+			"settle": ["set", "tle"],
+			"stateside": ["state", "side"],
+			"subsequently": ["sub", "se", "quent", "ly"],
+			"suitcase": ["suit", "case"],
+			"ticket": ["tick", "et"],
+			"transient": ["tran", "sient"],
+			"traveling": ["trav", "el", "ing"],
+			"unique": ["u", "nique"],
+			"vagabonds": ["vag", "a", "bonds"],
+			"voyage": ["voy", "age"],
+			"wanderlust": ["wan", "der", "lust"],
+			"within": ["with", "in"],
+			"without": ["with", "out"],
+			"apprehending": ["ap", "pre", "hend", "ing"],
+			"itinerarys": ["i", "tin", "er", "ar", "y's"],
+			"obsessions": ["ob", "ses", "sion's"]
 		};
       
 		/*
@@ -4091,7 +4127,7 @@ There’s a cricket on the twentieth floor
 										ctx.font = `bold ${currentFontSize}px '${currentFont}', monospace`;
 										const syllableWidth = ctx.measureText(syllable).width;
 										ctx.fillRect(pixelX, POSITION_LYRIC_LINE - 35, syllableWidth, 45);
-										renderWordAtPosition(syllable, pixelX, POSITION_LYRIC_LINE, highlightColor);
+										renderWordAtPosition(syllable, pixelX, POSITION_LYRIC_LINE, highlightColor, currentFontSize);
 									}
 									if (chord) {
 										const pixelX = calculatePixelPosition(chordText, 5, charIndex, currentFontSize);
@@ -4099,7 +4135,7 @@ There’s a cricket on the twentieth floor
 										ctx.fillStyle = '#1e1e1e';
 										ctx.font = `bold ${currentFontSize}px '${currentFont}', monospace`;										const chordWidth = ctx.measureText(chord).width;
 										ctx.fillRect(pixelX, POSITION_CHORDS - 35, chordWidth, 45);
-										renderWordAtPosition(chord, pixelX, POSITION_CHORDS, highlightColor);
+										renderWordAtPosition(chord, pixelX, POSITION_CHORDS, highlightColor, currentFontSize);
 									}
 									break;
 								}
@@ -4129,7 +4165,7 @@ There’s a cricket on the twentieth floor
 					  const pixelX = calculatePixelPosition(lyricText, 5, wordIndex, currentFontSize);
 					  const syllableWidth = ctx.measureText(currentHLWord).width;
 					  ctx.fillStyle = '#1e1e1e';
-					  ctx.fillRect(pixelX, POSITION_LYRIC_LINE - 35, syllableWidth, 45);
+					  ctx.fillRect(pixelX, POSITION_LYRIC_LINE - 35, Math.min(syllableWidth, canvas.width - pixelX), 45);
 					  renderWordAtPosition(currentHLWord, pixelX, POSITION_LYRIC_LINE, [0, 255, 255]);
 					}
 				}			}
