@@ -12,7 +12,8 @@ songs = [
     "fourStrongWinds",
     "rainbowConnection",
     "the-visitor",
-    "aForeignAffair"
+    "aForeignAffair",
+    "yourNumberOne"
 ]
 
 CHORDS = {"C","D","E","F","G","A","B","Cm","Dm","Em","Fm","Gm","Am","Bm",
