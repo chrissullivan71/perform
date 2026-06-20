@@ -210,6 +210,7 @@ Copyright (c) 2025 Chris Sullivan. All rights reserved.
 		<option value="lastWaltz">The Last Great Waltz</option>
 		<option value="foreignAffair">A Foreign Affair</option>
 		<option value="yourNumberOne">Your Number One</option>
+		<option value="callingUsAway">Calling Us Away</option>
     </select>
     <div id="loadingStatus">Select a song to begin...</div>
 
@@ -1330,7 +1331,52 @@ There’s a cricket on the twentieth floor
 				{ time: 156.23, type: "jump",     nextIndex: 46, reference: "4 lines, jump 6 to Bridge 2", fired: false },
 				{ time: 216.10, type: "Y1pause",  nextIndex: 61, reference: "song ended", fired: false }
 			]
-		  }
+		  },
+			"callingUsAway": {
+				base: "callingUsAway",
+				display: "Calling Us Away",
+				bouncesPerLine: 8,
+				bounceDuration: 1.0,
+				background: "background.jpg",
+				fontSize: 34,
+				font: "Consolas",
+				lyricsFile: "callingUsAway.lyric",
+				chords: "callingUsAwayChords_v1.jpg",
+				credits: `Calling Us Away\nWords and music by Chris Sullivan and Kathleen Johnson\nextra verse by John Newton (hymn "Amazing Grace")\nperformed by Kathleen Johnson\nrecorded and keyboards by Greg Jeeves`,
+				appointments: 
+				[
+					{ time: 0.00, type: "jump", nextIndex: 0, reference: "Intro", fired: false },
+					{ time: 20.44, type: "jump", nextIndex: 1,  reference: "I think about my younger days", fired: false },
+					{ time: 25.55, type: "jump", nextIndex: 2,  reference: "And the people that I lived with", fired: false },
+					{ time: 31.08, type: "jump", nextIndex: 3,  reference: "There were sounds of magic", fired: false },
+					{ time: 35.81, type: "jump", nextIndex: 4,  reference: "And echoes from the canyons", fired: false },
+					{ time: 41.31, type: "jump", nextIndex: 5,  reference: "We took all we needed", fired: false },
+					{ time: 46.51, type: "jump", nextIndex: 6,  reference: "A meal, a drink, and pleasant company", fired: false },
+					{ time: 51.31, type: "jump", nextIndex: 7,  reference: "Someone dancing, someone singing", fired: false },
+					{ time: 56.55, type: "jump", nextIndex: 8,  reference: "In a house between the mountains", fired: false },
+					{ time: 61.79, type: "jump", nextIndex: 9,  reference: "And we danced the dance of life - chorus 1", fired: false },
+					{ time: 66.81, type: "jump", nextIndex: 10,  reference: "Like the leaves dance - chorus 1", fired: false },
+					{ time: 72.71, type: "jump", nextIndex: 11, reference: "Dancing to the music - chorus 1a", fired: false },
+					{ time: 83.19, type: "jump", nextIndex: 12, reference: "Dancing to the music - chorus 1b", fired: false },
+					{ time: 104.15, type: "jump", nextIndex: 13, reference: "If you could look through the walls", fired: false },
+					{ time: 108.69, type: "jump", nextIndex: 14, reference: "Past the dangers and the changes", fired: false },
+					{ time: 114.41, type: "jump", nextIndex: 15, reference: "Down below the waves of feelings", fired: false },
+					{ time: 119.13, type: "jump", nextIndex: 16, reference: "And over mountains of the deeds", fired: false },
+					{ time: 124.45, type: "jump", nextIndex: 17, reference: "If you could break the chains of habit", fired: false },
+					{ time: 130.00, type: "jump", nextIndex: 18, reference: "Unlock my heart and throw away the key", fired: false },
+					{ time: 135.15, type: "jump", nextIndex: 19, reference: "And take me over roads", fired: false },
+					{ time: 140.00, type: "jump", nextIndex: 20, reference: "To that house between the mountains", fired: false },
+					{ time: 145.41, type: "jump", nextIndex: 21, reference: "Where we danced - chorus 2", fired: false },
+					{ time: 150.44, type: "jump", nextIndex: 22, reference: "Like the leaves dance - chorus 2", fired: false },
+					{ time: 156.33, type: "jump", nextIndex: 23, reference: "Dancing to the music - chorus 2a", fired: false },
+					{ time: 166.59, type: "jump", nextIndex: 24, reference: "Dancing to the music - chorus 2b", fired: false },
+					{ time: 176.85, type: "jump", nextIndex: 25, reference: "Dancing to the music - chorus 3a", fired: false },
+					{ time: 187.33, type: "jump", nextIndex: 26, reference: "Dancing to the music - chorus 3b", fired: false },
+					{ time: 201.53, type: "jump", nextIndex: 27, reference: "Calling us away (tag a)", fired: false },
+					{ time: 211.79, type: "jump", nextIndex: 28, reference: "Calling us away (tag b)", fired: false },
+					{ time: 246.72, type: "Y1pause", nextIndex: 29, reference: "song ends", fired: false },
+				]
+			},
 		};
 		
 		const assetStatus = {
@@ -2669,10 +2715,47 @@ There’s a cricket on the twentieth floor
 			"undercover": ["un", "der", "cov", "er"],
 			"united": ["u", "nit", "ed"],
 			"wanna": ["wan", "na"],
-			"washington": ["wash", "ing", "ton"],
+			"washington": ["Wash", "ing", "ton"],
 			"wimbledon": ["wim", "ble", "don"],
 			"wouldnt": ["would", "n't"],
-			"begin": ["be", "gin"]
+			"begin": ["be", "gin"],
+
+			// Calling Us Away
+			"about": ["a", "bout"],
+			"younger": ["young", "er"],
+			"burnaby": ["bur", "na", "by"],
+			"people": ["peo", "ple"],
+			"ago": ["a", "go"],
+			"magic": ["mag", "ic"],
+			"conjured": ["con", "jured"],
+			"ecstacy": ["ec", "sta", "cy"],
+			"echoes": ["ech", "oes"],
+			"canyons": ["can", "yons"],
+			"needed": ["need", "ed"],
+			"pleasant": ["pleas", "ant"],
+			"company": ["com", "pa", "ny"],
+			"someone": ["some", "one"],
+			"dancing": ["danc", "ing"],
+			"singing": ["sing", "ing"],
+			"working": ["work", "ing"],
+			"between": ["be", "tween"],
+			"mountains": ["moun", "tains"],
+			"begins": ["be", "gins"],
+			"before": ["be", "fore"],
+			"summer": ["sum", "mer"],
+			"music": ["mu", "sic"],
+			"calling": ["call", "ing"],
+			"away": ["a", "way"],
+			"border": ["bor", "der"],
+			"dangers": ["dan", "gers"],
+			"changes": ["chang", "es"],
+			"below": ["be", "low"],
+			"feelings": ["feel", "ings"],
+			"behind": ["be", "hind"],
+			"over": ["o", "ver"],
+			"habit": ["hab", "it"],
+			"binding": ["bind", "ing"],
+			"unlock": ["un", "lock"]
 		};
       
 		/*
@@ -2774,7 +2857,8 @@ There’s a cricket on the twentieth floor
             "Cm7", "Dm7", "Em7", "Fm7", "Gm7", "Am7", "Bm7",
             "Cmaj7", "Dmaj7", "Emaj7", "Fmaj7", "Gmaj7", "Amaj7", "Bmaj7",
             "C♭", "D♭", "E♭", "F♭", "G♭", "A♭", "B♭",
-            "C♯", "D♯", "E♯", "F♯", "G♯", "A♯", "B♯"
+            "C♯", "D♯", "E♯", "F♯", "G♯", "A♯", "B♯","Ab+","A+","Bb+",
+            "C+","C#+","D+","Eb+","E+","F+","Gb+","G+","F#m"
         ];
 
 		/*
@@ -4211,12 +4295,16 @@ There’s a cricket on the twentieth floor
 							const beatFactor = rising ? beatProgress : (1.0 - beatProgress);
 							renderText(chordText, 5, POSITION_CHORDS, [255, 165, 0],currentFontSize);
 							if (lyricText.includes('##')) {
-								const parts = lyricText.split('##');
-								renderText(parts[0].trimEnd(), 5, POSITION_LYRIC_LINE, [255, 255, 255], currentFontSize);
-								renderText(parts[1].trimStart(), 5, POSITION_LYRIC_LINE + 45, [255, 255, 255], currentFontSize);
-							} else {
-								renderText(lyricText, 5, POSITION_LYRIC_LINE, [255, 255, 255], currentFontSize);
-							}
+                                const parts = lyricText.split('##');
+                                renderText(parts[0].trimEnd(), 5, POSITION_LYRIC_LINE, [255, 255, 255], currentFontSize);
+                                renderText(parts[1].trimStart(), 5, POSITION_LYRIC_LINE + 45, [255, 255, 255], currentFontSize);
+                            } else if (lyricText.includes('$$')) {
+                                const parts = lyricText.split('$$');
+                                renderText(parts[0].trimEnd(), 5, POSITION_LYRIC_LINE, [255, 255, 255], currentFontSize);
+                                renderText(parts[1].trimStart(), 5, POSITION_LYRIC_LINE + 45, [0, 255, 0], currentFontSize);
+                            } else {
+                                renderText(lyricText, 5, POSITION_LYRIC_LINE, [255, 255, 255], currentFontSize);
+                            }
 							const beatPositions = beatPositionsCache[currentIndex] || [];
 							for (const [bNum, charIndex] of beatPositions) {
 								if (bNum === beatNum) {
@@ -4224,10 +4312,13 @@ There’s a cricket on the twentieth floor
 										break;
 									}
 									if (lyricText.includes('##')) {
-										const splitPoint = lyricText.indexOf('##');
-										if (charIndex >= splitPoint) break;
-									}
-									if (word) {
+                                        const splitPoint = lyricText.indexOf('##');
+                                        if (charIndex >= splitPoint) break;
+                                    }
+                                    if (lyricText.includes('$$')) {
+                                        const splitPoint = lyricText.indexOf('$$');
+                                        if (charIndex >= splitPoint) break;
+                                    }									if (word) {
 										const syllable = extractSyllableAtPosition(lyricText, charIndex);
 										const pixelX = calculatePixelPosition(lyricText, 5, charIndex, currentFontSize);
 										const highlightColor = syllableHighlightColor;
@@ -4260,14 +4351,18 @@ There’s a cricket on the twentieth floor
 			  // Orange for chords
 			  renderText(chordText, 5, POSITION_CHORDS, [255, 165, 0], currentFontSize);
 			  // White for lyrics
-			  if (lyricText.includes('##')) {
-				const parts = lyricText.split('##');
-				renderText(parts[0].trimEnd(), 5, POSITION_LYRIC_LINE, [255, 255, 255],currentFontSize);
-				renderText(parts[1].trimStart(), 5, POSITION_LYRIC_LINE + 45, [255, 255, 255],currentFontSize);
-			  } else {
-				renderText(lyricText, 5, POSITION_LYRIC_LINE, [255, 255, 255],currentFontSize);
-			  }
-				if (currentHLWord) {
+              if (lyricText.includes('##')) {
+                const parts = lyricText.split('##');
+                renderText(parts[0].trimEnd(), 5, POSITION_LYRIC_LINE, [255, 255, 255],currentFontSize);
+                renderText(parts[1].trimStart(), 5, POSITION_LYRIC_LINE + 45, [255, 255, 255],currentFontSize);
+              } else if (lyricText.includes('$$')) {
+                const parts = lyricText.split('$$');
+                renderText(parts[0].trimEnd(), 5, POSITION_LYRIC_LINE, [255, 255, 255],currentFontSize);
+                renderText(parts[1].trimStart(), 5, POSITION_LYRIC_LINE + 45, [0, 255, 0],currentFontSize);
+              } else {
+                renderText(lyricText, 5, POSITION_LYRIC_LINE, [255, 255, 255],currentFontSize);
+              }
+			  if (currentHLWord) {
 				  const lyricText = lyrics[currentIndex % lyrics.length];
 				  const wordIndex = lyricText.toLowerCase().indexOf(currentHLWord.toLowerCase());
 				  if (wordIndex >= 0) {
