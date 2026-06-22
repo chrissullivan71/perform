@@ -1384,7 +1384,8 @@ There’s a cricket on the twentieth floor
 			mag_tape: "grey",
 			background: "grey",
 			song: "grey",
-			syllables: "grey"
+			syllables: "grey",
+			appointments: "grey"
 		};
 
 		const assetLabels = {
@@ -1392,7 +1393,8 @@ There’s a cricket on the twentieth floor
 			mag_tape: "mag tape",
 			background: "background",
 			song: "song",
-			syllables: "syllables"
+			syllables: "syllables",
+			appointments: "appointments"
 		};
 
 		const canvas = document.getElementById('gameCanvas');
@@ -4051,6 +4053,7 @@ There’s a cricket on the twentieth floor
 			{ x: OFFSETX + 260, y: ballsY },
 			{ x: OFFSETX + 330, y: ballsY },
 			{ x: OFFSETX + 400, y: ballsY },
+		    { x: OFFSETX + 470, y: ballsY }
 		  ];
 
 		  ctx.save();
@@ -4257,6 +4260,9 @@ There’s a cricket on the twentieth floor
 		<script src="syllableDictionary.js"
                 onload="assetStatus.syllables='green';"
                 onerror="assetStatus.syllables='black';"></script>
+		<script src="songAppointments.js"
+				onload="assetStatus.appointments='green';"
+				onerror="assetStatus.appointments='black';"></script>
 		</body>
 	</html>
 
