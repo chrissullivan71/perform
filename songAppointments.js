@@ -121,7 +121,7 @@
 				fontSize: 36,
 				font: "Consolas",
 				lyricsFile: "theLastGreatWaltz.lyric",
-				chords: "lastGreatWaltzChords_v3.jpg",
+				chords: "lastGreatWaltzChords_v4.jpg",
 				credits: `The Last Great Waltz\nWritten by Mason Williams\nJoe Rubinski, Chris Sullivan, Bob Hewus — vocals\nChris Sullivan — guitar\nDave Charron — keyboards\nBob Hewus — bass\nDave Reade — vocals\nISRB\nSt. Clair College, Windsor, Ontario, 1979`,
 				appointments: [
 					{ time: 0.00, type: "jump", nextIndex: 99, reference: "Beginning", fired: false },
@@ -378,7 +378,7 @@
 			fontSize: 32,
 			font: "Consolas",
 			lyricsFile: "maryEllenCarterJoelChris.lyric",
-			chords: "maryEllenCarterChords_v3.jpg",
+			chords: "maryEllenCarterChords_v4.jpg",
 			credits: `The Mary Ellen Carter\nWritten by Stan Rogers\nChris Sullivan — vocals, 12-string guitar\nJoel Leblanc — vocals, 6-string guitar\nArts Court, Ottawa, 1987\nI played this song in DADGAD with the capo on the 5th fret.\nThat is as near as I can tell how Stan used to play it.\nThat puts it in the key of G.\nThe ukulele chords under the Promptoid K key are in G.`,			appointments: [
 			{ time: 0.00, type: "jump", nextIndex: 0,  reference: "Intro", fired: false },
 			{ time: 5.88, type: "jump", nextIndex: 1,  reference: "Intro", fired: false },
@@ -496,7 +496,7 @@
 			background: "background.jpg",
 			fontSize: 36,
 			font: "Consolas",
-			chords: "rainbowConnectionChords_v6.jpg",
+			chords: "rainbowConnectionChords_v8.jpg",
 			lyricsFile: "rainbowConnection.lyric",
 			credits: `Rainbow Connection\nWritten by Paul Williams and Kenneth Ascher\nPerformed by Jim Henson as Kermit the Frog\nProduced by Paul Williams\nA&M Studios, Hollywood, 1978\nAtlantic Records, 1979\nFrom: The Muppet Movie`,
 			appointments: [
