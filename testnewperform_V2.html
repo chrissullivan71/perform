@@ -1410,6 +1410,7 @@ There’s a cricket on the twentieth floor
 		let lastAudioPlaying = false;
         let currentIndex = 0;
         let bounceCount = 0;
+		let tapeVisible = false;
         let waitingForStart = true;
         let songPaused = false;
         let running = true;
@@ -2618,6 +2619,10 @@ There’s a cricket on the twentieth floor
 		} else if (e.code === 'KeyK') {
 			e.preventDefault();
 			if (chordsImage) setOverlayMode(overlayMode === 'chords' ? null : 'chords');
+		} else if (e.code === 'KeyT') {
+			e.preventDefault();
+			tapeVisible = !tapeVisible;
+			dlog("tapeVisible:", tapeVisible);
 		}
 		});
 
@@ -2626,6 +2631,9 @@ There’s a cricket on the twentieth floor
 		// Canvas click handler: Ctrl+Click for music, normal click for teleprompter
 
 		canvas.addEventListener('click', function(e) {
+		
+			if (isInProgressIndicator(e.clientX - canvas.getBoundingClientRect().left, e.clientY - canvas.getBoundingClientRect().top)) return;		
+		
 			const rect = canvas.getBoundingClientRect();
 
 			// Ctrl+Click: MUSIC/EMOJI CONTROL ONLY
@@ -2785,6 +2793,11 @@ There’s a cricket on the twentieth floor
 			if (x < handleCenterX - handleRadius) {
 				if (currentIndex > 0) {
 					currentIndex--;
+					const appt = APPOINTMENTS.find(a => a.nextIndex === currentIndex);
+					if (appt) {
+						audioElement.currentTime = appt.time;
+						APPOINTMENTS.forEach(a => a.fired = (a.time < appt.time));
+					}
 					bounceCount = 0;
 					bounceStartTime = performance.now() / 1000;
 					didNudge = true;
@@ -2792,11 +2805,19 @@ There’s a cricket on the twentieth floor
 			} else if (x > handleCenterX + handleRadius) {
 				if (currentIndex < n - 1) {
 					currentIndex++;
+					const appt = APPOINTMENTS.find(a => a.nextIndex === currentIndex);
+					if (appt) {
+						audioElement.currentTime = appt.time;
+						APPOINTMENTS.forEach(a => a.fired = (a.time < appt.time));
+					}
 					bounceCount = 0;
 					bounceStartTime = performance.now() / 1000;
 					didNudge = true;
 				}
 			}
+			
+
+			
 			if (didNudge) {
 				e.preventDefault();
 				e.stopPropagation();
@@ -3165,7 +3186,7 @@ There’s a cricket on the twentieth floor
 		  }
 
 		  // Draw controls image and button outlines
-		  if (controlsImage && controlsImage.complete && controlsImage.naturalWidth > 0) {
+		  if (tapeVisible && controlsImage && controlsImage.complete && controlsImage.naturalWidth > 0) {
 			const controlsHeight = canvas.height / 3 + 72;
 			const controlsWidth = (controlsImage.width * controlsHeight) / controlsImage.height;
 			const controlsY = canvas.height - controlsHeight - 20;
@@ -3365,7 +3386,6 @@ There’s a cricket on the twentieth floor
 			  if (bounceCount >= BOUNCES_PER_LINE) {
 				bounceCount = 0;
 				const nextAppointmentPending = APPOINTMENTS.some(a => !a.fired && a.nextIndex === currentIndex + 1);
-//				if (nextAppointmentPending) console.log('blocked at index', currentIndex, 'audio time', audioElement.currentTime.toFixed(2));
 				if (!nextAppointmentPending) {
 				  if (lyrics.length > 0) {
 					if (currentIndex < lyrics.length - 1) {
@@ -3660,8 +3680,15 @@ There’s a cricket on the twentieth floor
 				}		
 				
 			});
+			const songParam = new URLSearchParams(window.location.search).get('song');
+			if (songParam && songFileMap[songParam]) {
+				songSelector.value = songParam;
+				songSelector.dispatchEvent(new Event('change'));
+				songSelector.style.display = 'none';
+				controlsImage = null;
+			}
 			dlog('Frigging Document Object Model is loaded NOW April 9 10:49 AM');
-			togglePlayback();	
+			// togglePlayback();	
 			dlog('✅ Animation started NOW May 14, 2026 AM');
 
 		</script>
