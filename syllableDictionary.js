@@ -536,5 +536,42 @@
 			"satisfied": ["sat", "is", "fied"],
 			"submit": ["sub", "mit"],
 			"substitutions": ["sub", "sti", "tu", "tions"],
-			"total": ["to", "tal"]
+			"total": ["to", "tal"],
+			
+			"mountain": ["moun", "tain"],
+			"mississippi": ["mis", "sis", "sip", "pi"],
+			"louisiana": ["lou", "i", "si", "an", "a"],
+			"anything": ["an", "y", "thing"],
+			"cripple": ["crip", "ple"],
+			"defends": ["de", "fends"],
+			"drunkard's": ["drunk", "ard's"],
+			"another": ["an", "oth", "er"],
+			"favor": ["fa", "vor"],
+			"winnings": ["win", "nings"],
+			"bessie": ["bes", "sie"],
+			"doughnut": ["dough", "nut"],
+			"california": ["cal", "i", "for", "nia"],
+			"freezing": ["freez", "ing"],
+			"tempted": ["temp", "ted"],
+			
+			"lullaby": ["lul", "la", "by"],
+			"wishing": ["wish", "ing"],
+			"whisper": ["whis", "per"],
+			"singer": ["sing", "er"],
+			"painter": ["paint", "er"],
+			"talker": ["talk", "er"],
+			"numbered": ["num", "bered"],
+			"future": ["fu", "ture"],
+			"changes": ["chan", "ges"],
+			"traces": ["tra", "ces"],
+			"faces": ["fa", "ces"],
+			"living": ["liv", "ing"],
+			"moment": ["mo", "ment"],
+			"sleeping": ["sleep", "ing"],
+			"highway": ["high", "way"],
+			"hurricane": ["hur", "ri", "cane"],
+			"shining": ["shin", "ing"],
+			"forever": ["for", "ev", "er"]
+						
 		};
+		
