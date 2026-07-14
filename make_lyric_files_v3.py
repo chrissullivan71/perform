@@ -13,17 +13,31 @@ songs = [
     "rainbowConnection",
     "the-visitor",
     "aForeignAffair",
-    "yourNumberOne"
+    "yourNumberOne",
+    "callingUsAway",
+    "yourNameHere",
+    "livingInThePast",
+    "upOnCrippleCreek",
+    "arthurMcBride",
 ]
 
-CHORDS = {"C","D","E","F","G","A","B","Cm","Dm","Em","Fm","Gm","Am","Bm",
-          "C7","D7","E7","F7","G7","A7","B7","Cmaj7","Dmaj7","Fmaj7","Gmaj7","Amaj7",
-          "Bb","Eb","Ab","Db","Gb","F#m","C#m","F#","C#","Bb7","Dm7","Em7","Gm7",
-          "Am7","B7","E7","Bm","Bb7","A7","D7","C7","Bm7","F#7"}
+CHORDS = {
+    "C", "D", "E", "F", "G", "A", "B",
+    "Cm", "Dm", "Em", "Fm", "Gm", "Am", "Bm",
+    "C7", "D7", "E7", "F7", "G7", "A7", "B7",
+    "Cmaj7", "Dmaj7", "Fmaj7", "Gmaj7", "Amaj7",
+    "Dm7", "Em7", "Gm7", "Am7", "Bm7",
+    "Bb", "Eb", "Ab", "Db", "Gb",
+    "Bb7", "F#7",
+    "F#", "C#",
+    "F#m", "C#m",
+    "Ab+", "A+", "Bb+", "C+", "C#+", "D+", "Eb+", "E+", "F+", "Gb+", "G+"
+}
 
 def is_chord_line(line):
     words = line.split()
-    if not words: return False
+    if not words:
+        return False
     matches = sum(1 for w in words if w in CHORDS)
     return matches / len(words) >= 0.5
 
@@ -36,6 +50,7 @@ def is_section_line(line):
 
 def clean_lyric_line(line):
     line = re.sub(r'##', ' ', line)
+    line = re.sub(r'\s*\$\$\s*', '\n', line)
     line = re.sub(r'\s*LL\s*\d+.*$', '', line)
     line = re.sub(r'  +', ' ', line)
     line = line.strip()
@@ -46,13 +61,10 @@ def make_lyric_file(base_name):
     if not os.path.exists(txt_path):
         print(f"NOT FOUND: {txt_path}")
         return
-
     with open(txt_path, 'r', encoding='utf-8') as f:
         lines = f.readlines()
-
     if len(lines) < 2:
         return
-
     title = lines[0].strip()
     byline = ""
     if ' by ' in title:
@@ -63,15 +75,12 @@ def make_lyric_file(base_name):
         parts = title.split('  ', 1)
         title = parts[0].strip()
         byline = parts[1].strip()
-
     output = [title]
     if byline:
         output.append(byline)
     output.append("")
-
     last_section = ""
     in_section = False
-
     for line in lines[2:]:
         stripped = line.rstrip()
         if not stripped:
@@ -93,7 +102,6 @@ def make_lyric_file(base_name):
                     and not all(c in '* ' for c in cleaned)
                     and 'pedal steel' not in cleaned.lower()):
                 output.append(cleaned)
-
     out_path = os.path.join(PERFORM_DIR, base_name + ".lyric")
     with open(out_path, 'w', encoding='utf-8') as f:
         f.write('\n'.join(output))
@@ -101,5 +109,4 @@ def make_lyric_file(base_name):
 
 for base in songs:
     make_lyric_file(base)
-
 print("All done.")
