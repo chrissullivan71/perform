@@ -1,3 +1,22 @@
+
+		window.songKeys = {
+			"306157842": "Four Strong Winds",
+			"592048173": "rainbow",
+			"817263904": "dylan",
+			"243980516": "the-visitor",
+			"671502398": "Rogers",
+			"459813627": "goodman",
+			"128476935": "misterTut",
+			"984025617": "lastWaltz",
+			"573619084": "foreignAffair",
+			"316948270": "yourNumberOne",
+			"802537169": "callingUsAway",
+			"645290813": "yourNameHere",
+			"550193847": "livingInThePast",
+			"729184035": "upOnCrippleCreek",
+			"748392011": "arthurMcBride"
+		};
+
 		window.songFileMap = {
 			"yourNumberOne": {
 				base: "yourNumberOne",
@@ -767,8 +786,8 @@
 			"arthurMcBride": {
 				base: "arthurMcBride",
 				display: "Arthur McBride",
-				bouncesPerLine: 12,
-				bounceDuration: 1.0,
+				bouncesPerLine: 4,
+				bounceDuration: 1.29,
 				background: "background.jpg",
 				fontSize: 34,
 				font: "Consolas",
