@@ -1672,77 +1672,58 @@ There’s a cricket on the twentieth floor
 		
 		/*
 		extractSyllableAtPosition(line, charIndex)
-		Extracts syllable from a word based on character index and dictionary.
-		Used for syllable-by-syllable highlighting in lyrics.
-		Enables teleprompter to bounce exactly on each beat.
-		Improves readability for performers and karaoke style animation.
+		Extracts the syllable of a word at a given character index.
+		Slices from the original text, so capitals and punctuation survive.
+		Records the syllable's true start column in window.__syllStart,
+		which the renderer uses to draw the highlight in the right place.
+		Words absent from SYLLABLE_DICT are returned whole.
 		*/
 		function extractSyllableAtPosition(line, charIndex) {
-			// debugger;
+			window.__syllStart = charIndex;
 			if (charIndex >= line.length) return "";
-			
-			// Find word boundaries at this character position
+
 			let wordStart = charIndex;
-			while (wordStart > 0 && line[wordStart-1] !== ' ') {
-				wordStart--;
-			}
-			
+			while (wordStart > 0 && line[wordStart-1] !== ' ') wordStart--;
 			let wordEnd = charIndex;
-			while (wordEnd < line.length && line[wordEnd] !== ' ') {
-				wordEnd++;
-			}
-			
-			const word = line.substring(wordStart, wordEnd).trim();
-			const cleanWord = word.replace(/[^\w]/g, '').toLowerCase();
-			const isFirstWord = wordStart === 0 || line.substring(0, wordStart).trim() === "";
-			
-			let result;
-			
-			// Look up syllables in dictionary and calculate which syllable at this position
-			if (cleanWord in SYLLABLE_DICT) {
-				const syllables = SYLLABLE_DICT[cleanWord];
-				const positionInWord = charIndex - wordStart;
-				
-				// Special cases for specific words
-				if (cleanWord === "rainbow") {
-					result = positionInWord < 4 ? "rain" : "bow";
-				} else if (cleanWord === "rainbows") {
-					result = positionInWord < 4 ? "rain" : "bows";
-				} else if (syllables.length === 1) {
-					result = word;
-				} else {
-					// Calculate actual syllable boundaries based on character counts
-					const syllableBoundaries = [];
-					let charCount = 0;
-					for (const syllable of syllables) {
-						charCount += syllable.length;
-						syllableBoundaries.push(charCount);
-					}
-					// Find which syllable contains this position
-					result = syllables[syllables.length - 1]; // default to last syllable
-					for (let i = 0; i < syllableBoundaries.length; i++) {
-						if (positionInWord < syllableBoundaries[i]) {
-							result = syllables[i];
-							break;
-						}
-					}
-				}
-			} else {
-				// Fallback: try stripped version, or just highlight the word as-is
-				if (cleanWord in SYLLABLE_DICT) {
-					const syllables = SYLLABLE_DICT[cleanWord];
-					result = syllables.length === 1 ? word : syllables[0];
-				} else {
-					result = word;
+			while (wordEnd < line.length && line[wordEnd] !== ' ') wordEnd++;
+
+			const word = line.substring(wordStart, wordEnd);
+
+			const letterPos = [];
+			let cleanWord = "";
+			for (let i = 0; i < word.length; i++) {
+				if (/\w/.test(word[i])) {
+					letterPos.push(i);
+					cleanWord += word[i].toLowerCase();
 				}
 			}
-			
-			const originalWord = line.substring(wordStart, wordEnd).trim();
-			const isFirstSyllable = charIndex === wordStart;
-			if (isFirstWord && isFirstSyllable && originalWord.length > 0 && !originalWord.startsWith("\\")) {
-				result = result.charAt(0).toUpperCase() + result.slice(1);
-			}			// Capitalize first word of line unless escaped with backsl
-			return result;
+
+			window.__syllStart = wordStart;
+			if (cleanWord === "") return word.trim();
+
+			const syllables = SYLLABLE_DICT[cleanWord];
+			if (!syllables || syllables.length <= 1) return word.trim();
+
+			const bounds = [];
+			let n = 0;
+			for (const s of syllables) { n += s.length; bounds.push(n); }
+
+			const posInWord = charIndex - wordStart;
+			let cleanIdx = 0;
+			while (cleanIdx < letterPos.length && letterPos[cleanIdx] < posInWord) cleanIdx++;
+
+			let k = bounds.length - 1;
+			for (let i = 0; i < bounds.length; i++) {
+				if (cleanIdx < bounds[i]) { k = i; break; }
+			}
+
+			const startClean = (k === 0) ? 0 : bounds[k-1];
+			const endClean = Math.min(bounds[k], letterPos.length);
+			const oStart = letterPos[startClean];
+			const oEnd = (endClean < letterPos.length) ? letterPos[endClean] : word.length;
+
+			window.__syllStart = wordStart + oStart;
+			return word.substring(oStart, oEnd);
 		}
 
 		/*
@@ -2529,6 +2510,9 @@ There’s a cricket on the twentieth floor
 
 			// Directly jump: NO SEARCHING, NO firstLyricIndex
 			currentIndex = targetIndex;
+			if (highlightedStatus[currentIndex]) {
+				for (const k in highlightedStatus[currentIndex]) highlightedStatus[currentIndex][k] = false;
+			}
 			songLineNumber = targetIndex + 1;
 			bounceCount = 0;
 			const now = performance.now() / 1000;
@@ -2796,6 +2780,9 @@ There’s a cricket on the twentieth floor
 			if (x < handleCenterX - handleRadius) {
 				if (currentIndex > 0) {
 					currentIndex--;
+					if (highlightedStatus[currentIndex]) {
+						for (const k in highlightedStatus[currentIndex]) highlightedStatus[currentIndex][k] = false;
+					}
 					const appt = APPOINTMENTS.find(a => a.nextIndex === currentIndex);
 					if (appt) {
 						audioElement.currentTime = appt.time;
@@ -2808,6 +2795,9 @@ There’s a cricket on the twentieth floor
 			} else if (x > handleCenterX + handleRadius) {
 				if (currentIndex < n - 1) {
 					currentIndex++;
+					if (highlightedStatus[currentIndex]) {
+						for (const k in highlightedStatus[currentIndex]) highlightedStatus[currentIndex][k] = false;
+					}					
 					const appt = APPOINTMENTS.find(a => a.nextIndex === currentIndex);
 					if (appt) {
 						audioElement.currentTime = appt.time;
@@ -2902,20 +2892,21 @@ There’s a cricket on the twentieth floor
 		Supports accurate highlighting during animations.
 		Essential for beat-synced teleprompter visuals.
 		*/
-		 function calculatePixelPosition(text, x, charIndex, fontSize = 36) {
-			if (charIndex >= text.length) return x;
-			
-			// Skip leading spaces or quotes at charIndex
-			while (charIndex < text.length && !/[a-zA-Z*]/.test(text[charIndex])) {
-				charIndex++;
-			}	
-			
-			ctx.font = `bold ${fontSize}px 'Consolas', monospace`;
-			const textBefore = text.substring(0, charIndex);
-			const width = ctx.measureText(textBefore).width;
-			return x + width;
-		}
+		function calculatePixelPosition(text, x, charIndex, fontSize = 36) {
+					if (charIndex >= text.length) return x;
 
+					let i = charIndex;
+					while (i < text.length && !/[a-zA-Z*]/.test(text[i])) {
+						i++;
+					}
+					if (i >= text.length) i = charIndex;   // no letter ahead — stay put
+					charIndex = i;
+
+					ctx.font = `bold ${fontSize}px 'Consolas', monospace`;
+					const textBefore = text.substring(0, charIndex);
+					const width = ctx.measureText(textBefore).width;
+					return x + width;
+				}
 		/*
 		renderWordAtPosition(word, x, y, color, fontSize = 40)
 		// Draws a single word (or syllable) at given pixel location.
@@ -3292,7 +3283,10 @@ There’s a cricket on the twentieth floor
                                         if (charIndex >= splitPoint) break;
                                     }									if (word) {
 										const syllable = extractSyllableAtPosition(lyricText, charIndex);
-										const pixelX = calculatePixelPosition(lyricText, 5, charIndex, currentFontSize);
+										// const pixelX = calculatePixelPosition(lyricText, 5, charIndex, currentFontSize);
+
+										const pixelX = calculatePixelPosition(lyricText, 5, window.__syllStart, currentFontSize);
+
 										const highlightColor = syllableHighlightColor;
 										ctx.fillStyle = '#1e1e1e';
 										ctx.font = `bold ${currentFontSize}px '${currentFont}', monospace`;
