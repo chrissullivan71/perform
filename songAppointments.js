@@ -14,7 +14,8 @@
 			"645290813": "yourNameHere",
 			"550193847": "livingInThePast",
 			"729184035": "upOnCrippleCreek",
-			"748392011": "arthurMcBride"
+			"748392011": "arthurMcBride",
+			"124578022": "scarboroughLament"
 		};
 
 		window.songFileMap = {
@@ -846,5 +847,56 @@
 					{ time: 287.83, type: "jump", nextIndex: 48, reference: "For it being on Christmas morning", fired: false },
 					{ time: 310.81, type: "Y1pause", nextIndex: 49, reference: "song ends", fired: false }
 				]
-			},			
+			},
+
+			// A Scarborough Settler's Lament Appointments
+			scarboroughLament: {
+					base: "scarboroughLament",
+					lyricsFile: "scarboroughLament.lyric",
+					chords: "scarboroughLamentChords_v1.jpg",
+					fontSize: 30,
+					font: "Consolas",
+					bounceDuration: 1.32,
+					bouncesPerLine: 4,
+					appointments: [
+						{ time:  0.00, type: "jump", nextIndex:  0, reference: "Intro", fired:	 false },
+						{ time:  11.16, type: "jump", nextIndex:  1, reference: "V1 L1 - Away wi' Canada's", fired:	 false },
+						{ time:  16.56, type: "jump", nextIndex:  2, reference: "V1 L2 - and Canada's fields", fired: false },
+						{ time:  21.83, type: "jump", nextIndex:  3, reference: "V1 L3 - Your land of wheat", fired: false },
+						{ time:  27.16, type: "jump", nextIndex:  4, reference: "V1 L4 - but ah! it isna", fired: false },
+						{ time:  32.60, type: "jump", nextIndex:  5, reference: "V1 L5 - The heathy hill", fired: false },
+						{ time:  37.75, type: "jump", nextIndex:  6, reference: "V1 L6 - the daisy-spangled lea", fired: false },
+						{ time:  42.95, type: "jump", nextIndex:  7, reference: "V1 L7 - The purling burn", fired: false },
+						{ time:  47.88, type: "jump", nextIndex:  8, reference: "V1 L8 - auld Scotia's glens", fired: false },
+						{ time:  55.86, type: "jump", nextIndex:  9, reference: "V2 L1 - Oh! I wad like", fired: false },
+						{ time:  60.85, type: "jump", nextIndex: 10, reference: "V2 L2 - the lark on Tinny's", fired: false },
+						{ time:  66.05, type: "jump", nextIndex: 11, reference: "V2 L3 - And see the wee bit", fired: false },
+						{ time:  71.07, type: "jump", nextIndex: 12, reference: "V2 L4 - that blooms beside", fired: false },
+						{ time:  76.47, type: "jump", nextIndex: 13, reference: "V2 L5 - Like banished Swiss", fired: false },
+						{ time:  81.54, type: "jump", nextIndex: 14, reference: "V2 L6 - his Alps wi' longing", fired: false },
+						{ time:  87.06, type: "jump", nextIndex: 15, reference: "V2 L7 - I gaze upon", fired: false },
+						{ time:  92.17, type: "jump", nextIndex: 16, reference: "V2 L8 - that shines on my", fired: false },
+						{ time:  100.00, type: "jump", nextIndex: 17, reference: "V3 L1 - Nae mair I'll win", fired: false },
+						{ time:  105.16, type: "jump", nextIndex: 18, reference: "V3 L2 - or Pentland's craggy", fired: false },
+						{ time:  110.77, type: "jump", nextIndex: 19, reference: "V3 L3 - The days can ne'er", fired: false },
+						{ time:  116.34, type: "jump", nextIndex: 20, reference: "V3 L4 - of thirty years", fired: false },
+						{ time:  121.42, type: "jump", nextIndex: 21, reference: "V3 L5 - But fancy oft", fired: false },
+						{ time:  126.93, type: "jump", nextIndex: 22, reference: "V3 L6 - will steal across", fired: false },
+						{ time:  132.32, type: "jump", nextIndex: 23, reference: "V3 L7 - Yestreen, amid a", fired: false },
+						{ time:  137.52, type: "jump", nextIndex: 24, reference: "V3 L8 - I saw my ain", fired: false },
+						{ time:  145.80, type: "jump", nextIndex: 25, reference: "V4 L1 - Each well known scene", fired: false },
+						{ time:  151.00, type: "jump", nextIndex: 26, reference: "V4 L2 - brought childhood's joys", fired: false },
+						{ time:  156.40, type: "jump", nextIndex: 27, reference: "V4 L3 - The blackbird sang", fired: false },
+						{ time:  161.60, type: "jump", nextIndex: 28, reference: "V4 L4 - the song he sang", fired: false },
+						{ time:  166.99, type: "jump", nextIndex: 29, reference: "V4 L5 - But like a dream", fired: false },
+						{ time:  172.58, type: "jump", nextIndex: 30, reference: "V4 L6 - again the morning", fired: false },
+						{ time:  177.97, type: "jump", nextIndex: 31, reference: "V4 L7 - And I awoke", fired: false },
+						{ time:  183.55, type: "jump", nextIndex: 32, reference: "V4 L8 - three thousand miles", fired: false },
+						{ time:  188.83, type: "jump", nextIndex: 33, reference: "V4 L9 - Ah like a dream", fired: false },
+						{ time:  194.34, type: "jump", nextIndex: 34, reference: "V4 L10 - again the morning", fired: false },
+						{ time:  200.00, type: "jump", nextIndex: 35, reference: "V4 L11 - And I awoke", fired: false },
+						{ time:  204.55, type: "jump", nextIndex: 36, reference: "V4 L12 - three thousand miles", fired: false },
+						{ time:  220.88, type: "Y1pause", nextIndex: 37, reference: "song ended", fired: false }
+					]
+				},
 		};
