@@ -334,7 +334,7 @@
 				]
 			},
 		    "dylan": {
-				base: "accuratedontThinkTwice",
+				base: "accurateDontThinkTwice",
 				display: "Don't Think Twice, It's All Right",
 				bouncesPerLine: 8,
 				bounceDuration: 1.06,
@@ -342,7 +342,7 @@
 				fontSize: 36,
 				font: "Consolas",
                 chords: "dontThinkTwiceChords_v4.jpg",
-				lyricsFile: "accuratedontThinkTwice.lyric",
+				lyricsFile: "accurateDontThinkTwice.lyric",
 				credits: `Don't Think Twice, It's All Right\nWritten and performed by Bob Dylan\nvocals, guitar, harmonica\nProduced by John Hammond\nColumbia Records, 1963\nFrom: The Freewheelin' Bob Dylan`,				appointments: [
 					{ time: 0.00, type: "jump", nextIndex: 0,  reference: "intro", fired: false },
 					{ time: 7.12, type: "jump", nextIndex: 1,  reference: "Well it ain't no use to sit and wonder why, baby", fired: false },
