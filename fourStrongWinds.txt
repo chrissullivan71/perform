@@ -19,7 +19,7 @@ Weather's good there in the fall
 [Verse 1]
            C                    Dm            G          G7
 I got some friends that I could go to workin' for
-           1            3       5     7       9          13      ZZZ         LL 03
+           1            3       5     7       9          11      ZZZ         LL 03
 		   
 [Verse 1]
         C                      Dm
@@ -127,9 +127,9 @@ I'll look for you if I'm ever back this way
 		  1 	  3      5    7         9             13         ZZZ         LL 24
 
 [solo]
-            C               Dm
+        C               Dm
 		pedal steel
-            1     3         5                                    ZZZ         LL 25
+        1     3         5                                        ZZZ         LL 25
 
         C                      Dm
 Still I wish you'd change your mind

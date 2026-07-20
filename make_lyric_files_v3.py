@@ -7,7 +7,7 @@ songs = [
     "theLastGreatWaltz",
     "misterTut",
     "twentiethCentury",
-    "accuratedontThinkTwice",
+    "accurateDontThinkTwice",
     "maryEllenCarterJoelChris",
     "fourStrongWinds",
     "rainbowConnection",
@@ -19,6 +19,7 @@ songs = [
     "livingInThePast",
     "upOnCrippleCreek",
     "arthurMcBride",
+    "scarboroughLament"
 ]
 
 CHORDS = {

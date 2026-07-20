@@ -32,8 +32,11 @@ Rules:
 - Line 2: time signature
 - Each lyric group: section header, chord line, lyric line, beat line (with ZZZ)
 - Instrumental lines use `*` as the lyric
-- LL numbers should be sequential with no gaps or duplicates
+- LL nn markers are for your reference only — lines are indexed by their order, not by the LL value, so gaps or
+  duplicates won't break playback. Keep them sequential anyway, or you'll miscount when syncing appointments.
 - `##` in a lyric line splits it for display across two lines
+- Keep each beat line on ONE physical line — the beat numbers, `ZZZ`, and the `LL nn` marker all together. If `ZZZ` wraps onto its own line, the orphaned beat numbers get read as a lyric line and that group breaks.
+- `*` instrumental lines still count as lyric lines — each one takes an index — even though the generator strips them from the `.lyric`.
 
 ---
 
@@ -98,6 +101,8 @@ const songFileMap = {
 - Last appointment is always `Y1pause` with `nextIndex` = total number of lyric lines
 - One appointment per lyric line — the time is when that line starts in the audio
 - `bounceDuration` × `bouncesPerLine` should roughly equal the average seconds per line
+= When totalling lyric lines for Y1pause, count the * instrumental lines too — they each hold an index.
+
 
 ### Estimating bounceDuration:
 Divide total song duration by number of lyric lines to get average seconds per line.
@@ -111,6 +116,8 @@ Generate `songnameChords_v1.jpg` with the chord shapes for baritone
 ukulele (DGBE tuning). Provide the list of chords used in the song.
 
 Download the JPG and copy it to the perform folder.
+
+If you revise the chart, bump the filename (_v2, _v3, …) and update the chords: field in songFileMap to match. Filenames are case-sensitive on the server.
 
 ---
 
@@ -204,4 +211,26 @@ doesn't exist, or `nextAppointmentPending` is blocking natural advance.
 Check that `nextIndex` values match actual lyric line indices (zero-based).
 
 **Lines display in wrong order** — appointment times are wrong or out of order.
+C:\Users\Owner\Documents\GitHub\perform_jan5>git add adding_a_new_song.md
 
+C:\Users\Owner\Documents\GitHub\perform_jan5>git commit -m "adding a new song instructions"
+[main c3d6c22] adding a new song instructions
+ 1 file changed, 207 insertions(+)
+ create mode 100644 adding_a_new_song.md
+
+C:\Users\Owner\Documents\GitHub\perform_jan5>git push origin main
+Enumerating objects: 4, done.
+Counting objects: 100% (4/4), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 2.60 KiB | 1.30 MiB/s, done.
+Total 3 (delta 1), reused 0 (delta 0), pack-reused 0 (from 0)
+remote: Resolving deltas: 100% (1/1), completed with 1 local object.
+To https://github.com/chrissullivan71/perform.git
+   018606c..c3d6c22  main -> main
+
+C:\Users\Owner\Documents\GitHub\perform_jan5>
+
+A line drops out or the wrong line shows mid-song — a beat line is split across two physical rows (the ZZZ/LL marker fell to its own line). Put it back on one line with the beat numbers.
+
+Song ends early / Y1pause fires too soon — Y1pause nextIndex doesn't match the true lyric-line count. Recount, remembering the * instrumental lines each count as a line.
