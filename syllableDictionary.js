@@ -164,6 +164,7 @@
             "unlikely": ["un", "like", "ly"],
 
 			// Twentieth Century
+			"20th": ["20", "th"],
 			"eighteen": ["eigh", "teen"],
 			"ninety": ["nine", "ty"],
 			"auld": ["auld"],

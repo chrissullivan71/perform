@@ -2896,10 +2896,10 @@ There’s a cricket on the twentieth floor
 					if (charIndex >= text.length) return x;
 
 					let i = charIndex;
-					while (i < text.length && !/[a-zA-Z*]/.test(text[i])) {
+					while (i < text.length && !/[a-zA-Z0-9*]/.test(text[i])) {
 						i++;
 					}
-					if (i >= text.length) i = charIndex;   // no letter ahead — stay put
+					if (i >= text.length) i = charIndex;   // no letter or digit ahead — stay put
 					charIndex = i;
 
 					ctx.font = `bold ${fontSize}px 'Consolas', monospace`;
