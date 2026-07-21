@@ -857,6 +857,7 @@
 					fontSize: 30,
 					font: "Consolas",
 					bounceDuration: 1.32,
+					credits: `A Scarborough Settler's Lament\nTraditional, 1840\nSung to the air "Of A' the Airts the Wind Can Blaw"\nCollected by Alan Mills\n\nVocals: Chris Sullivan, Sally Thompson,\nJoel LeBlanc, Kathleen Johnson\nBanjo: Chris Sullivan\nArts Court, Ottawa, 1987`,
 					bouncesPerLine: 4,
 					appointments: [
 						{ time:  0.00, type: "jump", nextIndex:  0, reference: "Intro", fired:	 false },
